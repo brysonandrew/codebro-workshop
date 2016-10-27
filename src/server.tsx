@@ -4,6 +4,8 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import { Router, RouterContext, match } from 'react-router';
 import {getAllComponentsCSS} from './utils/css_styler';
+import {store} from "./redux/stores/store";
+import {Provider} from 'react-redux';
 import routes from './routes';
 
 const release = (process.env.NODE_ENV === 'production');
@@ -28,7 +30,11 @@ app.get('*', (req: any, res: any) => {
 
   // Do a router match
   match({
-    routes: (<Router>{routes}</Router>),
+    routes: (
+      <Provider store={store}>
+        <Router>{routes}</Router>
+      </Provider>
+    ),
     location: req.url,
   },
   (err: any, redirect: any, props: any) => {
@@ -43,7 +49,11 @@ app.get('*', (req: any, res: any) => {
 
     // Respond with EJS template
     res.render('index', {
-      renderedRoot: ReactDOMServer.renderToString(<RouterContext {...props} />)
+      renderedRoot: ReactDOMServer.renderToString(
+        <Provider store={store}>
+          <RouterContext {...props} />
+        </Provider>
+        )
     });
   });
 });
