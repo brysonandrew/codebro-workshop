@@ -51,6 +51,7 @@ var MainPage = (function (_super) {
     };
     MainPage.prototype.renderUsersFilter = function () {
         var _this = this;
+        console.log(this.props.stats);
         return async_get_1.AsyncGet.render(this.props.stats, {
             fetched: function (stats) { return (React.createElement("form", null, StatFilters_1.statFilters.map(function (info, index) {
                 return React.createElement(Filters_1.Filters, { key: index, index: index, heading: info.heading, total: stats.filter(info.filterFunction).length, onFilterByCheckbox: _this.props.onFilterByCheckbox });

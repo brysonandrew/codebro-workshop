@@ -86,6 +86,7 @@ export class MainPage extends React.Component<IProps, IState> {
     }
 
     private renderUsersFilter() {
+        console.log(this.props.stats)
         return AsyncGet.render(this.props.stats, {
             fetched: (stats: IStats[]) => (
                 <form>

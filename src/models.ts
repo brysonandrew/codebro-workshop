@@ -3,10 +3,10 @@ export interface IDictionary<T> {
 }
 
 export interface IStats {
-    name: string,
-    age: number,
-    gender: string,
-    location: string
+    name?: string,
+    age?: number,
+    gender?: string,
+    location?: string
 }
 
 export interface IColumns {
