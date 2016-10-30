@@ -7,7 +7,7 @@ import {store} from '../redux/stores/store';
 
 const routes = (
         <Route component={App}>
-            <Route path="/hey" component={MainPageFromStore}/>
+            <Route path="/" component={MainPageFromStore}/>
         </Route>
 );
 
