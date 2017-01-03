@@ -37,7 +37,9 @@ export class Dropdown extends React.Component<IDropdownProps, any> {
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="menu1">
                       {this.dropDownOptions.map(option =>
-                        <li><a onClick={() => this.handleClick(option)} href="#">{option}</a></li>)}
+                        <li key={option}>
+                          <a onClick={() => this.handleClick(option)} href="#">{option}</a>
+                        </li>)}
                     </ul>
                 </div>
             </td>
