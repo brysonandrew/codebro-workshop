@@ -8,7 +8,7 @@ export interface IStoreState {
     subStore: ISubState
 }
 
-export var reducer : Reducer<IStoreState> = combineReducers({
+export let reducer : Reducer<IStoreState> = combineReducers({
     subStore: subReducer
     // Add other reducers here
 }) as Reducer<IStoreState>;

@@ -2,11 +2,23 @@ export interface IDictionary<T> {
     [key: string]: T
 }
 
+export interface IArtistSimple {
+    name: string
+}
+
+export interface IAlbum {
+    name: string
+    album_type: string
+    artists: IArtistSimple[]
+}
+
+export interface IPagingObject {
+    items: IAlbum[]
+    limit: number
+}
+
 export interface IStats {
-    name?: string,
-    age?: number,
-    gender?: string,
-    location?: string
+    albums: IPagingObject,
 }
 
 export interface IColumns {
@@ -21,3 +33,5 @@ export interface IFilters {
     active: boolean;
     filterFunction: (IStats) => boolean;
 }
+
+

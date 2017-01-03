@@ -4,7 +4,7 @@ import * as Immutable from 'immutable';
 import {connect} from 'react-redux';
 import {addComponentCSS} from '../utils/css_styler';
 import {AsyncGet} from '../redux/utils/async_get';
-import {IDictionary, IStats, IFilters, IColumns} from '../models';
+import {IDictionary, IAlbum, IFilters, IColumns } from '../models';
 import {statFilters} from '../data/StatFilters';
 import {statColumns} from '../data/StatColumns';
 import {IStoreState} from '../redux/reducers/main_reducer';
@@ -17,16 +17,18 @@ import {Dropdown} from '../components/Dropdown';
 import {SearchBar} from '../components/SearchBar';
 //import {Columns} from '../data/Columns';
 //import {Filters} from '../data/Filters';
+import { bands } from '../data/Genres';
 
 addComponentCSS({
     //language=CSS
     default: `
-
+    .main-page__filters {
+    }
     `
 })
 
 interface IProperties {
-    stats: AsyncGet<IStats[]>,
+    stats: AsyncGet<IAlbum[]>,
     filters: IFilters[],
     sortByColumnIndex: number,
     columns: IColumns[],
@@ -63,6 +65,7 @@ export class MainPage extends React.Component<IProps, IState> {
     }
 
     private filterStats(stats){
+
       let filteredStats = stats;
 
   //filter by searchbar
@@ -74,27 +77,28 @@ export class MainPage extends React.Component<IProps, IState> {
         if (this.props.filters[index].active === true) {
           filteredStats = filteredStats.filter(filter.filterFunction)
         }
-      })
+      });
 //sorting users
       if (this.props.columns[this.props.sortByColumnIndex].isSortReversed) {
-        filteredStats = Immutable.List(filteredStats).sortBy(statColumns[this.props.sortByColumnIndex].sortFunction).reverse();
+        filteredStats = Immutable.List(filteredStats)
+          .sortBy(statColumns[this.props.sortByColumnIndex].sortFunction).reverse();
       } else {
-        filteredStats = Immutable.List(filteredStats).sortBy(statColumns[this.props.sortByColumnIndex].sortFunction);
+        filteredStats = Immutable.List(filteredStats)
+          .sortBy(statColumns[this.props.sortByColumnIndex].sortFunction);
       }
 
       return filteredStats;
     }
 
     private renderUsersFilter() {
-        console.log(this.props.stats)
         return AsyncGet.render(this.props.stats, {
-            fetched: (stats: IStats[]) => (
-                <form>
+            fetched: (albums: IAlbum[]) => (
+                <form className="main-page__filters">
                     {statFilters.map((info, index) =>
                      <Filters key={index}
                         index={index}
                         heading={info.heading}
-                        total={stats.filter(info.filterFunction).length}
+                        total={albums.filter(info.filterFunction).length}
                         onFilterByCheckbox={this.props.onFilterByCheckbox}
                       />
                   )}
@@ -121,28 +125,37 @@ export class MainPage extends React.Component<IProps, IState> {
               </thead>
     }
 
-    private renderUsers() {
-        return AsyncGet.render(this.props.stats, {
-            fetched: (data: IStats[]) => (
-              <div>
-                <table className="pz-admin-users__table table table-bordered table-striped table-hover table-responsive text-center">
-                  {this.renderColumns()}
-                    <tbody>{
-                        this.filterStats(data).map((info, index) => (
-                            <tr key={index}>
-                                <td>{(info.gender==="female") ?
-                                <span>female ♀</span> :
-                                <span>male ♂</span>}
-                                </td>
-                                <Dropdown/>
-                              </tr>
+    private renderRows() {
+      return AsyncGet.render(this.props.stats, {
+                fetched: (albums: IAlbum[]) => {
+                    return <tbody> {
+                        this.filterStats(albums)
+                            .map((album, index) => (
+                                <tr key={index}>
+                                    <td>
+                                      {(album.images[0].url)
+                                      ? <img style={{width: "40%", height: "auto"}} src={album.images[0].url} />
+                                      : null}
+                                    </td>
+                                    <td>{album.artists[0].name}</td>
+                                    <td>{album.name}</td>
+                                    <td>{album.album_type}</td>
+                                    <Dropdown/>
+                                </tr>
                             )
                         )}
                     </tbody>
+                }
+            })
+    }
+
+    private renderUsers() {
+      return <div>
+                <table className="pz-admin-users__table table table-bordered table-striped table-hover table-responsive text-center">
+                  {this.renderColumns()}
+                  {this.renderRows()}
                 </table>
               </div>
-            )
-        });
     }
 
     public render(): JSX.Element {
@@ -151,6 +164,7 @@ export class MainPage extends React.Component<IProps, IState> {
             <div>
                 <div className="container-fluid">
                     <div className="text-center">
+                      <h1>Hello World</h1>
                       {this.renderUsersFilter()}
                       <SearchBar onChange={this.handleChange.bind(this)} />
                     </div>
@@ -178,7 +192,9 @@ function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
         onPageLoad: () => {
-            dispatch(fetchAll());
+          bands.map(stat =>
+            dispatch(fetchAll(stat))
+          )
         },
         onFilterByCheckbox: (filterIndex, isActive) => {
             dispatch(changeFilter(filterIndex, isActive));
@@ -192,6 +208,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     }
 }
 
-export var MainPageFromStore = connect(
+export let MainPageFromStore = connect(
     mapStateToProps, mapDispatchToProps
 )(MainPage);

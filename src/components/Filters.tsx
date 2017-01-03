@@ -14,11 +14,9 @@ addComponentCSS({
      padding: 0;
      margin: 0 0 20px 0;
      background: white;
-     color: hsl(2,64%,58%);
-     border: 2px solid hsl(2,64%,58%);
+     color: #FF6F00;
+     border: 2px solid #FF6F00;
      border-right: none;
-     opacity: 0.7;
-     transition: transform 0.4s, color 0.4s, background-color 0.4s, opacity 0.4s;
     }
 
     div.filters:first-child {
@@ -27,7 +25,7 @@ addComponentCSS({
 
     div.filters:last-child {
       border-radius: 0 5px 5px 0;
-      border-right: 2px solid hsl(2,64%,58%);
+      border-right: 2px solid #FF6F00;
     }
 
     div.filters:hover {
@@ -37,6 +35,7 @@ addComponentCSS({
     label.filters__label {
       padding: 0;
       margin: 0;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);      
       border: none;
       cursor: pointer;
     }
@@ -46,13 +45,13 @@ addComponentCSS({
     }
 
     p.filters__total {
-      background-color: hsl(2,100%,58%);
+      background-color: #FF6F00;
       font-size: 30px;
       color: white;
       width: 100%;
       height: 100%;
       margin: 0;
-      border-bottom: 2px solid hsl(2,64%,58%);
+      border-bottom: 2px solid #FF6F00;
     }
     `
 });
@@ -86,14 +85,13 @@ export class Filters extends React.Component<IFiltersProps, IFiltersState> {
 
     render(): JSX.Element {
         const {heading, total, index} = this.props;
-        let filtersStyle = (this.state.checked) ?
-        {backgroundColor: "hsl(2,100%,58%)",
-        border: "2px solid hsl(2,100%,58%)",
-        boxShadow: "4px 0px 2px -4px hsl(2,100%,58%)",
-        color: "white",
-        transform: "scaleY(1.1)"
-        } :
-        null;
+        let filtersStyle = (this.state.checked)
+          ? {
+              backgroundColor: "#FF6F00",
+              border: "2px solid #FF6F00",
+              color: "white",
+            }
+          : null;
 
         return (
           <div className="filters"

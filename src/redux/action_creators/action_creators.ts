@@ -8,15 +8,20 @@ import {
 } from "../actions/actions";
 import {IStats} from "../../models";
 
-var $ = require('jquery');
+let $ = require('jquery');
 
-export function fetchAll() {
+export function fetchAll(artist) {
     return dispatch => {
         // We dispatch the init action before fetching the data
         dispatch(createAction(FETCH_ALL__INIT.type, {}));
         $.ajax({
             method: "GET",
-            url: "https://pokeapi.co/api/v2/pokemon/1/",
+            url: 'https://api.spotify.com/v1/search?',
+            data: {
+              q: 'artist:' + artist,
+              type: 'album',
+              market: "US"
+            },
             success: function (data) {
                 dispatch(
                     createAction<FETCH_ALL__SUCCESS>(FETCH_ALL__SUCCESS.type, {

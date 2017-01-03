@@ -1,6 +1,6 @@
 import * as Immutable from "immutable";
 import {AsyncGet, AsyncGetStatus} from "../utils/async_get";
-import {AsyncPost, AsyncPostStatus} from "../utils/async_post";
+//import {AsyncPost, AsyncPostStatus} from "../utils/async_post";
 import {
     FETCH_ALL__INIT,
     FETCH_ALL__SUCCESS,
@@ -10,19 +10,19 @@ import {
     UPDATE__SORT
 } from "../actions/actions";
 import {createReducer} from "../utils/reducers";
-import {IStats, IFilters, IColumns} from "../../models";
+import {IAlbum, IFilters, IColumns} from "../../models";
 import {statFilters} from "../../data/StatFilters";
 import {statColumns} from "../../data/StatColumns";
 
 export interface ISubState {
-    stats: AsyncGet<IStats[]>;                        // The events data as an AsyncGet
+    stats: AsyncGet<IAlbum[]>;                        // The events data as an AsyncGet
     filters: IFilters[];
     searchBarTyped: string;
     sortByColumnIndex: number;
     columns: IColumns[];
 }
 
-var initialState : ISubState = {
+let initialState : ISubState = {
     stats: AsyncGet.init(null),
     filters: statFilters,
     searchBarTyped: "",
@@ -30,7 +30,9 @@ var initialState : ISubState = {
     columns: statColumns
 };
 
-export var subReducer = createReducer<ISubState>(initialState, [
+let accumulatedAlbumItems = [];
+
+export let subReducer = createReducer<ISubState>(initialState, [
     {
         action: FETCH_ALL__INIT,
         handler: function (state:ISubState, action:FETCH_ALL__INIT) {
@@ -42,9 +44,11 @@ export var subReducer = createReducer<ISubState>(initialState, [
     {
         action: FETCH_ALL__SUCCESS,
         handler: function (state:ISubState, action:FETCH_ALL__SUCCESS) {
+            accumulatedAlbumItems.push(action.stats.albums.items);
+            let mergedAlbumItems = [].concat.apply([], accumulatedAlbumItems);
             return Immutable.fromJS(state)
                 .setIn(['stats', 'status'], AsyncGetStatus.FETCHED)
-                .setIn(['stats', 'value'], action.stats)
+                .setIn(['stats', 'value'], mergedAlbumItems)
                 .toJS();
         }
     },

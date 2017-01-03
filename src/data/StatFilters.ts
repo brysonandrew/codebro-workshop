@@ -1,24 +1,22 @@
-import {IFilters, IStats} from '../models';
+import {IFilters, IStats, IAlbum} from '../models';
 
 export const statFilters : IFilters[] = [
   {
-    heading: "Male",
+    heading: "album",
     active: false,
-    filterFunction: (stat : IStats) : boolean => (stat.gender === "male")
+    filterFunction: (album : IAlbum) : boolean =>
+      (album.album_type === "album")
   },
   {
-    heading: "Female",
+    heading: "single",
     active: false,
-    filterFunction: (stat : IStats) : boolean => (stat.gender === "female")
+    filterFunction: (album : IAlbum) : boolean =>
+      (album.album_type === "single")
   },
   {
-    heading: "Young",
+    heading: "compilation",
     active: false,
-    filterFunction: (stat : IStats) : boolean => (stat.age < 20)
-  },
-  {
-    heading: "Old",
-    active: false,
-    filterFunction: (stat : IStats) : boolean => (stat.age > 20)
+    filterFunction: (album : IAlbum) : boolean =>
+      (album.album_type === "compilation")
   }
-]
+];

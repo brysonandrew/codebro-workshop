@@ -18,17 +18,14 @@ addComponentCSS({
         border: none;
         height: 110%;
         width: 100%;
-        opacity: 0.7;
         background: white;
-        color: hsl(2,64%,58%);
-        transition: transform 0.4s, color 0.4s, background-color 0.4s, opacity 0.4s;
+        color: #FF6F00;
         cursor: pointer;
     }
 
     .column-heading__label:hover {
-        background-color: hsl(2,100%,58%);
+        background-color: #FF6F00;
         color: white;
-        transform: scaleY(1.05);
         opacity: 1;
     }
     `
@@ -88,6 +85,7 @@ export class ColumnHeading extends React.Component<IColumnHeadingProps, IColumnH
         const {heading, index} = this.props;
         return (
             <th className="column-heading">
+                {(heading!=="") &&
                 <label className="column-heading__label text-center">
                     <input
                         className="column-heading__input"
@@ -98,7 +96,7 @@ export class ColumnHeading extends React.Component<IColumnHeadingProps, IColumnH
                     {this.renderArrow()}
                     {heading}
                     {this.renderIcon()}
-                </label>
+                </label>}
             </th>
         );
     }

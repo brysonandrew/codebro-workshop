@@ -1,29 +1,35 @@
-import {IStats, IColumns} from '../models';
+import {IStats, IColumns, IArtistSimple, IAlbum} from '../models';
 // sort forward means lowest to highest, sort reverse means lowest to highest
 
 export const statColumns : IColumns[] = [
+  {// empty for pics
+    heading: "",
+    pic: "",
+    isSortReversed: true,
+    sortFunction: null
+  },
   {
-    heading: "Name",
+    heading: "Artist Name",
+    pic: "",
+    isSortReversed: true,
+    sortFunction: (x: IAlbum) => x.artists[0].name
+  },
+  {
+    heading: "Album Name",
     pic: "",
     isSortReversed: false,
-    sortFunction: (x: IStats) => x.name
+    sortFunction: (x: IAlbum) => x.name
   },
   {
-    heading: "Gender",
+    heading: "Album Type",
     pic: "",
     isSortReversed: true,
-    sortFunction: (x: IStats) => x.gender
+    sortFunction: (x: IAlbum) => x.album_type
   },
-  {
-    heading: "Age",
+  {// empty for dropdowns
+    heading: "",
     pic: "",
     isSortReversed: true,
-    sortFunction: (x: IStats) => x.age
-  },
-  {
-    heading: "Location",
-    pic: "",
-    isSortReversed: true,
-    sortFunction: (x: IStats)  => x.location
+    sortFunction: null
   }
 ];

@@ -1,22 +1,22 @@
 import {IStats} from "../../models";
 
 export module FETCH_ALL__INIT {
-    export var type = "FETCH_ALL__INIT";
+    export let type = "FETCH_ALL__INIT";
 }
 
 export interface FETCH_ALL__INIT {
 }
 
 export module FETCH_ALL__SUCCESS {
-    export var type = "FETCH_ALL__SUCCESS";
+    export let type = "FETCH_ALL__SUCCESS";
 }
 
 export interface FETCH_ALL__SUCCESS {
-    stats: IStats[]
+    stats: IStats
 }
 
 export module FETCH_ALL__FAILURE {
-    export var type = "FETCH_ALL__FAILURE";
+    export let type = "FETCH_ALL__FAILURE";
 }
 
 export interface FETCH_ALL__FAILURE {
@@ -24,7 +24,7 @@ export interface FETCH_ALL__FAILURE {
 }
 
 export module UPDATE__FILTER {
-    export var type = "UPDATE__FILTER";
+    export let type = "UPDATE__FILTER";
 }
 
 export interface UPDATE__FILTER {
@@ -33,7 +33,7 @@ export interface UPDATE__FILTER {
 }
 
 export module UPDATE__SEARCH {
-    export var type = "UPDATE__SEARCH";
+    export let type = "UPDATE__SEARCH";
 }
 
 export interface UPDATE__SEARCH {
@@ -41,7 +41,7 @@ export interface UPDATE__SEARCH {
 }
 
 export module UPDATE__SORT {
-    export var type = "UPDATE__SORT";
+    export let type = "UPDATE__SORT";
 }
 
 export interface UPDATE__SORT {
