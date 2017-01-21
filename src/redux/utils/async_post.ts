@@ -19,7 +19,6 @@ export interface AsyncPostValueCallbacks<T> {
     posting?:() => JSX.Element
     posted?:(value:T) => JSX.Element
     error?:(error:Object) => JSX.Element
-
 }
 
 export module AsyncPost {
@@ -47,7 +46,4 @@ export module AsyncPost {
             return callbacks.none ? callbacks.none() : null;
         }
     }
-
-
 }
-

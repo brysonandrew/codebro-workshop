@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 
 export interface IAction {
-  type: string
+    type: string
 }
 
 /**
@@ -12,5 +12,17 @@ export interface IAction {
  * @returns {IAction}    The action plain object for dispatching
  */
 export function createAction<T>(type: string, data: T) : IAction {
-  return Immutable.fromJS(data).set('type', type).toJS();
+    return Immutable.fromJS(data).set('type', type).toJS();
+}
+
+/**
+ * Throw error when server returns a response with status 'error'
+ * @param response - Response sent by server
+ */
+export function checkServerError(response) {
+    if (response.status === 'error') {
+        throw response;
+    } else {
+        return response;
+    }
 }

@@ -1,10 +1,10 @@
 export type GetStatus = string;
 
 export class AsyncGetStatus {
-    static NONE:GetStatus = "NONE";
-    static FETCHING:GetStatus = "FETCHING";
-    static FETCHED:GetStatus = "FETCHED";
-    static ERROR:GetStatus = "ERROR";
+    static NONE:GetStatus = 'NONE';
+    static FETCHING:GetStatus = 'FETCHING';
+    static FETCHED:GetStatus = 'FETCHED';
+    static ERROR:GetStatus = 'ERROR';
 }
 
 export interface AsyncGet<T> {
@@ -14,10 +14,10 @@ export interface AsyncGet<T> {
 }
 
 interface AsyncGetCallbacks<T> {
-    none?:() => JSX.Element
-    fetching?:() => JSX.Element
-    fetched?:(value:T) => JSX.Element
-    error?:(error:Object)=> JSX.Element
+    none?:() => JSX.Element | JSX.Element[]
+    fetching?:() => JSX.Element | JSX.Element[]
+    fetched?:(value:T) => JSX.Element | JSX.Element[]
+    error?:(error:Object)=> JSX.Element | JSX.Element[]
 }
 
 export module AsyncGet {
@@ -34,8 +34,8 @@ export module AsyncGet {
      * @param asyncGetValue        The async value to render
      * @param callbacks         Callbacks that render the view depending on the async value's status
      */
-    export function render<T>(asyncGetValue:AsyncGet<T>, callbacks:AsyncGetCallbacks<T>): JSX.Element {
-        if (asyncGetValue.value && callbacks.fetched) {
+    export function render<T>(asyncGetValue:AsyncGet<T>, callbacks:AsyncGetCallbacks<T>): JSX.Element | JSX.Element[] {
+        if (asyncGetValue.status == AsyncGetStatus.FETCHED && callbacks.fetched) {
             return callbacks.fetched(asyncGetValue.value);
         } else if (asyncGetValue.status == AsyncGetStatus.FETCHING && callbacks.fetching) {
             return callbacks.fetching();

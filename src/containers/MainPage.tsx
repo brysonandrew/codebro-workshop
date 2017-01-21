@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as moment from 'moment';
 import * as Immutable from 'immutable';
 import {connect} from 'react-redux';
 import {addComponentCSS} from '../utils/css_styler';
@@ -9,8 +8,6 @@ import {statFilters} from '../data/StatFilters';
 import {statColumns} from '../data/StatColumns';
 import {IStoreState} from '../redux/reducers/main_reducer';
 import {fetchAll, changeFilter, changeSearch, changeSort} from '../redux/action_creators/action_creators';
-import {AsyncPost} from '../redux/utils/async_post';
-//import {Loading} from '../../components/admin/shared/Loading';
 import {Filters} from '../components/Filters';
 import {ColumnHeading} from '../components/ColumnHeading';
 import {Dropdown} from '../components/Dropdown';
@@ -25,7 +22,7 @@ addComponentCSS({
     .main-page__filters {
     }
     `
-})
+});
 
 interface IProperties {
     stats: AsyncGet<IAlbum[]>,

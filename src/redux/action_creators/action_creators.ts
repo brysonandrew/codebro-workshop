@@ -1,36 +1,42 @@
-import {createAction} from "../utils/actions";
 import {
     FETCH_ALL__INIT,
     FETCH_ALL__SUCCESS,
+    FETCH_ALL__FAILURE,
     UPDATE__FILTER,
     UPDATE__SEARCH,
     UPDATE__SORT
 } from "../actions/actions";
-import {IStats} from "../../models";
-
-let $ = require('jquery');
+import {createAction, checkServerError} from "../utils/actions";
 
 export function fetchAll(artist) {
-    return dispatch => {
-        // We dispatch the init action before fetching the data
-        dispatch(createAction(FETCH_ALL__INIT.type, {}));
-        $.ajax({
-            method: "GET",
-            url: 'https://api.spotify.com/v1/search?',
-            data: {
-              q: 'artist:' + artist,
-              type: 'album',
-              market: "US"
-            },
-            success: function (data) {
-                dispatch(
-                    createAction<FETCH_ALL__SUCCESS>(FETCH_ALL__SUCCESS.type, {
-                        stats: data
-                    })
-                );
-            }
-        });
-    }
+  return dispatch => {
+    // Dispatch the init action before fetching the data
+    dispatch(createAction(FETCH_ALL__INIT.type, {}));
+    fetch(`https://api.spotify.com/v1/search?q=artist:${artist}&type=album&market=US`, {
+      method : 'GET',
+      headers: {
+        'Accept'      : 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    })
+      .then((res: any) => { return res.json(); })
+      .then(checkServerError)
+      .then((result) => {
+        dispatch(
+          createAction<FETCH_ALL__SUCCESS>(FETCH_ALL__SUCCESS.type, {
+            stats: result
+          })
+        );
+      })
+      .catch((result) => {
+        dispatch(
+          createAction<FETCH_ALL__FAILURE>(FETCH_ALL__FAILURE.type, {
+            error: result
+          })
+        );
+      });
+  }
 }
 
 export function changeFilter(filterIndex, isActive) {
