@@ -1,6 +1,4 @@
 import * as React from 'react';
-import * as moment from 'moment';
-import {IStats} from '../models';
 import {addComponentCSS} from '../utils/css_styler';
 
 addComponentCSS({
