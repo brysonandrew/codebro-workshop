@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Bootstrap repo for isomorphic React.js apps with Typescript.
 
 ## Installation:
