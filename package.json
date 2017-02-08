@@ -1,13 +1,13 @@
 {
-  "name": "isomorphic-react-typescript-bootstrap",
+  "name": "codebro",
   "version": "0.0.0",
-  "description": "Bootstrap repo for isomorphic React.js apps with Typescript.",
+  "description": "Website for helping people who want to know more about the web.",
   "scripts": {
     "start": "node ./build/server.js",
     "dev": "node ./webpack/dev.js",
     "watch": "node ./node_modules/webpack/bin/webpack.js --watch --config ./webpack/server.js"
   },
-  "author": "Porizi Technologies | Diego Castillo <diegocasmo@gmail.com>",
+  "author": "Andrew Bryson <andrew@codebro.io>",
   "dependencies": {
     "css-loader": "^0.23.1",
     "ejs": "^2.4.2",
