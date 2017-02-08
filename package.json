@@ -9,9 +9,9 @@
   },
   "author": "Porizi Technologies | Diego Castillo <diegocasmo@gmail.com>",
   "dependencies": {
-    "bootstrap": "^3.3.6",
     "css-loader": "^0.23.1",
     "ejs": "^2.4.2",
+    "es5-shim": "^4.5.9",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "http-proxy-middleware": "^0.16.0",
@@ -27,6 +27,7 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "style-loader": "^0.13.1",
+    "three": "^0.84.0",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
     "typings": "^1.3.0",
