@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Website for helping people who want to know more about the web.",
   "scripts": {
+    "release": "webpack --config ./webpack/release.js",
+    "prod": "NODE_ENV=production",
+    "prod-win": "SET NODE_ENV=production",
     "start": "node ./build/server.js",
     "dev": "node ./webpack/dev.js",
     "watch": "node ./node_modules/webpack/bin/webpack.js --watch --config ./webpack/server.js"
