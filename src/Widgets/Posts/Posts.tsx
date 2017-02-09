@@ -74,7 +74,8 @@ export class Posts extends React.Component<IProps, IState> {
                 height: "80vh",
                 overflowY: "scroll",
                 borderRadius: 8,
-                transform: "translateX(-50%)"
+                transform: "translateX(-50%)",
+                zIndex: 1
             }
         };
         return (

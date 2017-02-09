@@ -5,8 +5,7 @@ import { IStoreState } from '../redux/main_reducer';
 import { changeMenuIndex, changeViewportDimensions } from './HomeActionCreators';
 import { MenuFromStore } from '../Widgets/Menu';
 import { PostsFromStore } from "../Widgets/Posts/Posts";
-import { Background } from "../Widgets/Background";
-
+import { BackgroundFromStore } from "../Widgets/Background";
 
 addComponentCSS({
     //language=CSS
@@ -56,10 +55,10 @@ export class Home extends React.Component<IProps, IState> {
         return (
             <div style={styles.home}>
                 <MenuFromStore/>
-                <Background/>
                 {(this.props.menuIndex > -1)
                     ?   <PostsFromStore/>
                     :   null}
+                <BackgroundFromStore/>
             </div>
         );
     }

@@ -20559,9 +20559,9 @@ module.exports =
 	                textAlign: "center"
 	            }
 	        };
-	        return (React.createElement("div", {style: styles.home}, React.createElement(Menu_1.MenuFromStore, null), React.createElement(Background_1.Background, null), (this.props.menuIndex > -1)
+	        return (React.createElement("div", {style: styles.home}, React.createElement(Menu_1.MenuFromStore, null), (this.props.menuIndex > -1)
 	            ? React.createElement(Posts_1.PostsFromStore, null)
-	            : null));
+	            : null, React.createElement(Background_1.BackgroundFromStore, null)));
 	    };
 	    return Home;
 	}(React.Component));
@@ -20969,7 +20969,8 @@ module.exports =
 	                height: "80vh",
 	                overflowY: "scroll",
 	                borderRadius: 8,
-	                transform: "translateX(-50%)"
+	                transform: "translateX(-50%)",
+	                zIndex: 1
 	            }
 	        };
 	        return (React.createElement("div", {style: styles.posts, onMouseEnter: function () { return _this.handleMouseEnter(); }, onMouseLeave: function () { return _this.handleMouseLeave(); }}, posts[menuIndex].map(function (post, i) {
@@ -21073,7 +21074,7 @@ module.exports =
 	                margin: "10px 0"
 	            }
 	        };
-	        return (React.createElement("div", {style: styles.post, onMouseEnter: function () { return _this.handleMouseEnter(); }, onMouseLeave: function () { return _this.handleMouseLeave(); }}, React.createElement("a", {href: (post.link.length > 0) ? post.link : null}, React.createElement("div", {style: styles.post__picContainer}, React.createElement("img", {style: styles.post__pic, src: post.pic})), React.createElement("h2", {style: styles.post__heading}, post.heading), React.createElement("div", {style: styles.post__date}, post.date)), React.createElement("div", null, post.content.map(function (paragraph, i) {
+	        return (React.createElement("div", {style: styles.post, onMouseEnter: function () { return _this.handleMouseEnter(); }, onMouseLeave: function () { return _this.handleMouseLeave(); }}, React.createElement("a", {href: (post.link.length > 0) ? post.link : null, target: "_blank"}, React.createElement("div", {style: styles.post__picContainer}, React.createElement("img", {style: styles.post__pic, src: post.pic})), React.createElement("h2", {style: styles.post__heading}, post.heading), React.createElement("div", {style: styles.post__date}, post.date)), React.createElement("div", null, post.content.map(function (paragraph, i) {
 	            return React.createElement("div", {key: i, style: styles.post__paragraph}, paragraph);
 	        }))));
 	    };
@@ -21110,6 +21111,7 @@ module.exports =
 	};
 	var React = __webpack_require__(4);
 	var THREE = __webpack_require__(198);
+	var react_redux_1 = __webpack_require__(185);
 	var _3DObjects_1 = __webpack_require__(199);
 	var Loading_1 = __webpack_require__(200);
 	var Background = (function (_super) {
@@ -21135,12 +21137,14 @@ module.exports =
 	        cancelAnimationFrame(this.animateLoop);
 	    };
 	    Background.prototype.componentWillReceiveProps = function (nextProps) {
-	        if (nextProps.menuIndex === -1) {
-	            this.animate();
-	        }
-	        else {
-	            cancelAnimationFrame(this.animateLoop);
-	            this.renderStill();
+	        if (this.state.isMounted) {
+	            if (nextProps.menuIndex === -1) {
+	                this.animate();
+	            }
+	            else {
+	                cancelAnimationFrame(this.animateLoop);
+	                this.renderStill();
+	            }
 	        }
 	    };
 	    Background.prototype.loadTexture = function () {
@@ -21150,7 +21154,6 @@ module.exports =
 	            texture.mapping = THREE.UVMapping;
 	            if (!_this.state.isMounted) {
 	                _this.init(texture);
-	                _this.animate();
 	            }
 	        });
 	    };
@@ -21243,8 +21246,9 @@ module.exports =
 	        this.computerComponents.rotation
 	            .set(_3DObjects_1.computer.rotation.x, _3DObjects_1.computer.rotation.y, _3DObjects_1.computer.rotation.z);
 	        this.scene.add(this.computerComponents);
-	        window.addEventListener('resize', function () { return _this.onWindowResized(_this.renderer); }, false);
 	        this.setState({ isMounted: true });
+	        window.addEventListener('resize', function () { return _this.onWindowResized(_this.renderer); }, false);
+	        this.animate();
 	    };
 	    Background.prototype.onWindowResized = function (renderer) {
 	        renderer.setSize(window.innerWidth, window.innerHeight);
@@ -21307,6 +21311,13 @@ module.exports =
 	    return Background;
 	}(React.Component));
 	exports.Background = Background;
+	// ------------ redux mappers -------------
+	function mapStateToProps(state, ownProps) {
+	    return {
+	        menuIndex: state.subStore.menuIndex
+	    };
+	}
+	exports.BackgroundFromStore = react_redux_1.connect(mapStateToProps)(Background);
 
 
 /***/ },

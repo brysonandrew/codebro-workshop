@@ -97,7 +97,8 @@ export class Post extends React.Component<IProps, IState> {
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >
-                <a href={(post.link.length > 0) ? post.link : null}>
+                <a href={(post.link.length > 0) ? post.link : null}
+                   target="_blank">
                     <div style={styles.post__picContainer} >
                         <img style={styles.post__pic} src={post.pic}/>
                     </div>

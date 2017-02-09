@@ -1,14 +1,29 @@
 import * as React from 'react';
 import THREE = require('three');
+import { connect } from 'react-redux';
+import { IStoreState } from '../redux/main_reducer';
 import { computer } from '../data/3DObjects';
 import { Loading } from './Loading';
 
-interface IBackgroundState {
+interface IProperties {
+    menuIndex?: number
+    width?: number
+    height?: number
+}
+
+interface ICallbacks {
+    onChangeMenuIndex?: (menuIndex: number) => void
+    onChangeViewport?: (width: number, height: number) => void
+}
+
+interface IProps extends IProperties, ICallbacks {}
+
+interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
     isFontLoaded?: boolean
 }
 
-export class Background extends React.Component<any, IBackgroundState> {
+export class Background extends React.Component<IProps, IState> {
     camera;
     scene;
     renderer;
@@ -46,11 +61,13 @@ export class Background extends React.Component<any, IBackgroundState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.menuIndex === -1) {
-            this.animate();
-        } else {
-            cancelAnimationFrame(this.animateLoop);
-            this.renderStill();
+        if (this.state.isMounted) {
+            if (nextProps.menuIndex === -1) {
+                this.animate();
+            } else {
+                cancelAnimationFrame(this.animateLoop);
+                this.renderStill();
+            }
         }
     }
 
@@ -60,7 +77,6 @@ export class Background extends React.Component<any, IBackgroundState> {
             texture.mapping = THREE.UVMapping;
             if (!this.state.isMounted) {
                 this.init( texture );
-                this.animate();
             }
         } );
     }
@@ -164,8 +180,9 @@ export class Background extends React.Component<any, IBackgroundState> {
 
         this.scene.add( this.computerComponents );
 
+        this.setState({ isMounted: true });
         window.addEventListener( 'resize', () => this.onWindowResized(this.renderer), false );
-        this.setState({isMounted: true});
+        this.animate();
     }
 
     onWindowResized(renderer) {
@@ -238,3 +255,15 @@ export class Background extends React.Component<any, IBackgroundState> {
         );
     }
 }
+
+// ------------ redux mappers -------------
+
+function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
+    return {
+        menuIndex: state.subStore.menuIndex
+    };
+}
+
+export let BackgroundFromStore = connect(
+    mapStateToProps
+)(Background);
