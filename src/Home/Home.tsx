@@ -12,8 +12,6 @@ import { PostsFromStore } from "../Widgets/Posts/Posts";
 addComponentCSS({
     //language=CSS
     default: `
-    .main-page__filters {
-    }
     `
 });
 
@@ -70,6 +68,19 @@ export class Home extends React.Component<IProps, IState> {
         this.loadTexture();
     }
 
+    componentWillUnmount() {
+        cancelAnimationFrame(this.animateLoop);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.menuIndex === -1) {
+            this.animate();
+        } else {
+            cancelAnimationFrame(this.animateLoop);
+            this.renderStill();
+        }
+    }
+
     loadTexture() {
         let textureLoader = new THREE.TextureLoader();
         textureLoader.load( this.pic, ( texture ) => {
@@ -101,16 +112,16 @@ export class Home extends React.Component<IProps, IState> {
         this.material = new THREE.MeshBasicMaterial( {
             envMap: this.cubeCamera2.renderTarget.texture
         } );
-        let topPosY = -Math.sin( computer.top.radians)
-            * ( computer.top.depth * 0.5)
-            - Math.sin( computer.top.radians)
-            * ( computer.top.height * 0.5)
-            - ( computer.top.height * 0.5);
-        let topPosZ = Math.cos( computer.top.radians)
-            * ( computer.top.depth * 0.5)
-            - Math.cos( computer.top.radians)
-            * ( computer.top.height * 0.5)
-            - ( computer.top.depth * 0.5);
+        let topPosY = -Math.sin( computer.top.radians )
+            * ( computer.top.depth * 0.5 )
+            - Math.sin( computer.top.radians )
+            * ( computer.top.height * 0.5 )
+            - ( computer.top.height * 0.5 );
+        let topPosZ = Math.cos( computer.top.radians )
+            * ( computer.top.depth * 0.5 )
+            - Math.cos( computer.top.radians )
+            * ( computer.top.height * 0.5 )
+            - ( computer.top.depth * 0.5 );
         this.computerComponents = new THREE.Group;
         //top
         this.top = new THREE
@@ -123,8 +134,6 @@ export class Home extends React.Component<IProps, IState> {
         this.lap = new THREE
             .Mesh( new THREE
             .BoxGeometry( computer.lap.width, computer.lap.height, computer.lap.depth ), this.material );
-        // this.lap.position.set();
-        // this.lap.rotation.set();
         this.computerComponents.add( this.lap );
 
         let textureLoader = new THREE.TextureLoader();
@@ -194,24 +203,11 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     animate() {
-        if (this.props.menuIndex >= 0) {
-            if (this.computerComponents.position.y > -200) {
-                this.animateLoop = requestAnimationFrame( this.animate.bind(this) );
-                this.renderStill();
-            } else {
-                cancelAnimationFrame(this.animateLoop);
-                this.renderStill();
-            }
-        } else {
-            this.animateLoop = requestAnimationFrame( this.animate.bind(this) );
-            this.renderMotion();
-        }
+        this.animateLoop = requestAnimationFrame( this.animate.bind(this) );
+        this.renderMotion();
     }
 
     renderStill() {
-        this.computerComponents.position.y-=10;
-        this.code.position.y-=20;
-        this.bro.position.y-=20;
         this.material.envMap = this.cubeCamera1.renderTarget.texture;
         this.cubeCamera2.updateCubeMap( this.renderer, this.scene );
         this.renderer.render( this.scene, this.camera );

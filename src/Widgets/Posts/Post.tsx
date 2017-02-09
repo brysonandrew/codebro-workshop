@@ -97,13 +97,13 @@ export class Post extends React.Component<IProps, IState> {
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >
-                <div>
+                <a href={(post.link.length > 0) ? post.link : null}>
                     <div style={styles.post__picContainer} >
                         <img style={styles.post__pic} src={post.pic}/>
                     </div>
                     <h2 style={styles.post__heading}>{post.heading}</h2>
                     <div style={styles.post__date}>{post.date}</div>
-                </div>
+                </a>
                 <div>{post.content.map((paragraph, i) =>
                     <div key={i}
                          style={styles.post__paragraph}>

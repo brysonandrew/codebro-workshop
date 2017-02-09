@@ -1,8 +1,10 @@
-import { ISection, IPost } from '../../models';
+import { IPost } from '../../models';
 
 export let blogPosts: IPost[] = [
     {
         heading: "How to plan a webpage design for a client.",
+        link: "",
+        status: "",
         date: "7 Feb 2017",
         content:
             [

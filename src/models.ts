@@ -10,6 +10,8 @@ export interface ISection {
 
 export interface IPost {
     heading: string
+    link: string
+    status: string
     date: string
     content: string[]
     pic: string
