@@ -262,8 +262,5 @@ fabric.properties
 # *.iml
 # modules.xml
 
-# Ignore build directory
-/build
-
 # Ignore dist directory
 /dist
