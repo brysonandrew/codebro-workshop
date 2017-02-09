@@ -44,7 +44,14 @@ export class Loading extends React.Component<IProps, IState> {
                 width: 10,
                 height: 10,
                 background: "#eeeeee",
-                animation: "breathe 2000ms infinite"
+                animation: "breathe 2200ms infinite"
+            },
+            loader__message: {
+                color: "#eeeeee",
+                marginTop: 10,
+                textShadow: "0 0 2px #ffffff",
+                display: "inline-block",
+                animation: "breathe 1100ms infinite"
             }
         };
         return (
@@ -55,6 +62,7 @@ export class Loading extends React.Component<IProps, IState> {
                                 styles.loader__box,
                                 {animationDelay: `${Math.random() * this.array.length * 40}ms`},
                                 {background: awesomeColors[i]})}/>)}
+                <div style={styles.loader__message}>Loading</div>
             </div>
         );
     }

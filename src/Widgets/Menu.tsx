@@ -1,8 +1,7 @@
 import * as React from 'react';
-import THREE = require('three');
-import {connect} from 'react-redux';
-import {addComponentCSS} from '../utils/css_styler';
-import {IStoreState} from '../redux/main_reducer';
+import { connect } from 'react-redux';
+import { addComponentCSS } from '../utils/css_styler';
+import { IStoreState } from '../redux/main_reducer';
 import { changeMenuIndex } from '../Home/HomeActionCreators';
 import { sections } from '../data/sections';
 
@@ -42,7 +41,7 @@ export class Menu extends React.Component<IProps, IState> {
     componentDidMount() {
         setTimeout(() => {
             this.setState({isMounted: true})
-        }, 1000)
+        }, 0)
     }
 
     handleOpenClick(i) {
@@ -217,6 +216,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     }
 }
 
-export let MenuStore = connect(
+export let MenuFromStore = connect(
     mapStateToProps, mapDispatchToProps
 )(Menu);
