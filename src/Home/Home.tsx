@@ -50,10 +50,19 @@ export class Home extends React.Component<IProps, IState> {
                 height: "100vh",
                 width: "100vw",
                 textAlign: "center"
+            },
+            home__logo: {
+                position: "absolute",
+                top: "2vh",
+                left: "2vw",
+                width: 40,
+                height: "auto",
+                filter: "invert(100%)"
             }
         };
         return (
             <div style={styles.home}>
+                <img style={styles.home__logo} src="/images/logo.PNG"/>
                 <MenuFromStore/>
                 {(this.props.menuIndex > -1)
                     ?   <PostsFromStore/>

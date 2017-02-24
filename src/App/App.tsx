@@ -46,8 +46,17 @@ addComponentCSS({
             outline: none;
             text-decoration: none;
         }
+        
         p {
             margin: 2vh 0;
+        }
+        
+        code {
+            background: #212121;
+            font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
+            color: #66F8B6;
+            border-radius: 6px;
+            padding: 4px;
         }
     `
 });

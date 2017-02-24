@@ -13,6 +13,6 @@ export interface IPost {
     link: string
     status: string
     date: string
-    content: string[]
+    content: any[]
     pic: string
 }
