@@ -1,5 +1,4 @@
 import * as React from 'react';
-import THREE = require('three');
 import { addComponentCSS } from '../utils/css_styler';
 import { awesomeColors } from '../data/awesomeColors';
 

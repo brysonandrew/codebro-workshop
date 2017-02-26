@@ -41,10 +41,11 @@ addComponentCSS({
         }
 
         button, input, a {
-            background: none;
-            border: none;
-            outline: none;
-            text-decoration: none;
+            /*background: none;*/
+            /*border: none;*/
+            /*outline: none;*/
+            /*text-decoration: none;*/
+            cursor: pointer;
         }
         
         p {
@@ -57,6 +58,11 @@ addComponentCSS({
             color: #66F8B6;
             border-radius: 6px;
             padding: 4px;
+        }
+        
+        ul li {
+            list-style-position: inside;
+            list-style-type: square;
         }
     `
 });

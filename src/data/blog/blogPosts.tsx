@@ -1,24 +1,42 @@
 import * as React from 'react';
-
 import { IPost } from '../../models';
 
 export let blogPosts: IPost[] = [
     {
-        heading: "How to plan a webpage design for a client.",
-        link: "",
+        heading: "My ultimate website build",
+        link: "https://github.com/brysonandrew/isomorphic-react-redux-typescript",
         status: "",
-        date: "7 Feb 2017",
+        date: "26 Feb 2017",
         content:
             [
-                "A basic issue facing web developers is reading the mind of the client. Here are some basic dos and don’ts when it comes to creating a web page from a design perspective for a client.",
-                "Do listen carefully and take seriously all and every issue the client has in terms of the way they want to website to be presented. ",
-                "Don’t overlook points raised by your client even if you consider them trivial.",
-                "Do ask for your client to create a mock up themselves or if they prefer, find examples online of what they would like their website to look like.",
-                "Don’t go in blind. This is something I did once and paid the price. I spend 4 hours creating what I thought to be an amazing looking landing page, full of creative flair and vision, while totally missing the mark regarding what the client wanted.",
-                "Do send regular updates on what and how their website is developing and be responsive to their feedback.",
-                "It is your job as a web developer to allow your client to express and for you to interpret their idea so that the final result is more of a pleasant surprise than a disappointment."
+               "Before talking about the details I should give a shout out to Porizi Technologies for developing this build. So setting up webpack, typescript and isomorphic behaviour is all down to them and their open source project that can be found here.",
+                <a href="https://github.com/porizi/isomorphic-react-redux-typescript-bootstrap">
+                    Original build
+                </a>,
+                "When creating and developing a website I use the following technology:",
+                "Javascript/HTML/CSS (obviously but I feel remiss if I didn’t mention them)",
+                <h2>F  R  O  N  T  E  N  D</h2>,
+                <h4>L O G I C</h4>,
+                <ul>
+                    <li>React.js</li>
+                    <li>Redux</li>
+                    <li>Typescript</li>
+                </ul>,
+                <h4>S T Y L E</h4>,
+                "Nothing! Just React.js inline styles with a component CSS util where pseudo classes are necessary (hardly ever)",
+                <h2>B  A  C  K  E  N  D</h2>,
+                <ul>
+                    <li>Node.js</li>
+                    <li>MongoDB</li>
+                    <li>Express.js</li>
+                    <li>EJS</li>
+                </ul>,
+                "Here is a starting point which is open source so feel free to download and use!",
+                <a href="https://github.com/brysonandrew/isomorphic-react-redux-typescript">
+                    Forked and altered build
+                </a>
             ],
-        pic: "/images/softwareLogos/javascriptIcon.png"
+        pic: "/images/blog/github-logo.jpg"
     },
     {
         heading: "THREE.js essentials",
@@ -43,5 +61,22 @@ export let blogPosts: IPost[] = [
                 <code>scene.add(cameraHelper);</code>
             ],
         pic: "/images/blog/threejs.jpg"
+    },
+    {
+        heading: "How to plan a webpage design for a client.",
+        link: "",
+        status: "",
+        date: "7 Feb 2017",
+        content:
+            [
+                "A basic issue facing web developers is reading the mind of the client. Here are some basic dos and don’ts when it comes to creating a web page from a design perspective for a client.",
+                "Do listen carefully and take seriously all and every issue the client has in terms of the way they want to website to be presented. ",
+                "Don’t overlook points raised by your client even if you consider them trivial.",
+                "Do ask for your client to create a mock up themselves or if they prefer, find examples online of what they would like their website to look like.",
+                "Don’t go in blind. This is something I did once and paid the price. I spend 4 hours creating what I thought to be an amazing looking landing page, full of creative flair and vision, while totally missing the mark regarding what the client wanted.",
+                "Do send regular updates on what and how their website is developing and be responsive to their feedback.",
+                "It is your job as a web developer to allow your client to express and for you to interpret their idea so that the final result is more of a pleasant surprise than a disappointment."
+            ],
+        pic: "/images/softwareLogos/javascriptIcon.png"
     }
 ];

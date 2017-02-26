@@ -20501,7 +20501,7 @@ module.exports =
 	var css_styler_1 = __webpack_require__(175);
 	css_styler_1.addComponentCSS({
 	    //language=CSS
-	    default: "\n        @font-face {\n            font-family: Oxygen;\n            src: url(/fonts/Oxygen/Oxygen-Regular.ttf);\n        }\n        \n        @font-face {\n            font-family: Poppins;\n            src: url(/fonts/Poppins/Poppins-Regular.ttf);\n        }\n        \n        @font-face {\n            font-family: UrbanJungle;\n            src: url(/fonts/UrbanJungle/UrbanJungle.otf);\n        }\n        \n        @font-face {\n            font-family: Shock;\n            src: url(/fonts/Shock/Shock.otf);\n        }\n        \n        @font-face {\n            font-family: Teko;\n            src: url(/fonts/Teko/Teko-Light.ttf);\n        }\n\n        * {\n            margin: 0; \n            padding: 0;\n            font-family: Oxygen, 'arial', sans-serif;\n            -webkit-appearance: none \n        }\n        \n        body {\n            background: #212121;\n        }\n\n        button, input, a {\n            background: none;\n            border: none;\n            outline: none;\n            text-decoration: none;\n        }\n        \n        p {\n            margin: 2vh 0;\n        }\n        \n        code {\n            background: #212121;\n            font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;\n            color: #66F8B6;\n            border-radius: 6px;\n            padding: 4px;\n        }\n    "
+	    default: "\n        @font-face {\n            font-family: Oxygen;\n            src: url(/fonts/Oxygen/Oxygen-Regular.ttf);\n        }\n        \n        @font-face {\n            font-family: Poppins;\n            src: url(/fonts/Poppins/Poppins-Regular.ttf);\n        }\n        \n        @font-face {\n            font-family: UrbanJungle;\n            src: url(/fonts/UrbanJungle/UrbanJungle.otf);\n        }\n        \n        @font-face {\n            font-family: Shock;\n            src: url(/fonts/Shock/Shock.otf);\n        }\n        \n        @font-face {\n            font-family: Teko;\n            src: url(/fonts/Teko/Teko-Light.ttf);\n        }\n\n        * {\n            margin: 0; \n            padding: 0;\n            font-family: Oxygen, 'arial', sans-serif;\n            -webkit-appearance: none \n        }\n        \n        body {\n            background: #212121;\n        }\n\n        button, input, a {\n            /*background: none;*/\n            /*border: none;*/\n            /*outline: none;*/\n            /*text-decoration: none;*/\n            cursor: pointer;\n        }\n        \n        p {\n            margin: 2vh 0;\n        }\n        \n        code {\n            background: #212121;\n            font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;\n            color: #66F8B6;\n            border-radius: 6px;\n            padding: 4px;\n        }\n        \n        ul li {\n            list-style-position: inside;\n            list-style-type: square;\n        }\n    "
 	});
 	var App = (function (_super) {
 	    __extends(App, _super);
@@ -20863,20 +20863,26 @@ module.exports =
 	var React = __webpack_require__(4);
 	exports.blogPosts = [
 	    {
-	        heading: "How to plan a webpage design for a client.",
-	        link: "",
+	        heading: "My ultimate website build",
+	        link: "https://github.com/brysonandrew/isomorphic-react-redux-typescript",
 	        status: "",
-	        date: "7 Feb 2017",
+	        date: "26 Feb 2017",
 	        content: [
-	            "A basic issue facing web developers is reading the mind of the client. Here are some basic dos and don’ts when it comes to creating a web page from a design perspective for a client.",
-	            "Do listen carefully and take seriously all and every issue the client has in terms of the way they want to website to be presented. ",
-	            "Don’t overlook points raised by your client even if you consider them trivial.",
-	            "Do ask for your client to create a mock up themselves or if they prefer, find examples online of what they would like their website to look like.",
-	            "Don’t go in blind. This is something I did once and paid the price. I spend 4 hours creating what I thought to be an amazing looking landing page, full of creative flair and vision, while totally missing the mark regarding what the client wanted.",
-	            "Do send regular updates on what and how their website is developing and be responsive to their feedback.",
-	            "It is your job as a web developer to allow your client to express and for you to interpret their idea so that the final result is more of a pleasant surprise than a disappointment."
+	            "Before talking about the details I should give a shout out to Porizi Technologies for developing this build. So setting up webpack, typescript and isomorphic behaviour is all down to them and their open source project that can be found here.",
+	            React.createElement("a", {href: "https://github.com/porizi/isomorphic-react-redux-typescript-bootstrap"}, "Original build"),
+	            "When creating and developing a website I use the following technology:",
+	            "Javascript/HTML/CSS (obviously but I feel remiss if I didn’t mention them)",
+	            React.createElement("h2", null, "F  R  O  N  T  E  N  D"),
+	            React.createElement("h4", null, "L O G I C"),
+	            React.createElement("ul", null, React.createElement("li", null, "React.js"), React.createElement("li", null, "Redux"), React.createElement("li", null, "Typescript")),
+	            React.createElement("h4", null, "S T Y L E"),
+	            "Nothing! Just React.js inline styles with a component CSS util where pseudo classes are necessary (hardly ever)",
+	            React.createElement("h2", null, "B  A  C  K  E  N  D"),
+	            React.createElement("ul", null, React.createElement("li", null, "Node.js"), React.createElement("li", null, "MongoDB"), React.createElement("li", null, "Express.js"), React.createElement("li", null, "EJS")),
+	            "Here is a starting point which is open source so feel free to download and use!",
+	            React.createElement("a", {href: "https://github.com/brysonandrew/isomorphic-react-redux-typescript"}, "Forked and altered build")
 	        ],
-	        pic: "/images/softwareLogos/javascriptIcon.png"
+	        pic: "/images/blog/github-logo.jpg"
 	    },
 	    {
 	        heading: "THREE.js essentials",
@@ -20900,6 +20906,22 @@ module.exports =
 	            React.createElement("code", null, "scene.add(cameraHelper);")
 	        ],
 	        pic: "/images/blog/threejs.jpg"
+	    },
+	    {
+	        heading: "How to plan a webpage design for a client.",
+	        link: "",
+	        status: "",
+	        date: "7 Feb 2017",
+	        content: [
+	            "A basic issue facing web developers is reading the mind of the client. Here are some basic dos and don’ts when it comes to creating a web page from a design perspective for a client.",
+	            "Do listen carefully and take seriously all and every issue the client has in terms of the way they want to website to be presented. ",
+	            "Don’t overlook points raised by your client even if you consider them trivial.",
+	            "Do ask for your client to create a mock up themselves or if they prefer, find examples online of what they would like their website to look like.",
+	            "Don’t go in blind. This is something I did once and paid the price. I spend 4 hours creating what I thought to be an amazing looking landing page, full of creative flair and vision, while totally missing the mark regarding what the client wanted.",
+	            "Do send regular updates on what and how their website is developing and be responsive to their feedback.",
+	            "It is your job as a web developer to allow your client to express and for you to interpret their idea so that the final result is more of a pleasant surprise than a disappointment."
+	        ],
+	        pic: "/images/softwareLogos/javascriptIcon.png"
 	    }
 	];
 
@@ -20914,9 +20936,9 @@ module.exports =
 	        heading: "CoSpaces Shared offices and meeting rooms",
 	        link: "https://cb-coworking.herokuapp.com/",
 	        status: "Work in Progress",
-	        date: "Jan 2016 - Present",
+	        date: "Jan 2017 - Present",
 	        content: [
-	            "With this job I'd like to solidify my full stack muscles and to prove that I can effectively handle all elements of producing a website from start to finish. This website will have a booking system backend along with some sophisticated front-end. ",
+	            "This job is a test to prove that I can effectively handle all elements of producing a website from start to finish. This website will have a booking system backend along with some sophisticated front-end. ",
 	            "Designed by me also - My idea taking the single page website and trying to take that idea a step forward in that the main part of the website home -> search -> filter -> sort -> browse -> open -> book -> confirm is all handled within a fluid series of panes without the feeling that you are going through a number of different pages. Animations on these panes are to exemplify this feeling of fluidity.",
 	            "Effective utilization of full-screen images will be a signature of this website also.",
 	            "An interesting thing I have learnt so far is that German laws are incredibly strict when it comes to what kind of photo's you can use, even photos purchased from major websites like ShutterStock didn't pass the test. We eventually found a site that provided this.",
@@ -20926,9 +20948,27 @@ module.exports =
 	        pic: "/images/work/cospaces_thumbnail.jpg"
 	    },
 	    {
+	        heading: "Eventerprise Events Management",
+	        link: "https://eventerprise.com/",
+	        status: "Completed",
+	        date: "Nov 2016 - Jan 2017",
+	        content: [
+	            "This was an interesting task. The website had been set up and coded in React.js + Redux and included a number of 3rd party widget extensions.",
+	            "I built a few pages to get started on the job but the Project Manager decided to reassign me to SEO tasks.",
+	            "I assume this was because there was a team from India that had already built half of the site so they were doing well with that already and there was nobody who was an SEO specialist and I was open to learn something new. In other  words because no one else wanted the job.",
+	            "This was really interesting for me because when making sites in the past I had always run them through Google insights and tried as best I could to pass the various tests Google provided.",
+	            "Luckily my mentor from Porizi Technologies got me on the right track and showed me what I should be focusing on.",
+	            "The two major turning points were when we got our CDN working and got gzip working on the server. This made our test score go from something like 20% to 80%.",
+	            "One snag we hit and couldn't resolve was \"caching of 3rd party widgets\", specifically Trustpilot, they provide a reviews Widget that expired its cache validation every day, whereas Google recommends you do it every month.",
+	            "The only way we could fix this was to remove the widget but it is such a huge part of the site that that wasn't an option. 3rd party widgets have this short expiry time so that sites receive updates regularly and when the widget changes, sadly Google doesn't approve.",
+	            "After passing all of the tests on Google Insights and Webpagetest.org the job was completed. I could have stayed and continued coding the front end but I got too busy with another job and so decided to quit."
+	        ],
+	        pic: "/images/work/eventerprise_thumbnail.png"
+	    },
+	    {
 	        heading: "Porizi Software Marketing Website",
 	        link: "https://porizi.herokuapp.com/",
-	        status: "Ready for deployement",
+	        status: "Ready for deployment",
 	        date: "Jun 2016 - Feb 2017",
 	        content: [
 	            "This was a real milestone for me and it provided the perfect transition from being an amateur to being a professional web developer.",
