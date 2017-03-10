@@ -1,16 +1,18 @@
-import { ISection } from '../models';
+import { IPage } from '../models';
 import { blogPosts } from './blog/blogPosts';
 import { workPosts } from './work/workPosts';
 
-export const sections: ISection[] = [
+export const pages: IPage[] = [
     {
-        heading: "BLOG",
+        name: "BLOG",
         link: "blog",
+        viewLinks: [],
         posts: blogPosts
     },
     {
-        heading: "WORK",
+        name: "WORK",
         link: "work",
+        viewLinks: [],
         posts: workPosts
     }
 ];

@@ -3,9 +3,9 @@ import * as express from 'express';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import { Router, RouterContext, match } from 'react-router';
-import {getAllComponentsCSS} from './utils/css_styler';
-import {store} from "./redux/stores/store";
-import {Provider} from 'react-redux';
+import { getAllComponentsCSS } from './utils/css_styler';
+import { store } from "./redux/stores/store";
+import { Provider } from 'react-redux';
 import routes from './routes';
 
 const release = (process.env.NODE_ENV === 'production');
@@ -18,7 +18,6 @@ app.set('view engine', 'ejs');
 app.use('/fonts', express.static('./public/fonts'));
 app.use('/client.js', express.static('./build/client.js'));
 app.use('/images', express.static('./public/images'));
-
 
 // Endpoint to get all React components CSS
 app.get('/components.css', (req, res) => {

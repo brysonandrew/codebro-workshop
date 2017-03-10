@@ -1,31 +1,34 @@
 import * as React from 'react';
+import * as Immutable from 'immutable';
 import THREE = require('three');
-import {connect} from 'react-redux';
-import {addComponentCSS} from '../../utils/css_styler';
-import {IStoreState} from '../../redux/main_reducer';
-import { changeMenuIndex } from '../../Home/HomeActionCreators';
-import { sections } from '../../data/sections';
+import { connect } from 'react-redux';
+import { IStoreState } from '../../redux/main_reducer';
+import { changePageIndex, changeViewIndex } from '../../Home/HomeActionCreators';
 import { workPosts } from '../../data/work/workPosts';
 import { blogPosts } from '../../data/blog/blogPosts';
 import { PostFromStore } from './Post';
+import { IPage } from "../../models";
 
-addComponentCSS({
-    //language=CSS
-    default: `
-    `
-});
+interface IHomeParams {
+    activePage: string
+    activeView: string
+}
 
 interface IProperties {
-    menuIndex?: number
+    pageIndex?: number
+    viewIndex?: number
     width?: number
     height?: number
 }
 
 interface ICallbacks {
-    onChangeMenuIndex?: (menuIndex: number) => void
+    onPageIndexSelect?: (pageIndex: number) => void
+    onViewIndexSelect?: (viewIndex: number) => void
 }
 
-interface IProps extends IProperties, ICallbacks {}
+interface IProps extends IProperties, ICallbacks {
+    params?: IHomeParams
+}
 
 interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
@@ -34,18 +37,51 @@ interface IState extends IProperties, ICallbacks {
 
 export class Posts extends React.Component<IProps, IState> {
 
+    timerId;
+    pages: IPage[];
+
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
             isMounted: false,
             isHovering: false
+        };
+
+        this.pages = [
+            {
+                name: "Blog",
+                link: "./blog",
+                viewLinks: [],
+                posts: blogPosts
+            },
+            {
+                name: "Work",
+                link: "./work",
+                viewLinks: [],
+                posts: workPosts
+            }
+        ]
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.pageIndex > -1 && nextProps.params.activePage !== this.props.params.activePage) {
+            let pageIndex = Immutable.List(this.pages)
+                .findIndex( (item, index) => item.link === nextProps.params.activePage );
+            this.props.onPageIndexSelect(pageIndex);
+        }
+        if (nextProps.pageIndex > -1 && nextProps.params.activeView !== this.props.params.activeView) {
+            let viewIndex = Immutable.List(this.pages[this.props.pageIndex].viewLinks)
+                .findIndex( (item, index) => item === nextProps.params.activeView );
+            viewIndex = (viewIndex===-1) ? 0 : viewIndex;
+            this.props.onViewIndexSelect(viewIndex);
         }
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            this.setState({isMounted: true})
-        }, 1000)
+        this.timerId = setTimeout(() => {
+            this.setState({isMounted: true});
+            window.scrollTo(0,0);
+        }, 1000);
     }
 
     handleMouseEnter() {
@@ -58,7 +94,7 @@ export class Posts extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let { isHovering, isMounted } = this.state;
-        let { menuIndex, width, height } = this.props;
+        let { pageIndex, width, height } = this.props;
 
         let posts = [
             blogPosts,
@@ -83,7 +119,7 @@ export class Posts extends React.Component<IProps, IState> {
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >
-                {posts[menuIndex].map((post, i) =>
+                {posts[pageIndex].map((post, i) =>
                     <PostFromStore
                         key={i}
                         post={post}
@@ -97,17 +133,20 @@ export class Posts extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        menuIndex: state.subStore.menuIndex,
+        pageIndex: state.subStore.pageIndex,
+        viewIndex: state.subStore.viewIndex,
         width: state.subStore.width,
         height: state.subStore.height
     };
-
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
-        onChangeMenuIndex: (menuIndex) => {
-            dispatch(changeMenuIndex(menuIndex));
+        onPageIndexSelect: (pageIndex) => {
+            dispatch(changePageIndex(pageIndex));
+        },
+        onViewIndexSelect: (viewIndex) => {
+            dispatch(changeViewIndex(viewIndex));
         }
     }
 }

@@ -20,7 +20,7 @@ export let workPosts: IPost[] = [
     {
         heading: "Eventerprise Events Management",
         link: "https://eventerprise.com/",
-        status: "Completed",
+        status: "Deployed",
         date: "Nov 2016 - Jan 2017",
         content:
             [
@@ -38,8 +38,8 @@ export let workPosts: IPost[] = [
     },
     {
         heading: "Porizi Software Marketing Website",
-        link: "https://porizi.herokuapp.com/",
-        status: "Ready for deployment",
+        link: "https://porizi.com/",
+        status: "Deployed",
         date: "Jun 2016 - Feb 2017",
         content:
             [

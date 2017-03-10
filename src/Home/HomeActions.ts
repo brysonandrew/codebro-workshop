@@ -1,9 +1,17 @@
-export module UPDATE__MENU_INDEX {
-    export let type = "UPDATE__MENU_INDEX";
+export module UPDATE__PAGE_INDEX {
+    export let type = "UPDATE__PAGE_INDEX";
 }
 
-export interface UPDATE__MENU_INDEX {
-    menuIndex: number;
+export interface UPDATE__PAGE_INDEX {
+    pageIndex: number;
+}
+
+export module UPDATE__VIEW_INDEX {
+    export let type = "UPDATE__VIEW_INDEX";
+}
+
+export interface UPDATE__VIEW_INDEX {
+    viewIndex: number;
 }
 
 export module UPDATE__VIEWPORT_DIMENSIONS {

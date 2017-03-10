@@ -2,12 +2,6 @@ export interface IDictionary<T> {
     [key: string]: T
 }
 
-export interface ISection {
-    heading: string
-    link: string
-    posts: IPost[]
-}
-
 export interface IPost {
     heading: string
     link: string
@@ -15,4 +9,11 @@ export interface IPost {
     date: string
     content: any[]
     pic: string
+}
+
+export interface IPage {
+    name: string
+    link: string
+    viewLinks: any[]
+    posts: IPost[]
 }

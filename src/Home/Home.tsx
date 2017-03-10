@@ -1,30 +1,35 @@
 import * as React from 'react';
+import * as Immutable from 'immutable';
 import { connect } from 'react-redux';
-import { addComponentCSS } from '../utils/css_styler';
 import { IStoreState } from '../redux/main_reducer';
-import { changeMenuIndex, changeViewportDimensions } from './HomeActionCreators';
+import { changePageIndex, changeViewIndex, changeViewportDimensions } from './HomeActionCreators';
 import { MenuFromStore } from '../Widgets/Menu';
 import { PostsFromStore } from "../Widgets/Posts/Posts";
 import { BackgroundFromStore } from "../Widgets/Background";
+import {pages} from "../data/pages";
 
-addComponentCSS({
-    //language=CSS
-    default: `
-    `
-});
+
+interface IHomeParams {
+    activePage: string
+    activeView: string
+}
 
 interface IProperties {
-    menuIndex?: number
+    pageIndex?: number
+    viewIndex?: number
     width?: number
     height?: number
 }
 
 interface ICallbacks {
-    onChangeMenuIndex?: (menuIndex: number) => void
-    onChangeViewport?: (width: number, height: number) => void
+    onResizeViewport?: (width: number, height: number) => void
+    onViewIndexSelect?: (viewIndex: number) => void
+    onPageIndexSelect?: (pageIndex: number) => void
 }
 
-interface IProps extends IProperties, ICallbacks {}
+interface IProps extends IProperties, ICallbacks {
+    params: IHomeParams
+}
 
 interface IState extends IProperties, ICallbacks {}
 
@@ -35,12 +40,24 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        this.props.onChangeViewport( window.innerWidth, window.innerHeight );
-        window.addEventListener( 'resize', () => this.onWindowResized(), false );
-    }
+        const { params, onResizeViewport, onPageIndexSelect, onViewIndexSelect } = this.props;
+        //routing
+        let pageIndex = Immutable.List(pages)
+            .findIndex( (item, index) => item.link === params.activePage );
+        onPageIndexSelect(pageIndex);
 
-    onWindowResized() {
-        this.props.onChangeViewport(window.innerWidth, window.innerHeight);
+        if (pageIndex > -1) {
+            let viewIndex = Immutable.List(pages[pageIndex].viewLinks)
+                .findIndex( (item, index) => item === params.activeView );
+            viewIndex = (viewIndex===-1) ? 0 : viewIndex;
+            onViewIndexSelect(viewIndex);
+        }
+        //responsive on window resize
+        window.addEventListener("resize"
+            , () => onResizeViewport(window.innerWidth, window
+                .innerHeight));
+        window.addEventListener("load"
+            , () => onResizeViewport(window.innerWidth, window.innerHeight));
     }
 
     public render(): JSX.Element {
@@ -64,8 +81,10 @@ export class Home extends React.Component<IProps, IState> {
             <div style={styles.home}>
                 <img style={styles.home__logo} src="/images/logo.PNG"/>
                 <MenuFromStore/>
-                {(this.props.menuIndex > -1)
-                    ?   <PostsFromStore/>
+                {(this.props.pageIndex > -1)
+                    ?   <PostsFromStore
+                            params={this.props.params}
+                        />
                     :   null}
                 <BackgroundFromStore/>
             </div>
@@ -77,17 +96,21 @@ export class Home extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        menuIndex: state.subStore.menuIndex
+        pageIndex: state.subStore.pageIndex,
+        viewIndex: state.subStore.viewIndex
     };
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
-        onChangeMenuIndex: (menuIndex) => {
-            dispatch(changeMenuIndex(menuIndex));
-        },
-        onChangeViewport: (width, height) => {
+        onResizeViewport: (width, height) => {
             dispatch(changeViewportDimensions(width, height));
+        },
+        onPageIndexSelect: (pageIndex) => {
+            dispatch(changePageIndex(pageIndex));
+        },
+        onViewIndexSelect: (viewIndex) => {
+            dispatch(changeViewIndex(viewIndex));
         }
     }
 }

@@ -6,13 +6,13 @@ import { computer } from '../data/3DObjects';
 import { Loading } from './Loading';
 
 interface IProperties {
-    menuIndex?: number
+    pageIndex?: number
     width?: number
     height?: number
 }
 
 interface ICallbacks {
-    onChangeMenuIndex?: (menuIndex: number) => void
+    onChangeMenuIndex?: (pageIndex: number) => void
     onChangeViewport?: (width: number, height: number) => void
 }
 
@@ -21,6 +21,7 @@ interface IProps extends IProperties, ICallbacks {}
 interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
     isFontLoaded?: boolean
+    isAnimating?: boolean
 }
 
 export class Background extends React.Component<IProps, IState> {
@@ -48,11 +49,21 @@ export class Background extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             isMounted: false,
-            isFontLoaded: false
+            isFontLoaded: false,
+            isAnimating: false
         }
     }
 
     componentDidMount() {
+        if (this.props.pageIndex === -1) {
+            this.setState({
+                isAnimating: true
+            })
+        } else {
+            this.setState({
+                isAnimating: false
+            })
+        }
         this.loadTexture();
     }
 
@@ -61,13 +72,14 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.isMounted) {
-            if (nextProps.menuIndex === -1) {
-                this.animate();
-            } else {
-                cancelAnimationFrame(this.animateLoop);
-                this.renderStill();
-            }
+        if (nextProps.pageIndex === -1) {
+            this.setState({
+                isAnimating: true
+            })
+        } else {
+            this.setState({
+                isAnimating: false
+            })
         }
     }
 
@@ -199,50 +211,58 @@ export class Background extends React.Component<IProps, IState> {
     renderStill() {
         this.material.envMap = this.cubeCamera1.renderTarget.texture;
         this.cubeCamera2.updateCubeMap( this.renderer, this.scene );
+        this.computerComponents.rotation.x = Math.PI;
+        this.computerComponents.rotation.y = -Math.PI;
+
         this.renderer.render( this.scene, this.camera );
     }
 
     renderMotion() {
-        let time = Date.now();
-        this.lon += .5;
-        this.lat = Math.max( - 85, Math.min( 85, this.lat ) );
-        this.phi = THREE.Math.degToRad( 90 - this.lat );
-        this.theta = THREE.Math.degToRad( this.lon );
+        if (this.state.isAnimating) {
+            let time = Date.now();
+            this.lon += .5;
+            this.lat = Math.max( - 85, Math.min( 85, this.lat ) );
+            this.phi = THREE.Math.degToRad( 90 - this.lat );
+            this.theta = THREE.Math.degToRad( this.lon );
 
-        this.computerComponents.rotation.y = 100 * Math.sin( -this.phi );
+            this.computerComponents.rotation.y = 100 * Math.sin( -this.phi );
 
-        if (this.state.isFontLoaded) {
-            this.code.position.x = Math.cos( time * 0.001 ) * 20;
-            this.code.position.y = Math.sin( time * 0.001 ) * 20;
-            this.code.position.z = Math.sin( time * 0.001 ) * 20;
-            this.code.rotation.x += 0.02;
-            this.code.rotation.y += 0.03;
+            if (this.state.isFontLoaded) {
+                this.code.position.x = Math.cos( time * 0.001 ) * 20;
+                this.code.position.y = Math.sin( time * 0.001 ) * 20;
+                this.code.position.z = Math.sin( time * 0.001 ) * 20;
+                this.code.rotation.x += 0.02;
+                this.code.rotation.y += 0.03;
 
-            this.bro.position.x = Math.cos( time * 0.001 + 10 ) * 20;
-            this.bro.position.y = Math.sin( time * 0.001 + 10 ) * 20;
-            this.bro.position.z = Math.sin( time * 0.001 + 10 ) * 20;
-            this.bro.rotation.x += 0.02;
-            this.bro.rotation.y += 0.03;
-        }
+                this.bro.position.x = Math.cos( time * 0.001 + 10 ) * 20;
+                this.bro.position.y = Math.sin( time * 0.001 + 10 ) * 20;
+                this.bro.position.z = Math.sin( time * 0.001 + 10 ) * 20;
+                this.bro.rotation.x += 0.02;
+                this.bro.rotation.y += 0.03;
+            }
 
-        this.camera.position.x = 100 * Math.sin( this.phi ) * Math.cos( this.theta );
-        this.camera.position.y = 100 * Math.cos( this.phi );
-        this.camera.position.z = 100 * Math.sin( this.phi ) * Math.sin( this.theta );
-        this.camera.lookAt( this.scene.position );
-        this.lap.visible = false;
-        this.top.visible = false;
-        // pingpong
-        if ( this.count % 2 === 0 ) {
-            this.material.envMap = this.cubeCamera1.renderTarget.texture;
-            this.cubeCamera2.updateCubeMap( this.renderer, this.scene );
+            this.camera.position.x = 100 * Math.sin( this.phi ) * Math.cos( this.theta );
+            this.camera.position.y = 100 * Math.cos( this.phi );
+            this.camera.position.z = 100 * Math.sin( this.phi ) * Math.sin( this.theta );
+            this.camera.lookAt( this.scene.position );
+            this.lap.visible = false;
+            this.top.visible = false;
+            // pingpong
+            if ( this.count % 2 === 0 ) {
+                this.material.envMap = this.cubeCamera1.renderTarget.texture;
+                this.cubeCamera2.updateCubeMap( this.renderer, this.scene );
+            } else {
+                this.material.envMap = this.cubeCamera2.renderTarget.texture;
+                this.cubeCamera1.updateCubeMap( this.renderer, this.scene );
+            }
+            this.count++;
+            this.lap.visible = true;
+            this.top.visible = true;
+            this.renderer.render( this.scene, this.camera );
         } else {
-            this.material.envMap = this.cubeCamera2.renderTarget.texture;
-            this.cubeCamera1.updateCubeMap( this.renderer, this.scene );
+            this.renderStill();
+            cancelAnimationFrame(this.animateLoop);
         }
-        this.count++;
-        this.lap.visible = true;
-        this.top.visible = true;
-        this.renderer.render( this.scene, this.camera );
     }
 
     render(): JSX.Element {
@@ -260,7 +280,7 @@ export class Background extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        menuIndex: state.subStore.menuIndex
+        pageIndex: state.subStore.pageIndex
     };
 }
 

@@ -1,18 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { addComponentCSS } from '../utils/css_styler';
 import { IStoreState } from '../redux/main_reducer';
-import { changeMenuIndex } from '../Home/HomeActionCreators';
-import { sections } from '../data/sections';
-
-addComponentCSS({
-    //language=CSS
-    default: `
-    `
-});
+import { changePageIndex } from '../Home/HomeActionCreators';
+import { pages } from '../data/pages';
+import { browserHistory, Link } from 'react-router';
 
 interface IProperties {
-    menuIndex?: number
+    pageIndex?: number
     width?: number
     height?: number
 }
@@ -44,7 +38,8 @@ export class Menu extends React.Component<IProps, IState> {
         }, 0)
     }
 
-    handleOpenClick(i) {
+    handleOpenClick(i, link) {
+        browserHistory.push(link);
         this.props.onChangeMenuIndex(i);
     }
 
@@ -62,22 +57,22 @@ export class Menu extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let { hoveringIndex, isMounted } = this.state;
-        let { menuIndex, width, height } = this.props;
+        let { pageIndex, width, height } = this.props;
 
         let lineAboveTransforms = [
-            ((menuIndex > -1)   //blog
+            ((pageIndex > -1)   //blog
                 ? `translate3d(${width * 1.25}px,0px,0px)`      //menuactive
                 : `translate3d(${width * 0.25}px,0px,0px)`),    //frontpage
-            ((menuIndex > -1)   //work
+            ((pageIndex > -1)   //work
                 ? `translate3d(${width * 1.25}px,0px,0px)`      //menuactive
                 : `translate3d(${width * 0.75}px,0px,0px)`)     //frontpage
         ];
 
         let lineBelowTransforms = [
-            ((menuIndex > -1)   //blog
+            ((pageIndex > -1)   //blog
                 ? `translate3d(${-width * 0.75}px,0px,0px)`      //menuactive
                 : `translate3d(${-width * 0.75}px,0px,0px)`),    //frontpage
-            ((menuIndex > -1)   //work
+            ((pageIndex > -1)   //work
                 ? `translate3d(${-width * 0.75}px,0px,0px)`      //menuactive
                 : `translate3d(${-width * 0.25}px,0px,0px)`)    //frontpage
         ];
@@ -86,12 +81,16 @@ export class Menu extends React.Component<IProps, IState> {
             menu: {
                 position: "absolute",
                 width: "100%",
-                top: (menuIndex > -1) ? "8%" : "50%",
+                top: (pageIndex > -1) ? "8%" : "50%",
                 transform: "translateY(-50%)",
                 overflow: "hidden",
                 transition: "top 400ms"
             },
             menu_selector: {
+                background: "none",
+                border: "none",
+                outline: "none",
+                textDecoration: "none",
                 position: "relative",
                 display: "inline-block",
                 padding: "6px 0",
@@ -108,7 +107,7 @@ export class Menu extends React.Component<IProps, IState> {
             },
             menu_lineAbove: {
                 position: "absolute",
-                width: (menuIndex > -1) ? "50%" : "100%",
+                width: (pageIndex > -1) ? "50%" : "100%",
                 left: "-100%",
                 height: 2,
                 background: "#eeeeee",
@@ -123,7 +122,7 @@ export class Menu extends React.Component<IProps, IState> {
             },
             menu_lineBelow: {
                 position: "absolute",
-                width: (menuIndex > -1) ? "50%" : "100%",
+                width: (pageIndex > -1) ? "50%" : "100%",
                 left: "100%",
                 height: 2,
                 background: "#eeeeee",
@@ -167,29 +166,31 @@ export class Menu extends React.Component<IProps, IState> {
         return (
             <div style={styles.menu}>
                 <div style={styles.menu_lineAbove}></div>
-                {sections.map((section, i) =>
-                    <div key={i}
-                         style={Object.assign({},
+                {pages.map((section, i) =>
+                    <Link   key={i}
+                            to={section.link}
+                            style={Object.assign({},
                             styles.menu_selector,
-                            { opacity: (menuIndex > -1)
-                                ? ((menuIndex===i) ? "1" : "0")
-                                : ((hoveringIndex===i) ? "1" : "0.85")},
-                            { width: (menuIndex > -1)
-                                ? ((menuIndex===i) ? "100%" : "0")
-                                : "50%"})}
-                         onClick={(menuIndex > -1)
-                            ? (() => this.handleCloseClick())
-                            : (() => this.handleOpenClick(i))}
-                         onMouseEnter={() => this.handleMouseEnter(i)}
-                         onMouseLeave={() => this.handleMouseLeave()}
-                    >{section.heading}
-                        {(menuIndex > -1)
+                                { opacity: (pageIndex > -1)
+                                    ? ((pageIndex===i) ? "1" : "0")
+                                    : ((hoveringIndex===i) ? "1" : "0.85")},
+                                { width: (pageIndex > -1)
+                                    ? ((pageIndex===i) ? "100%" : "0")
+                                    : "50%"})}
+                             onClick={(pageIndex > -1)
+                                ? (() => this.handleCloseClick())
+                                : (() => this.handleOpenClick(i, section.link))}
+                             onMouseEnter={() => this.handleMouseEnter(i)}
+                             onMouseLeave={() => this.handleMouseLeave()}
+                    >
+                        {section.name}
+                        {(pageIndex > -1)
                             ?   <div style={styles.menu_cross}>
                                     <div style={styles.menu_crossArm1}></div>
                                     <div style={styles.menu_crossArm2}></div>
                                 </div>
                             :   null}
-                    </div>
+                    </Link>
                 )}
                 <div style={styles.menu_lineBelow}></div>
             </div>
@@ -201,7 +202,7 @@ export class Menu extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        menuIndex: state.subStore.menuIndex,
+        pageIndex: state.subStore.pageIndex,
         width: state.subStore.width,
         height: state.subStore.height
     };
@@ -211,7 +212,7 @@ function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
         onChangeMenuIndex: (menuIndex) => {
-            dispatch(changeMenuIndex(menuIndex));
+            dispatch(changePageIndex(menuIndex));
         }
     }
 }

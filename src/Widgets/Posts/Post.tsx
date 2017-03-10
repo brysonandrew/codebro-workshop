@@ -1,20 +1,14 @@
 import * as React from 'react';
 import THREE = require('three');
 import { connect } from 'react-redux';
-import { addComponentCSS } from '../../utils/css_styler';
 import { IStoreState } from '../../redux/main_reducer';
 import { IPost } from '../../models';
-import { changeMenuIndex } from '../../Home/HomeActionCreators';
-import { sections } from '../../data/sections';
+import { changePageIndex } from '../../Home/HomeActionCreators';
+import { pages } from '../../data/pages';
 
-addComponentCSS({
-    //language=CSS
-    default: `
-    `
-});
 
 interface IProperties {
-    menuIndex?: number
+    pageIndex?: number
     width?: number
     height?: number
     post?: IPost
@@ -57,7 +51,7 @@ export class Post extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let { isHovering, isMounted } = this.state;
-        let { menuIndex, width, height, post } = this.props;
+        let { pageIndex, width, height, post } = this.props;
 
         let styles = {
             post: {
@@ -121,7 +115,7 @@ export class Post extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        menuIndex: state.subStore.menuIndex,
+        pageIndex: state.subStore.pageIndex,
         width: state.subStore.width,
         height: state.subStore.height
     };
@@ -131,7 +125,7 @@ function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
         onChangeMenuIndex: (menuIndex) => {
-            dispatch(changeMenuIndex(menuIndex));
+            dispatch(changePageIndex(menuIndex));
         }
     }
 }
