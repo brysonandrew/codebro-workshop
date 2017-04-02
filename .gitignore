@@ -264,3 +264,6 @@ fabric.properties
 
 # Ignore dist directory
 /dist
+
+# Ignore build directory
+/build
