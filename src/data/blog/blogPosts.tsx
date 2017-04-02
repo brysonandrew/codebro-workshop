@@ -3,6 +3,35 @@ import { IPost } from '../../models';
 
 export let blogPosts: IPost[] = [
     {
+        heading: "Living for the moment, with moment.js",
+        link: "https://momentjs.com/",
+        status: "",
+        date: "14 Mar 2017",
+        content:
+            [
+                "Moment.js is a library that helps us handle and display time in JavaScript.",
+                "You could look at it like a more user-friendly version of the Javascript \"Date\" instance",
+                "I've used it recently to create a date-picker, but it could also be used to show user session, booking and payment info.",
+                <h2>To get you started I'll show you how to create the perfect moment</h2>,
+                "Firstly you could simply create the current moment like so: ",
+                <code>moment()</code>,
+                "To edit this moment, it is as easy as doing something like this: ",
+                <code>moment("1969-07-16", "YYYY-MM-DD")</code>,
+                "or",
+                <code>moment("1969-Jul-16", "YYYY-MMM-DD")</code>,
+                "Now, maybe you would like to share that special moment?",
+                "This can be as easy as: ",
+                <code>const m = moment("1969-07-16", "YYYY-MM-DD")</code>,
+                <code>console.log(m.format("MMM")) //log to console "Jul"</code>,
+                <code>console.log(m.format("YYYY")) //log to console "1969"</code>,
+                <code>console.log(m.format("DD")) //log to console "16"</code>,
+                "Making my own date-picker has been a good way to get used to and explore the way moment.js works, why not try yourself?",
+                'Other ideas could be adding moment JS to your TODO list eg/ \"task completed 2 hours ago\", or user sessions eg/ \"user last logged in last weeek\"',
+                "Soon I will share a link here to my date-picker (after some beta testing). If I forget please remind me by sending an email."
+            ],
+        pic: "/images/blog/momentjs.png"
+    },
+    {
         heading: "My ultimate website build",
         link: "https://github.com/brysonandrew/isomorphic-react-redux-typescript",
         status: "",
