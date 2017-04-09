@@ -3,14 +3,41 @@ import { IPost } from '../../models';
 
 export let blogPosts: IPost[] = [
     {
+        heading: "Linux tools for Windows",
+        link: "http://www.linux.org/",
+        status: "",
+        date: "8 Apr 2017",
+        content:
+            [
+                "The Linux operating system has the reputation for being programmer-friendly. It provides shell-access to the terminal and a range of useful commands for a superior terminal user-interface.",
+                "The built-in Windows terminal is the \"Command prompt\" which doesn't provide shell access and lacks many if not most of the Linux terminal commands.",
+                "To bridge this gap we must use certain tools to make Windows perform certain tasks.",
+                <h2>Linux on Windows</h2>,
+                "Firstly I should mention that the silver-bullet here is to dual-boot Windows and Linux, which basically means installing Linux into Windows. Although this sounds great it still comes with its downsides.",
+                <ul style={{listStyleType: "decimal"}}>
+                    <li>Extra storage required for the additional OS</li>
+                    <li>System storage is mapped differently for both OS meaning you may need to manually transfer files from one OS to the other.</li>
+                    <li>It takes time to shut down one OS and reboot the other.</li>
+                </ul>,
+                <h2>Linux tools for Windows</h2>,
+                <h4>PuTTy</h4>,
+                "A terminal emulator that allows SSH access to connect to other machines. Very easy to set up and large community.",
+                <h4>Cygwin</h4>,
+                "Command-line interface providing Linux commands. Specific packages must be included on install depending on what you need to do.",
+                <h4>Windows Subsystem for Linux (WSL)</h4>,
+                "Available on Windows 10 and still in the beta stage of development. You can install specific packages on the command line.",
+                "This is by no means an exhaustive list, only the tools I have looked at."
+            ],
+        pic: "/images/blog/windows10.png"
+    },
+    {
         heading: "Screenshots with Phantomjs and Slimerjs",
         link: "https://phantomjs.org/",
         status: "",
         date: "29 Mar 2017",
         content:
             [
-                <span>Although this is pretty much a copy / paste from the phantomjs website
-                    <a href="http://phantomjs.org/screen-capture.html">see here</a> I thought it was a really cool feature that is worth knowing about.</span>,
+                <span>Although this is pretty much a copy / paste from the phantomjs website <a href="http://phantomjs.org/screen-capture.html">see here</a> I thought it was a really cool feature that is worth knowing about.</span>,
                 "Here are step by step instructions to take a screenshot with phantomjs.",
                 <div>
                     <ul style={{listStyleType: "decimal"}}>
@@ -25,16 +52,19 @@ page.open('http://codebro.io', function() {
 });`}
                             </pre>
                         </li>
-                        <li>Run phantomjs</li>
+                        <li>Run phantomjs
+                            <code>phantomjs screenshot.js</code>
+                        </li>
                     </ul>
                 </div>,
                 "Now as you can see the screenshot has no background. That's because phantomjs cannot pick up anything rendered on WebGL (ie/ 3D web graphics).",
                 <img style={{height: 100, width: "auto"}} src="/images/blog/codebroNoBackground.png"/>,
                 "The good new is slimerjs can pick up WebGL.",
                 <a href="https://slimerjs.org/">
-                    <img style={{height: 60, width: "auto"}} src="/images/blog/slimerjs.jpg"/>
+                    <img style={{height: 100, width: "auto"}} src="/images/blog/slimerjs.jpg"/>
                 </a>,
                 "All you need to do is install slimerjs and run your screenshot.js code exactly as is. (Interestingly, slimerjs recognizes even \"phantom.exit()\", but for more serious projects you should change this to \"slimer.exit()\"",
+                <code>slimerjs screenshot.js</code>,
                 "Slimerjs, however, isn't headless so you will see a browser window appear when you run the code and your screen shot produced."
             ],
         pic: "/images/blog/phantomjs.png"
