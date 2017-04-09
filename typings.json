@@ -18,5 +18,8 @@
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
     "three": "registry:dt/three#0.83.0+20170124181513",
     "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20161120230953"
+  },
+  "dependencies": {
+    "react": "registry:dt/react#15.0.0+20170324160437"
   }
 }

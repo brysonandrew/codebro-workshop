@@ -40,6 +40,14 @@ export class Youtube extends React.Component<IProps, IState> {
         let styles = {
             youtube: {
                 position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: "#eeeeee"
+            },
+            youtube__inner: {
+                position: "absolute",
                 textAlign: "center",
                 top: "50%",
                 left: "50%",
@@ -78,19 +86,21 @@ export class Youtube extends React.Component<IProps, IState> {
         };
         const logo = "https://webassets.mongodb.com/_com_assets/cms/MongoDB-Logo-5c3a7405a85675366beb3a5ec4c032348c390b3f142f5e6dddf1d78e2df5cb5c.png";
         return (
-            <div style={styles.youtube} onClick={() => this.handleClick()}>
-                <div style={styles.youtube__message}>
-                    codebro.io
-                </div>
-                <div style={styles.youtube__logo}>
-                    <img src={logo} style={styles.youtube__logoPic}/>
-                    <div>Part 1</div>
-                </div>
-                {this.array.map((_, i) =>
-                    <div key={i}
-                         style={Object.assign({},
+            <div style={styles.youtube}>
+                <div style={styles.youtube__inner} onClick={() => this.handleClick()}>
+                    <div style={styles.youtube__message}>
+                        codebro.io
+                    </div>
+                    <div style={styles.youtube__logo}>
+                        <img src={logo} style={styles.youtube__logoPic}/>
+                        <div>Part 1</div>
+                    </div>
+                    {this.array.map((_, i) =>
+                        <div key={i}
+                             style={Object.assign({},
                                 styles.youtube__box,
                                 {background: awesomeColors[i]})}/>)}
+                </div>
             </div>
         );
     }

@@ -3,6 +3,43 @@ import { IPost } from '../../models';
 
 export let blogPosts: IPost[] = [
     {
+        heading: "Screenshots with Phantomjs and Slimerjs",
+        link: "https://phantomjs.org/",
+        status: "",
+        date: "29 Mar 2017",
+        content:
+            [
+                <span>Although this is pretty much a copy / paste from the phantomjs website
+                    <a href="http://phantomjs.org/screen-capture.html">see here</a> I thought it was a really cool feature that is worth knowing about.</span>,
+                "Here are step by step instructions to take a screenshot with phantomjs.",
+                <div>
+                    <ul style={{listStyleType: "decimal"}}>
+                        <li>Install phantomjs so that you can run it in the command line</li>
+                        <li>Create a file called screenshot.js</li>
+                        <li>Add the following code
+                            <pre>
+{`var page = require('webpage').create();
+page.open('http://codebro.io', function() {
+    page.render('codebro.png');
+    phantom.exit();
+});`}
+                            </pre>
+                        </li>
+                        <li>Run phantomjs</li>
+                    </ul>
+                </div>,
+                "Now as you can see the screenshot has no background. That's because phantomjs cannot pick up anything rendered on WebGL (ie/ 3D web graphics).",
+                <img style={{height: 100, width: "auto"}} src="/images/blog/codebroNoBackground.png"/>,
+                "The good new is slimerjs can pick up WebGL.",
+                <a href="https://slimerjs.org/">
+                    <img style={{height: 60, width: "auto"}} src="/images/blog/slimerjs.jpg"/>
+                </a>,
+                "All you need to do is install slimerjs and run your screenshot.js code exactly as is. (Interestingly, slimerjs recognizes even \"phantom.exit()\", but for more serious projects you should change this to \"slimer.exit()\"",
+                "Slimerjs, however, isn't headless so you will see a browser window appear when you run the code and your screen shot produced."
+            ],
+        pic: "/images/blog/phantomjs.png"
+    },
+    {
         heading: "Living for the moment, with moment.js",
         link: "https://momentjs.com/",
         status: "",
@@ -21,12 +58,14 @@ export let blogPosts: IPost[] = [
                 <code>moment("1969-Jul-16", "YYYY-MMM-DD")</code>,
                 "Now, maybe you would like to share that special moment?",
                 "This can be as easy as: ",
-                <code>const m = moment("1969-07-16", "YYYY-MM-DD")</code>,
-                <code>console.log(m.format("MMM")) //log to console "Jul"</code>,
-                <code>console.log(m.format("YYYY")) //log to console "1969"</code>,
-                <code>console.log(m.format("DD")) //log to console "16"</code>,
+                <pre>
+{`const m = moment("1969-07-16", "YYYY-MM-DD")
+console.log(m.format("MMM")) //log to console "Jul",
+console.log(m.format("YYYY")) //log to console "1969",
+console.log(m.format("DD")) //log to console "16"`}
+                </pre>,
                 "Making my own date-picker has been a good way to get used to and explore the way moment.js works, why not try yourself?",
-                'Other ideas could be adding moment JS to your TODO list eg/ \"task completed 2 hours ago\", or user sessions eg/ \"user last logged in last weeek\"',
+                'Other ideas could be adding moment JS to your TODO list eg/ \"task completed 2 hours ago\", or user sessions eg/ \"user last logged in last week\"',
                 "Soon I will share a link here to my date-picker (after some beta testing). If I forget please remind me by sending an email."
             ],
         pic: "/images/blog/momentjs.png"
@@ -37,8 +76,7 @@ export let blogPosts: IPost[] = [
         status: "",
         date: "26 Feb 2017",
         content:
-            [
-               "Before talking about the details I should give a shout out to Porizi Technologies for developing this build. So setting up webpack, typescript and isomorphic behaviour is all down to them and their open source project that can be found here.",
+            [   <span>Before talking about the details I should give a shout out to <a href="https://porizi.com">Porizi Technologies</a> for developing this build. So setting up webpack, typescript and isomorphic behaviour is all down to them and their open source project that can be found here.</span>,
                 <a href="https://github.com/porizi/isomorphic-react-redux-typescript-bootstrap">
                     Original build
                 </a>,

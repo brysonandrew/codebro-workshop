@@ -148,7 +148,7 @@ declare namespace __React {
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
     var version: string;
-    
+
     //
     // Component API
     // ----------------------------------------------------------------------
@@ -220,8 +220,8 @@ declare namespace __React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new() => T) &
-        (new() => { props: P });
+            (new() => T) &
+            (new() => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -356,7 +356,7 @@ declare namespace __React {
         pseudoElement: string;
         elapsedTime: number;
     }
-    
+
     interface TransitionEvent extends SyntheticEvent {
         propertyName: string;
         pseudoElement: string;
@@ -920,7 +920,7 @@ declare namespace __React {
         columns?: any;
 
         /**
-         * The counter-increment property accepts one or more names of counters (identifiers), each one optionally followed by an integer which specifies the value by which the counter should be incremented (e.g. if the value is 2, the counter increases by 2 each time it is invoked).
+         * The counter-increment property accepts one or more names of counters (identifiers), each one optionally followed by an integer which specifies the value by which the counter should be incremented (e.UnitSelectView. if the value is 2, the counter increases by 2 each time it is invoked).
          */
         counterIncrement?: any;
 
@@ -1296,7 +1296,7 @@ declare namespace __React {
         maskClip?: any;
 
         /**
-         * For elements rendered as a single box, specifies the mask positioning area. For elements rendered as multiple boxes (e.g., inline boxes on several lines, boxes on several pages) specifies which boxes box-decoration-break operates on to determine the mask positioning area(s).
+         * For elements rendered as a single box, specifies the mask positioning area. For elements rendered as multiple boxes (e.UnitSelectView., inline boxes on several lines, boxes on several pages) specifies which boxes box-decoration-break operates on to determine the mask positioning area(s).
          */
         maskOrigin?: any;
 
@@ -1450,7 +1450,7 @@ declare namespace __React {
         perspectiveOrigin?: any;
 
         /**
-         * The pointer-events property allows you to control whether an element can be the target for the pointing device (e.g, mouse, pen) events.
+         * The pointer-events property allows you to control whether an element can be the target for the pointing device (e.UnitSelectView, mouse, pen) events.
          */
         pointerEvents?: any;
 
@@ -1505,7 +1505,7 @@ declare namespace __React {
         shapeInside?: any;
 
         /**
-         * Adds a margin to a shape-outside. In effect, defines a new shape that is the smallest contour around all the points that are the shape-margin distance outward perpendicular to each point on the underlying shape. For points where a perpendicular direction is not defined (e.g., a triangle corner), takes all points on a circle centered at the point and with a radius of the shape-margin distance. This property accepts only non-negative values.
+         * Adds a margin to a shape-outside. In effect, defines a new shape that is the smallest contour around all the points that are the shape-margin distance outward perpendicular to each point on the underlying shape. For points where a perpendicular direction is not defined (e.UnitSelectView., a triangle corner), takes all points on a circle centered at the point and with a radius of the shape-margin distance. This property accepts only non-negative values.
          */
         shapeMargin?: any;
 
@@ -1646,7 +1646,7 @@ declare namespace __React {
         textLineThroughWidth?: any;
 
         /**
-         * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the users. It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string. It covers the two long-hand properties text-overflow-mode and text-overflow-ellipsis
+         * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the fixtures. It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string. It covers the two long-hand properties text-overflow-mode and text-overflow-ellipsis
          */
         textOverflow?: any;
 

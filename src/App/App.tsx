@@ -33,7 +33,7 @@ addComponentCSS({
             margin: 0; 
             padding: 0;
             font-family: Oxygen, 'arial', sans-serif;
-            -webkit-appearance: none 
+            -webkit-appearance: none;
         }
         
         body {
@@ -52,12 +52,13 @@ addComponentCSS({
             margin: 2vh 0;
         }
         
-        code {
+        code, pre {
             background: #212121;
-            font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
+            font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
             color: #66F8B6;
             border-radius: 6px;
-            padding: 4px;
+            padding: 6px;
+            margin: 0;
         }
         
         ul li {
