@@ -267,3 +267,6 @@ fabric.properties
 
 # Ignore build directory
 /build
+
+# Ignore editor configurations
+.editorconfig
