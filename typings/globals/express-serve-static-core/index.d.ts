@@ -730,14 +730,14 @@ declare module "express-serve-static-core" {
             *
             *    res.location('/foo/bar').;
             *    res.location('http://example.com');
-            *    res.location('../login'); // /blog/post/1 -> /blog/login
+            *    res.location('../login'); // /blogPosts/post/1 -> /blogPosts/login
             *
             * Mounting:
             *
             *   When an application is mounted and `res.location()`
             *   is given a path that does _not_ lead with "/" it becomes
             *   relative to the mount-point. For example if the application
-            *   is mounted at "/blog", the following would become "/blog/login".
+            *   is mounted at "/blogPosts", the following would become "/blogPosts/login".
             *
             *      res.location('login');
             *
@@ -763,7 +763,7 @@ declare module "express-serve-static-core" {
             *    res.redirect('http://example.com');
             *    res.redirect(301, 'http://example.com');
             *    res.redirect('http://example.com', 301);
-            *    res.redirect('../login'); // /blog/post/1 -> /blog/login
+            *    res.redirect('../login'); // /blogPosts/post/1 -> /blogPosts/login
             */
         redirect(url: string): void;
         redirect(status: number, url: string): void;
@@ -876,8 +876,8 @@ declare module "express-serve-static-core" {
             *
             * For example if the application was
             * mounted as "/admin", which itself
-            * was mounted as "/blog" then the
-            * return value would be "/blog/admin".
+            * was mounted as "/blogPosts" then the
+            * return value would be "/blogPosts/admin".
             */
         path(): string;
 

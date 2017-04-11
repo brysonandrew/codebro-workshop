@@ -50,7 +50,7 @@ export class Posts extends React.Component<IProps, IState> {
         this.pages = [
             {
                 name: "Blog",
-                link: "./blog",
+                link: "./blogPosts",
                 viewLinks: [],
                 posts: blogPosts
             },

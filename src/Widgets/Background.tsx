@@ -100,7 +100,6 @@ export class Background extends React.Component<IProps, IState> {
         mesh.scale.x = -1;
         this.scene.add( mesh );
         this.renderer = new THREE.WebGLRenderer( { antialias: true } );
-        this.renderer.setPixelRatio( window.devicePixelRatio );
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         this.cubeCamera1 = new THREE.CubeCamera( 1, 1000, 256 );
         this.cubeCamera1.renderTarget.texture.minFilter = THREE.LinearMipMapLinearFilter;
@@ -220,8 +219,8 @@ export class Background extends React.Component<IProps, IState> {
     renderMotion() {
         if (this.state.isAnimating) {
             let time = Date.now();
-            this.lon += .5;
-            this.lat = Math.max( - 85, Math.min( 85, this.lat ) );
+            this.lon += .15;
+            this.lat = Math.max( - 20, Math.min( 20, this.lat ) );
             this.phi = THREE.Math.degToRad( 90 - this.lat );
             this.theta = THREE.Math.degToRad( this.lon );
 

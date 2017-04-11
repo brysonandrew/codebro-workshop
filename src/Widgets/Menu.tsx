@@ -60,7 +60,7 @@ export class Menu extends React.Component<IProps, IState> {
         let { pageIndex, width, height } = this.props;
 
         let lineAboveTransforms = [
-            ((pageIndex > -1)   //blog
+            ((pageIndex > -1)   //blogPosts
                 ? `translate3d(${width * 1.25}px,0px,0px)`      //menuactive
                 : `translate3d(${width * 0.25}px,0px,0px)`),    //frontpage
             ((pageIndex > -1)   //work
@@ -69,7 +69,7 @@ export class Menu extends React.Component<IProps, IState> {
         ];
 
         let lineBelowTransforms = [
-            ((pageIndex > -1)   //blog
+            ((pageIndex > -1)   //blogPosts
                 ? `translate3d(${-width * 0.75}px,0px,0px)`      //menuactive
                 : `translate3d(${-width * 0.75}px,0px,0px)`),    //frontpage
             ((pageIndex > -1)   //work

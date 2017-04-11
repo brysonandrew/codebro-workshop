@@ -28,7 +28,7 @@ export let blogPosts: IPost[] = [
                 "Available on Windows 10 and still in the beta stage of development. You can install specific packages on the command line.",
                 "This is by no means an exhaustive list, only the tools I have looked at."
             ],
-        pic: "/images/blog/windows10.png"
+        pic: "/images/blogPosts/linuxToolsForWindows/windows10.png"
     },
     {
         heading: "Screenshots with Phantomjs and Slimerjs",
@@ -58,16 +58,16 @@ page.open('http://codebro.io', function() {
                     </ul>
                 </div>,
                 "Now as you can see the screenshot has no background. That's because phantomjs cannot pick up anything rendered on WebGL (ie/ 3D web graphics).",
-                <img style={{height: 100, width: "auto"}} src="/images/blog/codebroNoBackground.png"/>,
+                <img style={{height: 100, width: "auto"}} src="/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/codebroNoBackground.png"/>,
                 "The good new is slimerjs can pick up WebGL.",
                 <a href="https://slimerjs.org/">
-                    <img style={{height: 100, width: "auto"}} src="/images/blog/slimerjs.jpg"/>
+                    <img style={{height: 100, width: "auto"}} src="/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/slimerjs.jpg"/>
                 </a>,
                 "All you need to do is install slimerjs and run your screenshot.js code exactly as is. (Interestingly, slimerjs recognizes even \"phantom.exit()\", but for more serious projects you should change this to \"slimer.exit()\"",
                 <code>slimerjs screenshot.js</code>,
                 "Slimerjs, however, isn't headless so you will see a browser window appear when you run the code and your screen shot produced."
             ],
-        pic: "/images/blog/phantomjs.png"
+        pic: "/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/phantomjs.png"
     },
     {
         heading: "Living for the moment, with moment.js",
@@ -98,10 +98,10 @@ console.log(m.format("DD")) //log to console "16"`}
                 'Other ideas could be adding moment JS to your TODO list eg/ \"task completed 2 hours ago\", or user sessions eg/ \"user last logged in last week\"',
                 "Soon I will share a link here to my date-picker (after some beta testing). If I forget please remind me by sending an email."
             ],
-        pic: "/images/blog/momentjs.png"
+        pic: "/images/blogPosts/livingForTheMoment/momentjs.png"
     },
     {
-        heading: "My ultimate website build",
+        heading: "My ultimate webpage build",
         link: "https://github.com/brysonandrew/isomorphic-react-redux-typescript",
         status: "",
         date: "26 Feb 2017",
@@ -133,7 +133,7 @@ console.log(m.format("DD")) //log to console "16"`}
                     Forked and altered build
                 </a>
             ],
-        pic: "/images/blog/github-logo.jpg"
+        pic: "/images/blogPosts/myUltimateWebpageBuild/github-logo.jpg"
     },
     {
         heading: "THREE.js essentials",
@@ -157,7 +157,7 @@ console.log(m.format("DD")) //log to console "16"`}
                 <code>const cameraHelper = THREE.CameraHelper(camera);</code>,
                 <code>scene.add(cameraHelper);</code>
             ],
-        pic: "/images/blog/threejs.jpg"
+        pic: "/images/blogPosts/ThreejsEssentials/threejs.jpg"
     },
     {
         heading: "How to plan a webpage design for a client.",
@@ -174,6 +174,6 @@ console.log(m.format("DD")) //log to console "16"`}
                 "Do send regular updates on what and how their website is developing and be responsive to their feedback.",
                 "It is your job as a web developer to allow your client to express and for you to interpret their idea so that the final result is more of a pleasant surprise than a disappointment."
             ],
-        pic: "/images/softwareLogos/javascriptIcon.png"
+        pic: "/images/blogPosts/howToPlanAWebpageDesign/javascriptIcon.png"
     }
 ];
