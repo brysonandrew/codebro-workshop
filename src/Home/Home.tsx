@@ -79,7 +79,7 @@ export class Home extends React.Component<IProps, IState> {
         };
         return (
             <div style={styles.home}>
-                <img style={styles.home__logo} src="/images/logo.PNG"/>
+                <img style={styles.home__logo} src="/images/logo.png"/>
                 <MenuFromStore/>
                 {(this.props.pageIndex > -1)
                     ?   <PostsFromStore

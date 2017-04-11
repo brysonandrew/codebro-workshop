@@ -15,7 +15,7 @@ export let workPosts: IPost[] = [
                 "I am making this website on a fixed price basis and clearly laid out milestones and when installments should be paid, also tasks like procuring photos, logo, registering domain and making mockups I gave to the website owner.",
                 "Estimated completion date is mid-March."
             ],
-        pic:    "/images/work/cospaces_thumbnail.jpg"
+        pic:    "/images/work/coworkrz/cospaces_thumbnail.jpg"
     },
     {
         heading: "Eventerprise Events Management",
@@ -34,7 +34,7 @@ export let workPosts: IPost[] = [
                 "The only way we could fix this was to remove the widget but it is such a huge part of the site that that wasn't an option. 3rd party widgets have this short expiry time so that sites receive updates regularly and when the widget changes, sadly Google doesn't approve.",
                 "After passing all of the tests on Google Insights and Webpagetest.org the job was completed. I could have stayed and continued coding the front end but I got too busy with another job and so decided to quit."
             ],
-        pic: "/images/work/eventerprise_thumbnail.png"
+        pic: "/images/work/eventerprise/eventerprise_thumbnail.png"
     },
     {
         heading: "Porizi Software Marketing Website",
@@ -49,6 +49,6 @@ export let workPosts: IPost[] = [
                 "Compared to what I get paid now the money was quite low but for my skills it was very fair and the feedback, guidance and self-improvement was invaluable to me at that point.",
                 "The most important development skills I learnt were using git (before this I had never even used version control), Typescript, Bootstrap, and BEM scalable CSS. It was a great feeling also to know I could create something of value in the world of websites."
             ],
-        pic: "/images/work/poriziFront_thumbnail.jpg"
+        pic: "/images/work/porizi/poriziFront_thumbnail.jpg"
     }
 ];
