@@ -6,8 +6,8 @@ import { changePageIndex, changeViewIndex, changeViewportDimensions } from './Ho
 import { MenuFromStore } from '../Widgets/Menu';
 import { PostsFromStore } from "../Widgets/Posts/Posts";
 import { BackgroundFromStore } from "../Widgets/Background";
+import { Logo } from "../Widgets/Logo/Logo";
 import {pages} from "../data/pages";
-
 
 interface IHomeParams {
     activePage: string
@@ -72,14 +72,15 @@ export class Home extends React.Component<IProps, IState> {
                 position: "absolute",
                 top: "2vh",
                 left: "2vw",
-                width: 40,
-                height: "auto",
-                filter: "invert(100%)"
+                width: "100%",
+                textAlign: "left"
             }
         };
         return (
             <div style={styles.home}>
-                <img style={styles.home__logo} src="/images/logo.png"/>
+                <div style={styles.home__logo}>
+                    <Logo/>
+                </div>
                 <MenuFromStore/>
                 {(this.props.pageIndex > -1)
                     ?   <PostsFromStore

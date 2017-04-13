@@ -57,7 +57,7 @@ addComponentCSS({
             font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
             color: #66F8B6;
             border-radius: 6px;
-            padding: 6px;
+            padding: 4px;
             margin: 0;
         }
         

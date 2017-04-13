@@ -13,7 +13,6 @@ export let workPosts: IPost[] = [
                 "Effective utilization of full-screen images will be a signature of this website also.",
                 "An interesting thing I have learnt so far is that German laws are incredibly strict when it comes to what kind of photo's you can use, even photos purchased from major websites like ShutterStock didn't pass the test. We eventually found a site that provided this.",
                 "I am making this website on a fixed price basis and clearly laid out milestones and when installments should be paid, also tasks like procuring photos, logo, registering domain and making mockups I gave to the website owner.",
-                "Estimated completion date is mid-March."
             ],
         pic:    "/images/work/coworkrz/cospaces_thumbnail.jpg"
     },
