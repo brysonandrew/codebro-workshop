@@ -17,3 +17,8 @@ export interface IPage {
     viewLinks: any[]
     posts: IPost[]
 }
+
+export interface IBar {
+    heading: string
+    quantity: number
+}

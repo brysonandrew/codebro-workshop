@@ -8,6 +8,7 @@ import { PostsFromStore } from "../Widgets/Posts/Posts";
 import { BackgroundFromStore } from "../Widgets/Background";
 import { Logo } from "../Widgets/Logo/Logo";
 import {pages} from "../data/pages";
+import {BarChart} from "../Widgets/BarChart/BarChart";
 
 interface IHomeParams {
     activePage: string
@@ -74,12 +75,21 @@ export class Home extends React.Component<IProps, IState> {
                 left: "2vw",
                 width: "100%",
                 textAlign: "left"
+            },
+            home__barChart: {
+                position: "absolute",
+                top: "2vh",
+                right: "4vw",
+                width: 200,
             }
         };
         return (
             <div style={styles.home}>
                 <div style={styles.home__logo}>
                     <Logo/>
+                </div>
+                <div style={styles.home__barChart}>
+                    <BarChart/>
                 </div>
                 <MenuFromStore/>
                 {(this.props.pageIndex > -1)

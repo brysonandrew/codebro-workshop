@@ -2,7 +2,7 @@ import { IPost } from '../../models';
 
 export let workPosts: IPost[] = [
     {
-        heading: "CoSpaces Shared offices and meeting rooms",
+        heading: "Coworkrz Shared offices and meeting rooms",
         link:   "https://cb-coworking.herokuapp.com/",
         status: "Work in Progress",
         date:   "Jan 2017 - Present",

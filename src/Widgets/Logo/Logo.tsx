@@ -11,7 +11,7 @@ interface ICallbacks {}
 interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
-    isLogoHovered?: boolean
+    isHovered?: boolean
     isLogoShort?: boolean
 }
 
@@ -20,7 +20,7 @@ export class Logo extends React.Component<IProps, IState> {
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isLogoHovered: false,
+            isHovered: false,
             isLogoShort: true
         };
     }
@@ -28,27 +28,29 @@ export class Logo extends React.Component<IProps, IState> {
     handleClick() {
         this.setState({
             isLogoShort: !this.state.isLogoShort,
-            isLogoHovered: false
+            isHovered: false
         });
     }
 
     handleMouseEnter() {
         this.setState({
-            isLogoHovered: true
+            isHovered: true
         });
     }
 
     handleMouseLeave() {
         this.setState({
-            isLogoHovered: false
+            isHovered: false
         });
     }
 
     render(): JSX.Element {
         let style = {
             display: "inline-block",
-            color: "white",
-            cursor: "pointer"
+            color: "#eeeeee",
+            cursor: "pointer",
+            opacity: this.state.isHovered ? 1 : 0.8,
+            transition: "opacity 200ms"
         };
         let words = this.state.isLogoShort ? ["c", "b"] : ["code", "bro"];
 
@@ -62,7 +64,7 @@ export class Logo extends React.Component<IProps, IState> {
                     <Word
                         key={i}
                         word={word}
-                        isLogoHovered={this.state.isLogoHovered}
+                        isLogoHovered={this.state.isHovered}
                     />)}
             </div>
         );

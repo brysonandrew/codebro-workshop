@@ -23,6 +23,7 @@ interface IProps extends IProperties, ICallbacks {}
 interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
     isHovering?: boolean
+    isMini?: boolean
 }
 
 export class Post extends React.Component<IProps, IState> {
@@ -31,7 +32,8 @@ export class Post extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             isMounted: false,
-            isHovering: false
+            isHovering: false,
+            isMini: false
         }
     }
 
@@ -39,6 +41,16 @@ export class Post extends React.Component<IProps, IState> {
         setTimeout(() => {
             this.setState({isMounted: true})
         }, 0)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.width !== this.props.width) {
+            if (nextProps.width < 720) {
+                this.setState({ isMini: true })
+            } else {
+                this.setState({ isMini: false })
+            }
+        }
     }
 
     handleMouseEnter() {
@@ -50,7 +62,7 @@ export class Post extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        let { isHovering, isMounted } = this.state;
+        let { isHovering, isMounted, isMini } = this.state;
         let { pageIndex, width, height, post } = this.props;
 
         let styles = {
@@ -65,7 +77,7 @@ export class Post extends React.Component<IProps, IState> {
             post__picContainer: {
                 display: "inline-block",
                 verticalAlign: "top",
-                width: "20%",
+                width: isMini ? "50%" :"20%",
             },
             post__pic: {
                 height: 40,
@@ -74,12 +86,12 @@ export class Post extends React.Component<IProps, IState> {
             post__heading: {
                 display: "inline-block",
                 verticalAlign: "top",
-                width: "60%",
+                width: isMini ? "100%" :"60%",
             },
             post__date: {
                 display: "inline-block",
                 verticalAlign: "top",
-                width: "20%",
+                width: isMini ? "50%" :"20%",
             },
             post__paragraph: {
                 textAlign: "left",

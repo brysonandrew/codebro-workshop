@@ -66,7 +66,6 @@ export class Letter extends React.Component<IProps, IState> {
             <div style={ styles.letter }>
                 {this.columns.map((_, columnIndex) => {
                     const isColumnEmpty = findLetter(this.props.letter).filter(stroke => stroke.columnIndex===columnIndex).length === 0;
-                    console.log(findLetter(this.props.letter).filter(stroke => stroke.columnIndex===columnIndex));
                     if (!isColumnEmpty) {
                         return <div key={columnIndex}
                                     style={ Object.assign({}, styles.letter__column,

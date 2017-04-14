@@ -13,7 +13,9 @@ addComponentCSS({
     `
 });
 
-interface IProps {}
+interface IProps {
+    loadingMessage: string
+}
 
 interface IState {}
 
@@ -61,7 +63,7 @@ export class Loading extends React.Component<IProps, IState> {
                                 styles.loader__box,
                                 {animationDelay: `${Math.random() * this.array.length * 40}ms`},
                                 {background: awesomeColors[i]})}/>)}
-                <div style={styles.loader__message}>Loading</div>
+                <div style={styles.loader__message}>{this.props.loadingMessage}</div>
             </div>
         );
     }

@@ -29,8 +29,6 @@ export class Background extends React.Component<IProps, IState> {
     scene;
     renderer;
     material;
-    top;
-    lap;
     count = 0;
     cubeCamera1;
     cubeCamera2;
@@ -39,10 +37,9 @@ export class Background extends React.Component<IProps, IState> {
     phi = 0;
     theta = 0;
     textureLoader = new THREE.TextureLoader();
-    computerComponents;
+    centerPiece;
     pic = "/images/background/1.jpg";
-    code;
-    bro;
+    sphere;
     animateLoop;
 
     public constructor(props?: any, context?: any) {
@@ -112,84 +109,15 @@ export class Background extends React.Component<IProps, IState> {
         this.material = new THREE.MeshBasicMaterial( {
             envMap: this.cubeCamera2.renderTarget.texture
         } );
-        let topPosY = -Math.sin( computer.top.radians )
-            * ( computer.top.depth * 0.5 )
-            - Math.sin( computer.top.radians )
-            * ( computer.top.height * 0.5 )
-            - ( computer.top.height * 0.5 );
-        let topPosZ = Math.cos( computer.top.radians )
-            * ( computer.top.depth * 0.5 )
-            - Math.cos( computer.top.radians )
-            * ( computer.top.height * 0.5 )
-            - ( computer.top.depth * 0.5 );
-        this.computerComponents = new THREE.Group;
+        this.centerPiece = new THREE.Group;
         //top
-        this.top = new THREE
+        this.sphere = new THREE
             .Mesh( new THREE
-            .BoxGeometry( computer.top.width, computer.top.height, computer.top.depth ), this.material );
-        this.top.position.set( 0, topPosY, topPosZ);
-        this.top.rotation.set( computer.top.radians, 0, 0);
-        this.computerComponents.add( this.top );
-        //lap
-        this.lap = new THREE
-            .Mesh( new THREE
-            .BoxGeometry( computer.lap.width, computer.lap.height, computer.lap.depth ), this.material );
-        this.computerComponents.add( this.lap );
+            .SphereGeometry( 20, 100, 100 ), this.material );
+        this.sphere.position.set(0, 10, 0);
+        this.centerPiece.add( this.sphere );
 
-        let textureLoader = new THREE.TextureLoader();
-        textureLoader.load('/images/computer/stencilx.png', (( texture ) => {
-            let screenGeometry = new THREE
-                .PlaneGeometry(28, 28);
-
-            let screenMaterial = new THREE.MeshBasicMaterial({
-                color: 0xffffff,
-                map: texture
-            });
-            screenMaterial.transparent = true;
-
-            let screenMesh = new THREE.Mesh( screenGeometry, screenMaterial );
-            screenMesh.position.set(0, topPosY + 1, topPosZ + 4);
-            screenMesh.rotation.set(computer.top.radians + Math.PI * 0.5, 0, 0);
-
-            this.computerComponents.add(screenMesh);
-        }));
-
-        let fontLoader = new THREE.FontLoader();
-        fontLoader.load( '/fonts/Teko/Teko.typeface.json', (( font ) => {
-                let codeGeometry = new THREE.TextGeometry( 'code', {
-                    font: font,
-                    size: 20,
-                    height: 4,
-                    curveSegments: 10,
-                    bevelEnabled: false,
-                    bevelSize: 0,
-                    bevelThickness: 0,
-                });
-                this.code = new THREE.Mesh( codeGeometry, this.material );
-                this.scene.add( this.code );
-
-                let broGeometry = new THREE.TextGeometry( 'bro', {
-                    font: font,
-                    size: 20,
-                    height: 4,
-                    curveSegments: 10,
-                    bevelEnabled: false,
-                    bevelSize: 0,
-                    bevelThickness: 0,
-                });
-                this.bro = new THREE.Mesh( broGeometry, this.material );
-                this.scene.add( this.bro );
-
-                this.setState({isFontLoaded: true})
-            })
-        );
-
-        this.computerComponents.position
-            .set(computer.position.x,computer.position.y,computer.position.z);
-        this.computerComponents.rotation
-            .set(computer.rotation.x,computer.rotation.y,computer.rotation.z);
-
-        this.scene.add( this.computerComponents );
+        this.scene.add( this.centerPiece );
 
         this.setState({ isMounted: true });
         window.addEventListener( 'resize', () => this.onWindowResized(this.renderer), false );
@@ -210,42 +138,22 @@ export class Background extends React.Component<IProps, IState> {
     renderStill() {
         this.material.envMap = this.cubeCamera1.renderTarget.texture;
         this.cubeCamera2.updateCubeMap( this.renderer, this.scene );
-        this.computerComponents.rotation.x = Math.PI;
-        this.computerComponents.rotation.y = -Math.PI;
-
         this.renderer.render( this.scene, this.camera );
     }
 
     renderMotion() {
         if (this.state.isAnimating) {
-            let time = Date.now();
             this.lon += .15;
             this.lat = Math.max( - 20, Math.min( 20, this.lat ) );
             this.phi = THREE.Math.degToRad( 90 - this.lat );
             this.theta = THREE.Math.degToRad( this.lon );
 
-            this.computerComponents.rotation.y = 100 * Math.sin( -this.phi );
-
-            if (this.state.isFontLoaded) {
-                this.code.position.x = Math.cos( time * 0.001 ) * 20;
-                this.code.position.y = Math.sin( time * 0.001 ) * 20;
-                this.code.position.z = Math.sin( time * 0.001 ) * 20;
-                this.code.rotation.x += 0.02;
-                this.code.rotation.y += 0.03;
-
-                this.bro.position.x = Math.cos( time * 0.001 + 10 ) * 20;
-                this.bro.position.y = Math.sin( time * 0.001 + 10 ) * 20;
-                this.bro.position.z = Math.sin( time * 0.001 + 10 ) * 20;
-                this.bro.rotation.x += 0.02;
-                this.bro.rotation.y += 0.03;
-            }
+            this.centerPiece.rotation.y = 100 * Math.sin( -this.phi );
 
             this.camera.position.x = 100 * Math.sin( this.phi ) * Math.cos( this.theta );
             this.camera.position.y = 100 * Math.cos( this.phi );
             this.camera.position.z = 100 * Math.sin( this.phi ) * Math.sin( this.theta );
             this.camera.lookAt( this.scene.position );
-            this.lap.visible = false;
-            this.top.visible = false;
             // pingpong
             if ( this.count % 2 === 0 ) {
                 this.material.envMap = this.cubeCamera1.renderTarget.texture;
@@ -255,8 +163,6 @@ export class Background extends React.Component<IProps, IState> {
                 this.cubeCamera1.updateCubeMap( this.renderer, this.scene );
             }
             this.count++;
-            this.lap.visible = true;
-            this.top.visible = true;
             this.renderer.render( this.scene, this.camera );
         } else {
             this.renderStill();
@@ -269,7 +175,9 @@ export class Background extends React.Component<IProps, IState> {
             <div>
                 {this.state.isMounted
                     ?   null
-                    :   <Loading/>}
+                    :   <Loading
+                            loadingMessage={"loading fancy background"}
+                        />}
             </div>
         );
     }
