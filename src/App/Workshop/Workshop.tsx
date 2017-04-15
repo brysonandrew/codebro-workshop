@@ -19,14 +19,26 @@ export class Workshop extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const style = {
-            position: "absolute",
-            width: "100%",
-            textAlign: "center",
+        const styles = {
+            workshop: {
+                position: "relative",
+                width: "100%",
+                height: "100vh",
+                textAlign: "center"
+            },
+            workshop__object: {
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)"
+            }
+
         };
         return (
-            <div style={style}>
-                <Logo/>
+            <div style={ styles.workshop }>
+                <div style={ styles.workshop__object }>
+                    <Logo/>
+                </div>
             </div>
         );
     }
