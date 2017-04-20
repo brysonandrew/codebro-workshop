@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { addComponentCSS } from '../utils/css_styler';
 import { awesomeColors } from '../data/awesomeColors';
+import { Logo } from './Logo/Logo'
 
 addComponentCSS({
     //language=CSS
@@ -27,7 +28,7 @@ export class Youtube extends React.Component<IProps, IState> {
         this.state = {
             isActivated: false
         };
-        this.array = Array.apply(null, Array(97)).map(String.prototype.valueOf,"_");
+        this.array = Array.apply(null, Array(100)).map(String.prototype.valueOf,"_");
     }
 
     handleClick() {
@@ -42,8 +43,8 @@ export class Youtube extends React.Component<IProps, IState> {
                 position: "absolute",
                 top: 0,
                 left: 0,
-                width: "100%",
-                height: "100%",
+                width: "100vw",
+                height: "100vh",
                 background: "#eeeeee"
             },
             youtube__inner: {
@@ -55,7 +56,7 @@ export class Youtube extends React.Component<IProps, IState> {
                 height: 400,
                 transform: "translate(-50%, -50%)"
             },
-            youtube__logo: {
+            youtube__feature: {
                 position: "absolute",
                 top: "50%",
                 left: "50%",
@@ -64,7 +65,7 @@ export class Youtube extends React.Component<IProps, IState> {
                 transform: "translate(-50%, -50%)",
                 zIndex: 10
             },
-            youtube__logoPic: {
+            youtube__featurePic: {
                 width: 360,
                 height: "auto",
             },
@@ -72,28 +73,31 @@ export class Youtube extends React.Component<IProps, IState> {
                 float: "left",
                 position: "relative",
                 width: 40,
-                height: 40,
-                // opacity: this.state.isActivated ? 0 : 1,
-                // animation: this.state.isActivated ? "breathe 4000ms" : "none"
+                height: 40
             },
-            youtube__message: {
-                display: "inline-block",
-                color: "#212121",
-                float: "right",
-                height: 40,
-                fontSize: 22
+            youtube__codeBroLogo: {
+                position: "absolute",
+                left: "4vw",
+                top: "2vh",
+                height: 100,
+                width: "100%",
+                textAlign: "left"
+            },
+            youtube__videoTitle: {
+                fontSize: 40
             }
         };
-        const logo = "https://webassets.mongodb.com/_com_assets/cms/MongoDB-Logo-5c3a7405a85675366beb3a5ec4c032348c390b3f142f5e6dddf1d78e2df5cb5c.png";
         return (
             <div style={styles.youtube}>
+                <div style={styles.youtube__codeBroLogo}>
+                    <Logo
+                        isDarkTheme={true}
+                    />
+                </div>
                 <div style={styles.youtube__inner} onClick={() => this.handleClick()}>
-                    <div style={styles.youtube__message}>
-                        codebro.io
-                    </div>
-                    <div style={styles.youtube__logo}>
-                        <img src={logo} style={styles.youtube__logoPic}/>
-                        <div>Part 1</div>
+                    <div style={styles.youtube__feature}>
+                        <img src={"/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/phantomjs.png"} style={styles.youtube__featurePic}/>
+                        <div style={styles.youtube__videoTitle}>Screenshots with PhantomJS</div>
                     </div>
                     {this.array.map((_, i) =>
                         <div key={i}

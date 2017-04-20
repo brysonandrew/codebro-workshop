@@ -7,8 +7,8 @@ import { MenuFromStore } from '../Widgets/Menu';
 import { PostsFromStore } from "../Widgets/Posts/Posts";
 import { BackgroundFromStore } from "../Widgets/Background";
 import { Logo } from "../Widgets/Logo/Logo";
-import {pages} from "../data/pages";
-import {BarChart} from "../Widgets/BarChart/BarChart";
+import { pages } from "../data/pages";
+import { IntroHeader } from "../Widgets/IntroHeader/IntroHeader";
 
 interface IHomeParams {
     activePage: string
@@ -19,7 +19,6 @@ interface IProperties {
     pageIndex?: number
     viewIndex?: number
     width?: number
-    height?: number
 }
 
 interface ICallbacks {
@@ -32,24 +31,29 @@ interface IProps extends IProperties, ICallbacks {
     params: IHomeParams
 }
 
-interface IState extends IProperties, ICallbacks {}
+interface IState extends IProperties, ICallbacks {
+    isMini: boolean
+}
 
 export class Home extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
+        this.state = {
+            isMini: false
+        };
     }
 
     componentDidMount() {
         const { params, onResizeViewport, onPageIndexSelect, onViewIndexSelect } = this.props;
         //routing
         let pageIndex = Immutable.List(pages)
-            .findIndex( (item, index) => item.link === params.activePage );
+                            .findIndex((item, index) => item.link === params.activePage);
         onPageIndexSelect(pageIndex);
 
         if (pageIndex > -1) {
             let viewIndex = Immutable.List(pages[pageIndex].viewLinks)
-                .findIndex( (item, index) => item === params.activeView );
+                                .findIndex((item, index) => item === params.activeView);
             viewIndex = (viewIndex===-1) ? 0 : viewIndex;
             onViewIndexSelect(viewIndex);
         }
@@ -59,6 +63,14 @@ export class Home extends React.Component<IProps, IState> {
                 .innerHeight));
         window.addEventListener("load"
             , () => onResizeViewport(window.innerWidth, window.innerHeight));
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.width !== this.props.width) {
+            this.setState({
+                isMini: (nextProps.width < 600)
+            })
+        }
     }
 
     public render(): JSX.Element {
@@ -71,16 +83,16 @@ export class Home extends React.Component<IProps, IState> {
             },
             home__logo: {
                 position: "absolute",
-                top: "2vh",
+                top: this.state.isMini
+                        ? "86vh" : "2vh",
                 left: "2vw",
                 width: "100%",
                 textAlign: "left"
             },
-            home__barChart: {
+            home__introHeader: {
                 position: "absolute",
                 top: "2vh",
                 right: "4vw",
-                width: 200,
             }
         };
         return (
@@ -88,8 +100,10 @@ export class Home extends React.Component<IProps, IState> {
                 <div style={styles.home__logo}>
                     <Logo/>
                 </div>
-                <div style={styles.home__barChart}>
-                    <BarChart/>
+                <div style={styles.home__introHeader}>
+                    <IntroHeader
+                        isOnFrontPage={(this.props.pageIndex===-1)}
+                    />
                 </div>
                 <MenuFromStore/>
                 {(this.props.pageIndex > -1)
@@ -107,6 +121,7 @@ export class Home extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
+        width: state.subStore.width,
         pageIndex: state.subStore.pageIndex,
         viewIndex: state.subStore.viewIndex
     };

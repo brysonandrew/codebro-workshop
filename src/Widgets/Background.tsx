@@ -69,14 +69,12 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.pageIndex === -1) {
-            this.setState({
-                isAnimating: true
-            })
-        } else {
-            this.setState({
-                isAnimating: false
-            })
+        if (nextProps.pageIndex !== this.props.pageIndex) {
+            if (nextProps.pageIndex === -1) {
+                this.setState({ isAnimating: true });
+            } else {
+                this.setState({ isAnimating: false });
+            }
         }
     }
 

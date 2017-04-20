@@ -1,6 +1,6 @@
 import * as React from 'react';
 import THREE = require('three');
-import {IBar} from "../../models";
+import {IBar} from "../../../models";
 
 interface IBarProps {
     bar: IBar

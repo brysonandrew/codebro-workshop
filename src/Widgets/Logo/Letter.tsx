@@ -6,6 +6,7 @@ import {findLetter} from "./letters";
 interface IProps {
     letter: string
     isLogoHovered: boolean
+    isDarkTheme?: boolean
 }
 
 interface IState {
@@ -46,7 +47,7 @@ export class Letter extends React.Component<IProps, IState> {
                 width: 6,
                 borderRadius: 4,
                 height: "160%",
-                background: "#eeeeee",
+                background: this.props.isDarkTheme ? "#212121" : "#eeeeee",
                 transform: `translate(-50%, -50%) rotate(${this.props.isLogoHovered ? "90deg" : "45deg"})`,
                 transition: "all 400ms"
             },
@@ -57,7 +58,7 @@ export class Letter extends React.Component<IProps, IState> {
                 width: 6,
                 borderRadius: 4,
                 height: "160%",
-                background: "#eeeeee",
+                background: this.props.isDarkTheme ? "#212121" : "#eeeeee",
                 transform: `translate(-50%, -50%) rotate(${this.props.isLogoHovered ? "90deg" : "-45deg"})`,
                 transition: "all 400ms"
             }
