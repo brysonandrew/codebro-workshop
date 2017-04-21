@@ -5,34 +5,17 @@ addComponentCSS({
     //language=CSS
     default: `
         @font-face {
-            font-family: Oxygen;
-            src: url(/fonts/Oxygen/Oxygen-Regular.ttf);
+            font-family: PlayRegular;
+            src: url(/fonts/Play/Play-Regular.ttf);
         }
-        
         @font-face {
-            font-family: Poppins;
-            src: url(/fonts/Poppins/Poppins-Regular.ttf);
+            font-family: PlayBold;
+            src: url(/fonts/Play/Play-Bold.ttf);
         }
-        
-        @font-face {
-            font-family: UrbanJungle;
-            src: url(/fonts/UrbanJungle/UrbanJungle.otf);
-        }
-        
-        @font-face {
-            font-family: Shock;
-            src: url(/fonts/Shock/Shock.otf);
-        }
-        
-        @font-face {
-            font-family: Teko;
-            src: url(/fonts/Teko/Teko-Light.ttf);
-        }
-
         * {
             margin: 0; 
             padding: 0;
-            font-family: Oxygen, 'arial', sans-serif;
+            font-family: PlayRegular, 'arial', sans-serif;
             -webkit-appearance: none;
         }
         

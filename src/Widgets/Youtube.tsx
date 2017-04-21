@@ -28,7 +28,7 @@ export class Youtube extends React.Component<IProps, IState> {
         this.state = {
             isActivated: false
         };
-        this.array = Array.apply(null, Array(100)).map(String.prototype.valueOf,"_");
+        this.array = Array.apply(null, Array(2000)).map(String.prototype.valueOf,"_");
     }
 
     handleClick() {
@@ -50,15 +50,14 @@ export class Youtube extends React.Component<IProps, IState> {
             youtube__inner: {
                 position: "absolute",
                 textAlign: "center",
-                top: "50%",
-                left: "50%",
-                width: 400,
-                height: 400,
-                transform: "translate(-50%, -50%)"
+                top: "20vh",
+                left: "10vw",
+                width: "80vw",
+                height: "100vh"
             },
             youtube__feature: {
                 position: "absolute",
-                top: "50%",
+                top: "20%",
                 left: "50%",
                 padding: "4px 10px",
                 background: "#eeeeee",
@@ -66,7 +65,7 @@ export class Youtube extends React.Component<IProps, IState> {
                 zIndex: 10
             },
             youtube__featurePic: {
-                width: 360,
+                width: 600,
                 height: "auto",
             },
             youtube__box: {
@@ -84,7 +83,8 @@ export class Youtube extends React.Component<IProps, IState> {
                 textAlign: "left"
             },
             youtube__videoTitle: {
-                fontSize: 40
+                fontSize: 60,
+                width: "100%"
             }
         };
         return (

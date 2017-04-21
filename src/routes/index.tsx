@@ -4,7 +4,6 @@ import { App } from '../App/App';
 import { Workshop } from '../App/Workshop/Workshop';
 import {Youtube} from '../Widgets/Youtube';
 import {HomeFromStore} from '../Home/Home';
-import {store} from '../redux/stores/store';
 
 const routes = (
         <Route component={App}>

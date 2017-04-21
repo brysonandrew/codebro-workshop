@@ -44,7 +44,6 @@ export class Logo extends React.Component<ILogoProps, ILogoState> {
         let style = {
             display: "inline-block",
             cursor: "pointer",
-            opacity: this.state.isHovered ? 1 : 0.8,
             transition: "opacity 200ms"
         };
         let words = this.state.isLogoShort ? ["c", "b"] : ["code", "bro"];

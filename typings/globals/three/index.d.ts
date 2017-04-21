@@ -1975,7 +1975,7 @@ declare namespace THREE {
         mimeType: MimeType;
         path: string;
         responseType: string;
-        withCredentials: string        
+        withCredentials: string
 
         load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
         setMimeType(mimeType: MimeType): FileLoader;
@@ -6661,6 +6661,15 @@ declare namespace THREE {
         playAnimation(name: string): void;
         stopAnimation(name: string): void;
         update(delta: number): void;
+    }
+    export class EffectComposer {
+        constructor(renderer: any, rendererTarget?: any);
+    }
+    export class RenderPass {
+        constructor(scene: any, camera?: any);
+    }
+    export class GlitchPass {
+        constructor();
     }
 }
 

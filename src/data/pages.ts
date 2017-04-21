@@ -5,7 +5,7 @@ import { workPosts } from './work/workPosts';
 export const pages: IPage[] = [
     {
         name: "BLOG",
-        link: "blogPosts",
+        link: "blog-posts",
         viewLinks: [],
         posts: blogPosts
     },

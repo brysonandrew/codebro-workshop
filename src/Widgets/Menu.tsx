@@ -4,6 +4,7 @@ import { IStoreState } from '../redux/main_reducer';
 import { changePageIndex } from '../Home/HomeActionCreators';
 import { pages } from '../data/pages';
 import { browserHistory, Link } from 'react-router';
+import { Word } from './Logo/Word';
 
 interface IProperties {
     pageIndex?: number
@@ -20,6 +21,7 @@ interface IProps extends IProperties, ICallbacks {}
 interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
     hoveringIndex?: number
+    isHoverSwitched?: boolean
 }
 
 export class Menu extends React.Component<IProps, IState> {
@@ -28,7 +30,8 @@ export class Menu extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             isMounted: false,
-            hoveringIndex: -1
+            hoveringIndex: -1,
+            isHoverSwitched: false
         }
     }
 
@@ -48,16 +51,18 @@ export class Menu extends React.Component<IProps, IState> {
     }
 
     handleMouseEnter(i) {
-        this.setState({hoveringIndex: i})
+        this.setState({hoveringIndex: i});
     }
 
     handleMouseLeave() {
-        this.setState({hoveringIndex: -1})
+        this.setState({
+            hoveringIndex: -1
+        });
     }
 
     render(): JSX.Element {
         let { hoveringIndex, isMounted } = this.state;
-        let { pageIndex, width, height } = this.props;
+        let { pageIndex, width } = this.props;
 
         let lineAboveTransforms = [
             ((pageIndex > -1)   //blogPosts
@@ -96,11 +101,10 @@ export class Menu extends React.Component<IProps, IState> {
                 padding: "6px 0",
                 verticalAlign: "top",
                 textAlign: "center",
-                opacity: 0.8,
                 width: "50%",
                 fontSize: 40,
-                color: "#eeeeee",
-                fontFamily: "Shock, 'arial', sans-serif",
+                color: "#ffffff",
+                fontFamily: "UrbanJungle, 'arial', sans-serif",
                 transform: isMounted ? "translate3d(0px,0px,0px)" : "translate3d(0px,80px,0px)",
                 transition: "all 400ms",
                 cursor: "pointer"
@@ -110,7 +114,7 @@ export class Menu extends React.Component<IProps, IState> {
                 width: (pageIndex > -1) ? "50%" : "100%",
                 left: "-100%",
                 height: 2,
-                background: "#eeeeee",
+                background: "#ffffff",
                 top: 0,
                 WebkitTransform: (hoveringIndex > -1)
                     ? lineAboveTransforms[hoveringIndex]
@@ -125,7 +129,7 @@ export class Menu extends React.Component<IProps, IState> {
                 width: (pageIndex > -1) ? "50%" : "100%",
                 left: "100%",
                 height: 2,
-                background: "#eeeeee",
+                background: "#ffffff",
                 bottom: 0,
                 WebkitTransform: (hoveringIndex > -1)
                     ? lineBelowTransforms[hoveringIndex]
@@ -146,7 +150,7 @@ export class Menu extends React.Component<IProps, IState> {
             },
             menu_crossArm1: {
                 position: "absolute",
-                background: "#eeeeee",
+                background: "#ffffff",
                 left: -1,
                 width: 3,
                 height: "50%",
@@ -155,12 +159,24 @@ export class Menu extends React.Component<IProps, IState> {
             },
             menu_crossArm2: {
                 position: "absolute",
-                background: "#eeeeee",
+                background: "#ffffff",
                 left: 1,
                 width: 3,
                 height: "50%",
                 transform: (hoveringIndex > -1) ? "rotate(90deg)" : "rotate(-45deg)",
                 transition: "transform 200ms"
+            },
+            menu__name: {
+                display: "inline-block"
+            },
+            menu__nameOrigin: {
+                fontFamily: "PlayBold, 'arial', sans-serif",
+                transition: "opacity 200ms"
+            },
+            menu__nameTransform: {
+                position: "absolute",
+                top: "12.5%",
+                transition: "opacity 200ms"
             }
         };
         return (
@@ -172,8 +188,8 @@ export class Menu extends React.Component<IProps, IState> {
                             style={Object.assign({},
                             styles.menu_selector,
                                 { opacity: (pageIndex > -1)
-                                    ? ((pageIndex===i) ? "1" : "0")
-                                    : ((hoveringIndex===i) ? "1" : "0.85")},
+                                    ? ((pageIndex===i) ? 1 : 0)
+                                    : 1},
                                 { width: (pageIndex > -1)
                                     ? ((pageIndex===i) ? "100%" : "0")
                                     : "50%"})}
@@ -183,7 +199,19 @@ export class Menu extends React.Component<IProps, IState> {
                              onMouseEnter={() => this.handleMouseEnter(i)}
                              onMouseLeave={() => this.handleMouseLeave()}
                     >
-                        {section.name}
+                        <div style={ styles.menu__name }>
+                            <span style={Object.assign({}, styles.menu__nameOrigin,
+                                                            {opacity: hoveringIndex===i ? 0 : 1})}>
+                                {section.name}
+                            </span>
+                            <div style={ Object.assign({}, styles.menu__nameTransform,
+                                                           {opacity: hoveringIndex===i ? 1 : 0})}>
+                                <Word
+                                    word={section.name}
+                                    isLogoHovered={hoveringIndex===i}
+                                />
+                            </div>
+                        </div>
                         {(pageIndex > -1)
                             ?   <div style={styles.menu_cross}>
                                     <div style={styles.menu_crossArm1}></div>

@@ -270,3 +270,6 @@ fabric.properties
 
 # Ignore editor configurations
 .editorconfig
+
+# Ignore unused components
+/unusedComponents

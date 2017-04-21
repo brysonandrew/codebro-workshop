@@ -1,7 +1,5 @@
 import * as React from 'react';
-import THREE = require('three');
-import {connect} from 'react-redux';
-import {findLetter} from "./letters";
+import {findLetter} from "./Letters/letters";
 
 interface IProps {
     letter: string
