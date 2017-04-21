@@ -48,7 +48,9 @@ export class Summary extends React.Component<IProps, IState> {
                 fontSize: 14,
                 background: "#eeeeee",
                 color: "#212121",
-                transition: "opacity 200ms"
+                transform: this.state.isHovered ? "scale(1.05)" : "scale(1)",
+                cursor: "pointer",
+                transition: "all 200ms"
             }
         };
         return (

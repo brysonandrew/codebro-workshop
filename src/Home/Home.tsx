@@ -71,6 +71,16 @@ export class Home extends React.Component<IProps, IState> {
                 isMini: (nextProps.width < 600)
             })
         }
+        if (nextProps.pageIndex !== this.props.pageIndex) {
+            if (nextProps.pageIndex > -1){
+                let viewIndex = Immutable.List(pages[nextProps.pageIndex].viewLinks)
+                                    .findIndex((item, index) => item === this.props.params.activeView);
+                viewIndex = (viewIndex===-1) ? 0 : viewIndex;
+                this.props.onViewIndexSelect(viewIndex);
+            } else {
+                this.props.onViewIndexSelect(-1);
+            }
+        }
     }
 
     public render(): JSX.Element {

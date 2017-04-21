@@ -80,7 +80,7 @@ export class Post extends React.Component<IProps, IState> {
                 width: isMini ? "50%" :"20%",
             },
             post__pic: {
-                height: 40,
+                height: 60,
                 width: "auto"
             },
             post__heading: {

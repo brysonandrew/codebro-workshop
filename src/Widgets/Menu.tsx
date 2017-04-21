@@ -47,6 +47,7 @@ export class Menu extends React.Component<IProps, IState> {
     }
 
     handleCloseClick() {
+        browserHistory.push("");
         this.props.onChangeMenuIndex(-1);
     }
 
@@ -184,7 +185,7 @@ export class Menu extends React.Component<IProps, IState> {
                 <div style={styles.menu_lineAbove}></div>
                 {pages.map((section, i) =>
                     <Link   key={i}
-                            to={section.link}
+                            to={(pageIndex > -1) ? "" : section.link}
                             style={Object.assign({},
                             styles.menu_selector,
                                 { opacity: (pageIndex > -1)

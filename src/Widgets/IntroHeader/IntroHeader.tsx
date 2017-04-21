@@ -6,6 +6,7 @@ import { skills } from "../../data/skills";
 import { ProfileImage } from "./ProfileImage";
 import { Summary } from "./Summary";
 
+
 addComponentCSS({
     //language=CSS
     default: `
@@ -22,7 +23,6 @@ interface IIntroHeaderState {
     isHovered?: boolean
     isMounted?: boolean
     isVisible?: boolean
-
 }
 
 export class IntroHeader extends React.Component<IIntroHeaderProps, IIntroHeaderState> {

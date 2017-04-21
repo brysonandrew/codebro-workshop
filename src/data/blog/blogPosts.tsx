@@ -3,6 +3,32 @@ import { IPost } from '../../models';
 
 export let blogPosts: IPost[] = [
     {
+        heading: "Regular expressions and whitespace",
+        link: "https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions",
+        status: "",
+        date: "18 Apr 2017",
+        content:
+            [
+                "Quick test: If you see a string with ",
+                <code>"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</code>,
+                "how would you convert this to",
+                <div>
+                    <code>"SPACESPACETABTABSPACETABSPACE"</code><span>?</span>
+                </div>,
+                "The answer is is regular expressions.",
+                "Firstly, store the string into a variable",
+                <code>let string = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";</code>,
+                "Then, add some regexp magic for tabs.",
+                <code>string = string.replace(/\t/g, "TAB");</code>,
+                "And then, spaces. This must come second or the tabs will be prematurely converted to spaces.",
+                <code>string = string.replace(/\s/g, "SPACE");</code>,
+                "And voila, We have decoded the mysterious whitespace!",
+                <code>console.log(string);</code>,
+                <img style={{height: 220, width: "auto"}} src="/images/blogPosts/regexpWhitespace/regexpEgyptian.jpg"/>,
+            ],
+        pic: "/images/blogPosts/regexpWhitespace/whiteSpace.jpg"
+    },
+    {
         heading: "Linux tools for Windows",
         link: "http://www.linux.org/",
         status: "",
@@ -28,7 +54,7 @@ export let blogPosts: IPost[] = [
                 "Available on Windows 10 and still in the beta stage of development. You can install specific packages on the command line.",
                 "This is by no means an exhaustive list, only the tools I have looked at."
             ],
-        pic: "/images/blogPosts/linuxToolsForWindows/windows10.png"
+        pic: "/images/blogPosts/linuxTools/windows10.png"
     },
     {
         heading: "Screenshots with Phantomjs and Slimerjs",
@@ -58,16 +84,16 @@ page.open('http://codebro.io', function() {
                     </ul>
                 </div>,
                 "Now as you can see the screenshot has no background. That's because phantomjs cannot pick up anything rendered on WebGL (ie/ 3D web graphics).",
-                <img style={{height: 100, width: "auto"}} src="/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/codebroNoBackground.png"/>,
+                <img style={{height: 100, width: "auto"}} src="/images/blogPosts/phantomjsScreenshots/codebroNoBackground.png"/>,
                 "The good new is slimerjs can pick up WebGL.",
                 <a href="https://slimerjs.org/">
-                    <img style={{height: 100, width: "auto"}} src="/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/slimerjs.jpg"/>
+                    <img style={{height: 100, width: "auto"}} src="/images/blogPosts/phantomjsScreenshots/slimerjs.jpg"/>
                 </a>,
                 "All you need to do is install slimerjs and run your screenshot.js code exactly as is. (Interestingly, slimerjs recognizes even \"phantom.exit()\", but for more serious projects you should change this to \"slimer.exit()\"",
                 <code>slimerjs screenshot.js</code>,
                 "Slimerjs, however, isn't headless so you will see a browser window appear when you run the code and your screen shot produced."
             ],
-        pic: "/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/phantomjs.png"
+        pic: "/images/blogPosts/phantomjsScreenshots/phantomjs.png"
     },
     {
         heading: "Living for the moment, with moment.js",
@@ -133,7 +159,7 @@ console.log(m.format("DD")) //log to console "16"`}
                     Forked and altered build
                 </a>
             ],
-        pic: "/images/blogPosts/myUltimateWebpageBuild/github-logo.jpg"
+        pic: "/images/blogPosts/webpageBuild/github-logo.jpg"
     },
     {
         heading: "THREE.js essentials",
@@ -157,7 +183,7 @@ console.log(m.format("DD")) //log to console "16"`}
                 <code>const cameraHelper = THREE.CameraHelper(camera);</code>,
                 <code>scene.add(cameraHelper);</code>
             ],
-        pic: "/images/blogPosts/ThreejsEssentials/threejs.jpg"
+        pic: "/images/blogPosts/threejsEssentials/threejs.jpg"
     },
     {
         heading: "How to plan a webpage design for a client.",

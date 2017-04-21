@@ -49,7 +49,9 @@ export class BarChart extends React.Component<IProps, IState> {
                     : "1px solid #eeeeee",
                 height: skills.length * 16 + 2,
                 width: "calc(100% + 4px)",
-                transition: "opacity 200ms"
+                transform: this.state.isHovered ? "scale(1.05)" : "scale(1)",
+                cursor: "pointer",
+                transition: "all 200ms"
             }
         };
         return (

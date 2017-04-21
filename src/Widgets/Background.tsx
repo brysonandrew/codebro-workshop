@@ -5,6 +5,7 @@ import { IStoreState } from '../redux/main_reducer';
 import { Flame } from "./flame";
 
 interface IProperties {
+    viewIndex?: number
     pageIndex?: number
     width?: number
     height?: number
@@ -56,9 +57,16 @@ export class Background extends React.Component<IProps, IState> {
     componentWillReceiveProps(nextProps) {
         if (nextProps.pageIndex !== this.props.pageIndex) {
             if (nextProps.pageIndex === -1) {
-                this.setState({ isAnimating: true });
+                setTimeout(() => {
+                    this.setState({
+                        isAnimating: true
+                    });
+                    this.animate();
+                }, 0);
             } else {
-                this.setState({ isAnimating: false });
+                this.setState({
+                    isAnimating: false
+                });
             }
         }
     }
@@ -93,6 +101,7 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
+        console.log(this.state.isAnimating);
         if (this.state.isAnimating) {
             this.flame.burn();
             this.camera.lookAt( this.scene.position );
@@ -101,7 +110,6 @@ export class Background extends React.Component<IProps, IState> {
             this.renderStill();
             cancelAnimationFrame(this.animateLoop);
         }
-
     }
 
     render(): JSX.Element {
@@ -119,6 +127,7 @@ export class Background extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
+        viewIndex: state.subStore.viewIndex,
         pageIndex: state.subStore.pageIndex
     };
 }
