@@ -96,7 +96,7 @@ page.open('http://codebro.io', function() {
         pic: "/images/blogPosts/phantomjsScreenshots/phantomjs.png"
     },
     {
-        heading: "Living for the moment, with moment.js",
+        heading: "Living for the moment with Momentjs",
         link: "https://momentjs.com/",
         status: "",
         date: "14 Mar 2017",
@@ -162,7 +162,7 @@ console.log(m.format("DD")) //log to console "16"`}
         pic: "/images/blogPosts/webpageBuild/github-logo.jpg"
     },
     {
-        heading: "THREE.js essentials",
+        heading: "THREEjs essentials",
         link: "https://threejs.org/examples/misc_controls_orbit.html",
         status: "",
         date: "24 Feb 2017",
@@ -186,7 +186,7 @@ console.log(m.format("DD")) //log to console "16"`}
         pic: "/images/blogPosts/threejsEssentials/threejs.jpg"
     },
     {
-        heading: "How to plan a webpage design for a client.",
+        heading: "How to plan a webpage design for a client",
         link: "",
         status: "",
         date: "7 Feb 2017",

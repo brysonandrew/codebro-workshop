@@ -1,5 +1,4 @@
 import * as React from 'react';
-import THREE = require('three');
 import {connect} from 'react-redux';
 import {addComponentCSS} from './utils/css_styler';
 import {IStoreState} from './redux/main_reducer';

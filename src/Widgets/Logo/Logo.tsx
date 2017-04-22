@@ -4,6 +4,7 @@ import { Word } from './Word';
 
 interface ILogoProps {
     isDarkTheme?: boolean
+    activePageIndex?: number
 }
 
 interface ILogoState {
@@ -46,11 +47,12 @@ export class Logo extends React.Component<ILogoProps, ILogoState> {
             cursor: "pointer",
             transition: "opacity 200ms"
         };
-        let words = this.state.isLogoShort ? ["c", "b"] : ["code", "bro"];
+        let words = this.state.isLogoShort
+                    || (this.props.activePageIndex>-1) ? ["c", "b"] : ["code", "bro"];
 
         return (
             <div style={style}
-                 onClick={() => this.handleClick()}
+                 onClick={(this.props.activePageIndex===-1) ? () => this.handleClick() : null}
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >

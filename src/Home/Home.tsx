@@ -126,8 +126,8 @@ export class Home extends React.Component<IProps, IState> {
             },
             home__logo: {
                 position: "absolute",
-                top: this.state.isMini
-                        ? "86vh" : "2vh",
+                top: this.state.isMini && (this.props.activePageIndex===-1)
+                        ? "85.5vh" : "4.5vh",
                 left: "2vw",
                 width: "100%",
                 textAlign: "left"
@@ -141,7 +141,9 @@ export class Home extends React.Component<IProps, IState> {
         return (
             <div style={styles.home}>
                 <div style={styles.home__logo}>
-                    <Logo/>
+                    <Logo
+                        activePageIndex={this.props.activePageIndex}
+                    />
                 </div>
                 <div style={styles.home__introHeader}>
                     <IntroHeader

@@ -1,12 +1,10 @@
 import * as React from 'react';
-import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../redux/main_reducer';
-import { workPosts } from '../../data/work/workPosts';
-import { blogPosts } from '../../data/blog/blogPosts';
 import { PostFromStore } from './Post';
-import { IHomeParams } from "../../models";
 import { pages } from "../../data/pages";
+import { VerticalMenuSelector } from "../VerticalMenuSelector";
+import { changeViewIndex } from '../../Home/HomeActionCreators';
 
 interface IProperties {
     activePageIndex?: number
@@ -15,7 +13,9 @@ interface IProperties {
     height?: number
 }
 
-interface ICallbacks {}
+interface ICallbacks {
+    onViewIndexSelect?: (activeViewIndex: number) => void
+}
 
 interface IProps extends IProperties, ICallbacks {}
 
@@ -27,6 +27,7 @@ interface IState extends IProperties, ICallbacks {
 export class Posts extends React.Component<IProps, IState> {
 
     timerId;
+    postsRef: HTMLDivElement
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -51,6 +52,10 @@ export class Posts extends React.Component<IProps, IState> {
         this.setState({isHovering: false})
     }
 
+    handleSelectorClick(i) {
+        this.props.onViewIndexSelect(i);
+    }
+
     render(): JSX.Element {
         let { isHovering, isMounted } = this.state;
 
@@ -58,28 +63,56 @@ export class Posts extends React.Component<IProps, IState> {
             posts: {
                 position: "absolute",
                 top: "calc(8% + 40px)",
-                left: "50%",
-                width: "90vw",
+                left: "6vw",
+                width: "94vw",
                 height: "80vh",
+                textAlign: "center"
+
+            },
+            posts__content: {
+                display: "inline-block",
+                width: "88vw",
+                height: "100%",
                 overflowY: "scroll",
                 borderRadius: 8,
-                transform: "translateX(-50%)",
                 zIndex: 1
+            },
+            posts__verticalMenu: {
+                display: "inline-block",
+                verticalAlign: "top",
+                width: "6vw",
+                height: "100%",
+                zIndex: 2
             }
         };
 
         return (
-            <div style={styles.posts}
-                 className={"posts"}
-                 onMouseEnter={() => this.handleMouseEnter()}
-                 onMouseLeave={() => this.handleMouseLeave()}
-            >
-                {pages[this.props.activePageIndex].posts.map((post, i) =>
-                    <PostFromStore
-                        key={i}
-                        viewIndex={i}
-                        post={post}
-                    />)}
+            <div style={styles.posts}>
+                <div style={styles.posts__content}
+                     ref={(el) => this.postsRef = el}
+                     onMouseEnter={() => this.handleMouseEnter()}
+                     onMouseLeave={() => this.handleMouseLeave()}
+                >
+                    {this.state.isMounted && pages[this.props.activePageIndex].posts.map((post, i) =>
+                        <PostFromStore
+                            key={i}
+                            viewIndex={i}
+                            post={post}
+                            postsRef={this.postsRef}
+                        />
+                    )}
+                </div>
+                <div style={styles.posts__verticalMenu}>
+                    {pages[this.props.activePageIndex].posts.map((post, i) =>
+                        <VerticalMenuSelector
+                            key={i}
+                            activePageIndex={this.props.activePageIndex}
+                            viewIndex={i}
+                            post={post}
+                            onClick={this.handleSelectorClick.bind(this)}
+                        />
+                    )}
+                </div>
             </div>
         );
     }
@@ -96,6 +129,14 @@ function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     };
 }
 
+function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
+    return {
+        onViewIndexSelect: (activeViewIndex) => {
+            dispatch(changeViewIndex(activeViewIndex));
+        }
+    }
+}
+
 export let PostsFromStore = connect(
-    mapStateToProps
+    mapStateToProps, mapDispatchToProps
 )(Posts);

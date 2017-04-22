@@ -43,8 +43,8 @@ export class Menu extends React.Component<IProps, IState> {
         }, 0)
     }
 
-    handleOpenClick(i, link) {
-        browserHistory.push(link);
+    handleOpenClick(i, path) {
+        browserHistory.push(path);
         this.props.onChangeMenuIndex(i);
     }
 
@@ -150,7 +150,7 @@ export class Menu extends React.Component<IProps, IState> {
             },
             menu_cross: {
                 position: "absolute",
-                right: 80,
+                right: "calc(2vw - 20px)",
                 top: "50%",
                 opacity: (hoveringIndex > -1) ? 1 : 0.5,
                 width: 40,
@@ -248,8 +248,8 @@ function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
-        onChangeMenuIndex: (menuIndex) => {
-            dispatch(changePageIndex(menuIndex));
+        onChangeMenuIndex: (activePageIndex) => {
+            dispatch(changePageIndex(activePageIndex));
         }
     }
 }
