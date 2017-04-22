@@ -1,34 +1,23 @@
 import * as React from 'react';
-import * as Immutable from 'immutable';
 import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../redux/main_reducer';
-import { changePageIndex, changeViewIndex } from '../../Home/HomeActionCreators';
 import { workPosts } from '../../data/work/workPosts';
 import { blogPosts } from '../../data/blog/blogPosts';
 import { PostFromStore } from './Post';
-import { IPage } from "../../models";
-
-interface IHomeParams {
-    activePage: string
-    activeView: string
-}
+import { IHomeParams } from "../../models";
+import { pages } from "../../data/pages";
 
 interface IProperties {
-    pageIndex?: number
-    viewIndex?: number
+    activePageIndex?: number
+    activeViewIndex?: number
     width?: number
     height?: number
 }
 
-interface ICallbacks {
-    onPageIndexSelect?: (pageIndex: number) => void
-    onViewIndexSelect?: (viewIndex: number) => void
-}
+interface ICallbacks {}
 
-interface IProps extends IProperties, ICallbacks {
-    params?: IHomeParams
-}
+interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
@@ -38,7 +27,6 @@ interface IState extends IProperties, ICallbacks {
 export class Posts extends React.Component<IProps, IState> {
 
     timerId;
-    pages: IPage[];
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -46,35 +34,6 @@ export class Posts extends React.Component<IProps, IState> {
             isMounted: false,
             isHovering: false
         };
-
-        this.pages = [
-            {
-                name: "Blog",
-                link: "./blogPosts",
-                viewLinks: [],
-                posts: blogPosts
-            },
-            {
-                name: "Work",
-                link: "./work",
-                viewLinks: [],
-                posts: workPosts
-            }
-        ]
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.pageIndex > -1 && nextProps.params.activePage !== this.props.params.activePage) {
-            let pageIndex = Immutable.List(this.pages)
-                .findIndex( (item, index) => item.link === nextProps.params.activePage );
-            this.props.onPageIndexSelect(pageIndex);
-        }
-        if (nextProps.pageIndex > -1 && nextProps.params.activeView !== this.props.params.activeView) {
-            let viewIndex = Immutable.List(this.pages[this.props.pageIndex].viewLinks)
-                .findIndex( (item, index) => item === nextProps.params.activeView );
-            viewIndex = (viewIndex===-1) ? 0 : viewIndex;
-            this.props.onViewIndexSelect(viewIndex);
-        }
     }
 
     componentDidMount() {
@@ -94,12 +53,6 @@ export class Posts extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let { isHovering, isMounted } = this.state;
-        let { pageIndex, width, height } = this.props;
-
-        let posts = [
-            blogPosts,
-            workPosts
-        ];
 
         let styles = {
             posts: {
@@ -114,14 +67,17 @@ export class Posts extends React.Component<IProps, IState> {
                 zIndex: 1
             }
         };
+
         return (
             <div style={styles.posts}
+                 className={"posts"}
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >
-                {posts[pageIndex].map((post, i) =>
+                {pages[this.props.activePageIndex].posts.map((post, i) =>
                     <PostFromStore
                         key={i}
+                        viewIndex={i}
                         post={post}
                     />)}
             </div>
@@ -133,24 +89,13 @@ export class Posts extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        pageIndex: state.subStore.pageIndex,
-        viewIndex: state.subStore.viewIndex,
+        activePageIndex: state.subStore.activePageIndex,
+        activeViewIndex: state.subStore.activeViewIndex,
         width: state.subStore.width,
         height: state.subStore.height
     };
 }
 
-function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
-    return {
-        onPageIndexSelect: (pageIndex) => {
-            dispatch(changePageIndex(pageIndex));
-        },
-        onViewIndexSelect: (viewIndex) => {
-            dispatch(changeViewIndex(viewIndex));
-        }
-    }
-}
-
 export let PostsFromStore = connect(
-    mapStateToProps, mapDispatchToProps
+    mapStateToProps
 )(Posts);

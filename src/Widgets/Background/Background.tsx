@@ -1,12 +1,12 @@
 import * as React from 'react';
 import THREE = require('three');
 import { connect } from 'react-redux';
-import { IStoreState } from '../redux/main_reducer';
+import { IStoreState } from '../../redux/main_reducer';
 import { Flame } from "./flame";
 
 interface IProperties {
-    viewIndex?: number
-    pageIndex?: number
+    activePageIndex?: number
+    activeViewIndex?: number
     width?: number
     height?: number
 }
@@ -36,7 +36,7 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        if (this.props.pageIndex === -1) {
+        if (this.props.activePageIndex === -1) {
             this.setState({
                 isAnimating: true,
                 isMounted: true
@@ -55,8 +55,8 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.pageIndex !== this.props.pageIndex) {
-            if (nextProps.pageIndex === -1) {
+        if (nextProps.activePageIndex !== this.props.activePageIndex) {
+            if (nextProps.activePageIndex === -1) {
                 setTimeout(() => {
                     this.setState({
                         isAnimating: true
@@ -72,7 +72,8 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     init() {
-        this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+        this.camera = new THREE.PerspectiveCamera( 45,
+                        window.innerWidth / window.innerHeight, 1, 1000 );
         this.camera.position.z = 280;
         this.scene = new THREE.Scene();
         this.renderer = new THREE.WebGLRenderer();
@@ -101,7 +102,6 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
-        console.log(this.state.isAnimating);
         if (this.state.isAnimating) {
             this.flame.burn();
             this.camera.lookAt( this.scene.position );
@@ -127,8 +127,8 @@ export class Background extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        viewIndex: state.subStore.viewIndex,
-        pageIndex: state.subStore.pageIndex
+        activeViewIndex: state.subStore.activeViewIndex,
+        activePageIndex: state.subStore.activePageIndex
     };
 }
 

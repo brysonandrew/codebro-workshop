@@ -2,6 +2,7 @@ import * as React from 'react';
 import { addComponentCSS } from '../utils/css_styler';
 import { awesomeColors } from '../data/awesomeColors';
 import { Logo } from './Logo/Logo'
+import { IHomeParams } from '../models';
 
 addComponentCSS({
     //language=CSS
@@ -13,13 +14,13 @@ addComponentCSS({
     `
 });
 
-interface IProps {}
+interface IVlogProps {}
 
-interface IState {
+interface IVlogState {
     isActivated: boolean
 }
 
-export class Youtube extends React.Component<IProps, IState> {
+export class Vlog extends React.Component<IVlogProps, IVlogState> {
 
     array;
 
@@ -39,7 +40,7 @@ export class Youtube extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let styles = {
-            youtube: {
+            vlog: {
                 position: "absolute",
                 top: 0,
                 left: 0,
@@ -47,7 +48,7 @@ export class Youtube extends React.Component<IProps, IState> {
                 height: "100vh",
                 background: "#eeeeee"
             },
-            youtube__inner: {
+            vlog__inner: {
                 position: "absolute",
                 textAlign: "center",
                 top: "20vh",
@@ -55,7 +56,7 @@ export class Youtube extends React.Component<IProps, IState> {
                 width: "80vw",
                 height: "100vh"
             },
-            youtube__feature: {
+            vlog__feature: {
                 position: "absolute",
                 top: "20%",
                 left: "50%",
@@ -64,17 +65,17 @@ export class Youtube extends React.Component<IProps, IState> {
                 transform: "translate(-50%, -50%)",
                 zIndex: 10
             },
-            youtube__featurePic: {
+            vlog__featurePic: {
                 width: 600,
                 height: "auto",
             },
-            youtube__box: {
+            vlog__box: {
                 float: "left",
                 position: "relative",
                 width: 40,
                 height: 40
             },
-            youtube__codeBroLogo: {
+            vlog__codeBroLogo: {
                 position: "absolute",
                 left: "4vw",
                 top: "2vh",
@@ -82,27 +83,31 @@ export class Youtube extends React.Component<IProps, IState> {
                 width: "100%",
                 textAlign: "left"
             },
-            youtube__videoTitle: {
+            vlog__videoTitle: {
                 fontSize: 60,
                 width: "100%"
             }
         };
         return (
-            <div style={styles.youtube}>
-                <div style={styles.youtube__codeBroLogo}>
+            <div style={styles.vlog}>
+                <div style={styles.vlog__codeBroLogo}>
                     <Logo
                         isDarkTheme={true}
                     />
                 </div>
-                <div style={styles.youtube__inner} onClick={() => this.handleClick()}>
-                    <div style={styles.youtube__feature}>
-                        <img src={"/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/phantomjs.png"} style={styles.youtube__featurePic}/>
-                        <div style={styles.youtube__videoTitle}>Screenshots with PhantomJS</div>
+                <div style={styles.vlog__inner} onClick={() => this.handleClick()}>
+                    <div style={styles.vlog__feature}>
+                        <img style={styles.vlog__featurePic}
+                             src={"/images/blogPosts/screenshotsWithPhantomjsAndSlimerjs/phantomjs.png"}
+                        />
+                        <div style={styles.vlog__videoTitle}>
+                            Screenshots with PhantomJS
+                        </div>
                     </div>
                     {this.array.map((_, i) =>
                         <div key={i}
                              style={Object.assign({},
-                                styles.youtube__box,
+                                styles.vlog__box,
                                 {background: awesomeColors[i]})}/>)}
                 </div>
             </div>

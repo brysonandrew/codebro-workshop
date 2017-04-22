@@ -1,24 +1,24 @@
 import * as React from 'react';
-import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../redux/main_reducer';
 import { IPost } from '../../models';
 import { changePageIndex } from '../../Home/HomeActionCreators';
-import { pages } from '../../data/pages';
-
 
 interface IProperties {
-    pageIndex?: number
+    activePageIndex?: number
+    activeViewIndex?: number
     width?: number
     height?: number
-    post?: IPost
 }
 
 interface ICallbacks {
     onChangeMenuIndex?: (menuIndex: number) => void
 }
 
-interface IProps extends IProperties, ICallbacks {}
+interface IProps extends IProperties, ICallbacks {
+    viewIndex?: number
+    post?: IPost
+}
 
 interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
@@ -27,6 +27,8 @@ interface IState extends IProperties, ICallbacks {
 }
 
 export class Post extends React.Component<IProps, IState> {
+
+    containerEl: HTMLDivElement;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -40,7 +42,11 @@ export class Post extends React.Component<IProps, IState> {
     componentDidMount() {
         setTimeout(() => {
             this.setState({isMounted: true})
-        }, 0)
+        }, 0);
+        const isSelectedView = this.props.activeViewIndex===this.props.viewIndex;
+        if (isSelectedView) {
+            document.getElementsByClassName("posts")[0].scrollTop = this.containerEl.offsetHeight;
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -63,7 +69,7 @@ export class Post extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let { isHovering, isMounted, isMini } = this.state;
-        let { pageIndex, width, height, post } = this.props;
+        let { activePageIndex, width, height, post } = this.props;
 
         let styles = {
             post: {
@@ -100,6 +106,7 @@ export class Post extends React.Component<IProps, IState> {
         };
         return (
             <div style={styles.post}
+                 ref={el => this.containerEl = el}
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >
@@ -127,7 +134,8 @@ export class Post extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        pageIndex: state.subStore.pageIndex,
+        activePageIndex: state.subStore.activePageIndex,
+        activeViewIndex: state.subStore.activeViewIndex,
         width: state.subStore.width,
         height: state.subStore.height
     };

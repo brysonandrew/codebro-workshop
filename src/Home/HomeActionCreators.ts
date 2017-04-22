@@ -15,20 +15,20 @@ export function changeViewportDimensions(width, height) {
     }
 }
 
-export function changePageIndex(pageIndex) {
+export function changePageIndex(activePageIndex) {
     return dispatch => {
         // We dispatch the init action before fetching the data
         dispatch(createAction<UPDATE__PAGE_INDEX>(UPDATE__PAGE_INDEX.type, {
-            pageIndex: pageIndex,
+            activePageIndex: activePageIndex,
         }));
     }
 }
 
-export function changeViewIndex(viewIndex) {
+export function changeViewIndex(activeViewIndex) {
     return dispatch => {
         // We dispatch the init action before fetching the data
         dispatch(createAction<UPDATE__VIEW_INDEX>(UPDATE__VIEW_INDEX.type, {
-            viewIndex: viewIndex,
+            activeViewIndex: activeViewIndex,
         }));
     }
 }

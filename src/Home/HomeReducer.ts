@@ -7,15 +7,15 @@ import {
 import {createReducer} from "../redux/utils/reducers";
 
 export interface ISubState {
-    pageIndex: number
-    viewIndex: number
+    activePageIndex: number
+    activeViewIndex: number
     width: number
     height: number
 }
 
 let initialState : ISubState = {
-    pageIndex: -1,
-    viewIndex: -1,
+    activePageIndex: -1,
+    activeViewIndex: -1,
     width: 1920,
     height: 1080
 };
@@ -25,7 +25,7 @@ export let subReducer = createReducer<ISubState>(initialState, [
         action: UPDATE__PAGE_INDEX,
         handler: function (state: ISubState, action: UPDATE__PAGE_INDEX) {
             return Immutable.fromJS(state)
-                .setIn(['pageIndex'], action.pageIndex)
+                .setIn(['activePageIndex'], action.activePageIndex)
                 .toJS();
         }
     },
@@ -33,7 +33,7 @@ export let subReducer = createReducer<ISubState>(initialState, [
         action: UPDATE__VIEW_INDEX,
         handler: function (state: ISubState, action: UPDATE__VIEW_INDEX) {
             return Immutable.fromJS(state)
-                .setIn(['viewIndex'], action.viewIndex)
+                .setIn(['activeViewIndex'], action.activeViewIndex)
                 .toJS();
         }
     },

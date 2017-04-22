@@ -3,7 +3,7 @@ export module UPDATE__PAGE_INDEX {
 }
 
 export interface UPDATE__PAGE_INDEX {
-    pageIndex: number;
+    activePageIndex: number;
 }
 
 export module UPDATE__VIEW_INDEX {
@@ -11,7 +11,7 @@ export module UPDATE__VIEW_INDEX {
 }
 
 export interface UPDATE__VIEW_INDEX {
-    viewIndex: number;
+    activeViewIndex: number;
 }
 
 export module UPDATE__VIEWPORT_DIMENSIONS {

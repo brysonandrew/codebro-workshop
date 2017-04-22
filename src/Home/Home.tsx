@@ -5,19 +5,16 @@ import { IStoreState } from '../redux/main_reducer';
 import { changePageIndex, changeViewIndex, changeViewportDimensions } from './HomeActionCreators';
 import { MenuFromStore } from '../Widgets/Menu';
 import { PostsFromStore } from "../Widgets/Posts/Posts";
-import { BackgroundFromStore } from "../Widgets/Background";
+import { BackgroundFromStore } from "../Widgets/Background/Background";
 import { Logo } from "../Widgets/Logo/Logo";
 import { pages } from "../data/pages";
 import { IntroHeader } from "../Widgets/IntroHeader/IntroHeader";
-
-interface IHomeParams {
-    activePage: string
-    activeView: string
-}
+import { Vlog } from "../Widgets/Vlog";
+import { IComponentType, IHomeParams } from "../models";
 
 interface IProperties {
-    pageIndex?: number
-    viewIndex?: number
+    activePageIndex?: number
+    activeViewIndex?: number
     width?: number
 }
 
@@ -37,6 +34,19 @@ interface IState extends IProperties, ICallbacks {
 
 export class Home extends React.Component<IProps, IState> {
 
+    componentIndex = 0;
+
+    componentTypes: IComponentType[] = [
+        {
+            handle:     "post",
+            component:  <PostsFromStore/>
+        },
+        {
+            handle:     "thumbnail",
+            component:  <Vlog/>
+        }
+    ];
+
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
@@ -47,15 +57,21 @@ export class Home extends React.Component<IProps, IState> {
     componentDidMount() {
         const { params, onResizeViewport, onPageIndexSelect, onViewIndexSelect } = this.props;
         //routing
-        let pageIndex = Immutable.List(pages)
-                            .findIndex((item, index) => item.link === params.activePage);
-        onPageIndexSelect(pageIndex);
-
-        if (pageIndex > -1) {
-            let viewIndex = Immutable.List(pages[pageIndex].viewLinks)
-                                .findIndex((item, index) => item === params.activeView);
-            viewIndex = (viewIndex===-1) ? 0 : viewIndex;
-            onViewIndexSelect(viewIndex);
+        /////SET PAGE
+        let activePageIndex = Immutable.List(pages)
+                                .findIndex((item, index) =>
+                                    item.path === params.activePage);
+        onPageIndexSelect(activePageIndex);
+        if (activePageIndex > -1) {
+            /////SET VIEW
+            let activeViewIndex = Immutable.List(pages[activePageIndex].viewLinks)
+                                    .findIndex(item =>
+                                        item === params.activeView);
+            onViewIndexSelect(activeViewIndex);
+            /////SET COMPONENT TYPE
+            this.componentIndex = Immutable.List(this.componentTypes)
+                                    .findIndex((item, index) =>
+                                        item.handle === pages[activePageIndex].componentType);
         }
         //responsive on window resize
         window.addEventListener("resize"
@@ -66,21 +82,38 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
+        const { onPageIndexSelect, onViewIndexSelect } = this.props;
         if (nextProps.width !== this.props.width) {
             this.setState({
                 isMini: (nextProps.width < 600)
             })
         }
-        if (nextProps.pageIndex !== this.props.pageIndex) {
-            if (nextProps.pageIndex > -1){
-                let viewIndex = Immutable.List(pages[nextProps.pageIndex].viewLinks)
-                                    .findIndex((item, index) => item === this.props.params.activeView);
-                viewIndex = (viewIndex===-1) ? 0 : viewIndex;
-                this.props.onViewIndexSelect(viewIndex);
+        if (nextProps.activePageIndex !== this.props.activePageIndex) {
+            if (nextProps.activePageIndex > -1){
+                /////SET PAGE
+                let activePageIndex = Immutable.List(pages)
+                                        .findIndex((item, index) =>
+                                            item.path === nextProps.params.activePage);
+                onPageIndexSelect(activePageIndex);
+                if (activePageIndex > -1) {
+                    /////SET VIEW
+                    let activeViewIndex = Immutable.List(pages[activePageIndex].viewLinks)
+                                            .findIndex(item =>
+                                                item === nextProps.params.activeView);
+                    onViewIndexSelect(activeViewIndex);
+                    /////SET COMPONENT TYPE
+                    this.componentIndex = Immutable.List(this.componentTypes)
+                                            .findIndex((item, index) =>
+                                                item.handle === pages[activePageIndex].componentType);
+                }
             } else {
                 this.props.onViewIndexSelect(-1);
             }
         }
+    }
+
+    renderActivePage() {
+        return this.componentTypes[this.componentIndex].component
     }
 
     public render(): JSX.Element {
@@ -112,14 +145,12 @@ export class Home extends React.Component<IProps, IState> {
                 </div>
                 <div style={styles.home__introHeader}>
                     <IntroHeader
-                        isOnFrontPage={(this.props.pageIndex===-1)}
+                        isOnFrontPage={(this.props.activePageIndex===-1)}
                     />
                 </div>
                 <MenuFromStore/>
-                {(this.props.pageIndex > -1)
-                    ?   <PostsFromStore
-                            params={this.props.params}
-                        />
+                {(this.props.activePageIndex > -1)
+                    ?   this.renderActivePage()
                     :   null}
                 <BackgroundFromStore/>
             </div>
@@ -132,8 +163,8 @@ export class Home extends React.Component<IProps, IState> {
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
         width: state.subStore.width,
-        pageIndex: state.subStore.pageIndex,
-        viewIndex: state.subStore.viewIndex
+        activePageIndex: state.subStore.activePageIndex,
+        activeViewIndex: state.subStore.activeViewIndex
     };
 }
 
@@ -142,11 +173,11 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
         onResizeViewport: (width, height) => {
             dispatch(changeViewportDimensions(width, height));
         },
-        onPageIndexSelect: (pageIndex) => {
-            dispatch(changePageIndex(pageIndex));
+        onPageIndexSelect: (activePageIndex) => {
+            dispatch(changePageIndex(activePageIndex));
         },
-        onViewIndexSelect: (viewIndex) => {
-            dispatch(changeViewIndex(viewIndex));
+        onViewIndexSelect: (activeViewIndex) => {
+            dispatch(changeViewIndex(activeViewIndex));
         }
     }
 }

@@ -7,7 +7,7 @@ import { browserHistory, Link } from 'react-router';
 import { Word } from './Logo/Word';
 
 interface IProperties {
-    pageIndex?: number
+    activePageIndex?: number
     width?: number
     height?: number
 }
@@ -25,6 +25,8 @@ interface IState extends IProperties, ICallbacks {
 }
 
 export class Menu extends React.Component<IProps, IState> {
+
+    menuItems = pages.filter((item, index) => item.componentType === "post");
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -63,31 +65,37 @@ export class Menu extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let { hoveringIndex, isMounted } = this.state;
-        let { pageIndex, width } = this.props;
+        let { activePageIndex, width } = this.props;
 
         let lineAboveTransforms = [
-            ((pageIndex > -1)   //blogPosts
+            ((activePageIndex > -1)   //blogPosts
                 ? `translate3d(${width * 1.25}px,0px,0px)`      //menuactive
                 : `translate3d(${width * 0.25}px,0px,0px)`),    //frontpage
-            ((pageIndex > -1)   //work
+            ((activePageIndex > -1)   //work
                 ? `translate3d(${width * 1.25}px,0px,0px)`      //menuactive
-                : `translate3d(${width * 0.75}px,0px,0px)`)     //frontpage
+                : `translate3d(${width * 0.75}px,0px,0px)`),    //frontpage
+            ((activePageIndex > -1)   //blogPosts
+                ? `translate3d(${width * 1.25}px,0px,0px)`      //menuactive
+                : `translate3d(${width * 0.50}px,0px,0px)`),    //frontpage
         ];
 
         let lineBelowTransforms = [
-            ((pageIndex > -1)   //blogPosts
+            ((activePageIndex > -1)   //blogPosts
                 ? `translate3d(${-width * 0.75}px,0px,0px)`      //menuactive
                 : `translate3d(${-width * 0.75}px,0px,0px)`),    //frontpage
-            ((pageIndex > -1)   //work
+            ((activePageIndex > -1)   //work
                 ? `translate3d(${-width * 0.75}px,0px,0px)`      //menuactive
-                : `translate3d(${-width * 0.25}px,0px,0px)`)    //frontpage
+                : `translate3d(${-width * 0.25}px,0px,0px)`),    //frontpage
+            ((activePageIndex > -1)   //work
+                ? `translate3d(${-width * 0.75}px,0px,0px)`      //menuactive
+                : `translate3d(${-width * 0.5}px,0px,0px)`)      //frontpage
         ];
 
         let styles = {
             menu: {
                 position: "absolute",
                 width: "100%",
-                top: (pageIndex > -1) ? "8%" : "50%",
+                top: (activePageIndex > -1) ? "8%" : "50%",
                 transform: "translateY(-50%)",
                 overflow: "hidden",
                 transition: "top 400ms"
@@ -102,7 +110,7 @@ export class Menu extends React.Component<IProps, IState> {
                 padding: "6px 0",
                 verticalAlign: "top",
                 textAlign: "center",
-                width: "50%",
+                width: 100 / this.menuItems.length + "%",
                 fontSize: 40,
                 color: "#ffffff",
                 fontFamily: "UrbanJungle, 'arial', sans-serif",
@@ -112,7 +120,7 @@ export class Menu extends React.Component<IProps, IState> {
             },
             menu_lineAbove: {
                 position: "absolute",
-                width: (pageIndex > -1) ? "50%" : "100%",
+                width: (activePageIndex > -1) ? "50%" : "100%",
                 left: "-100%",
                 height: 2,
                 background: "#ffffff",
@@ -127,7 +135,7 @@ export class Menu extends React.Component<IProps, IState> {
             },
             menu_lineBelow: {
                 position: "absolute",
-                width: (pageIndex > -1) ? "50%" : "100%",
+                width: (activePageIndex > -1) ? "50%" : "100%",
                 left: "100%",
                 height: 2,
                 background: "#ffffff",
@@ -183,20 +191,20 @@ export class Menu extends React.Component<IProps, IState> {
         return (
             <div style={styles.menu}>
                 <div style={styles.menu_lineAbove}></div>
-                {pages.map((section, i) =>
+                {this.menuItems.map((section, i) =>
                     <Link   key={i}
-                            to={(pageIndex > -1) ? "" : section.link}
+                            to={(activePageIndex > -1) ? "" : section.path}
                             style={Object.assign({},
                             styles.menu_selector,
-                                { opacity: (pageIndex > -1)
-                                    ? ((pageIndex===i) ? 1 : 0)
+                                { opacity: (activePageIndex > -1)
+                                    ? ((activePageIndex===i) ? 1 : 0)
                                     : 1},
-                                { width: (pageIndex > -1)
-                                    ? ((pageIndex===i) ? "100%" : "0")
+                                { width: (activePageIndex > -1)
+                                    ? ((activePageIndex===i) ? "100%" : "0")
                                     : "50%"})}
-                             onClick={(pageIndex > -1)
+                             onClick={(activePageIndex > -1)
                                 ? (() => this.handleCloseClick())
-                                : (() => this.handleOpenClick(i, section.link))}
+                                : (() => this.handleOpenClick(i, section.path))}
                              onMouseEnter={() => this.handleMouseEnter(i)}
                              onMouseLeave={() => this.handleMouseLeave()}
                     >
@@ -213,7 +221,7 @@ export class Menu extends React.Component<IProps, IState> {
                                 />
                             </div>
                         </div>
-                        {(pageIndex > -1)
+                        {(activePageIndex > -1)
                             ?   <div style={styles.menu_cross}>
                                     <div style={styles.menu_crossArm1}></div>
                                     <div style={styles.menu_crossArm2}></div>
@@ -231,7 +239,7 @@ export class Menu extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        pageIndex: state.subStore.pageIndex,
+        activePageIndex: state.subStore.activePageIndex,
         width: state.subStore.width,
         height: state.subStore.height
     };

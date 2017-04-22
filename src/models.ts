@@ -13,7 +13,8 @@ export interface IPost {
 
 export interface IPage {
     name: string
-    link: string
+    path: string
+    componentType: string
     viewLinks: any[]
     posts: IPost[]
 }
@@ -21,4 +22,14 @@ export interface IPage {
 export interface IBar {
     heading: string
     quantity: number
+}
+
+export interface IComponentType {
+    handle: string
+    component: JSX.Element
+}
+
+export interface IHomeParams {
+    activePage: string
+    activeView: string
 }
