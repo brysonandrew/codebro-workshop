@@ -127,7 +127,7 @@ console.log(m.format("DD")) //log to console "16"`}
         pic: "/images/blogPosts/livingForTheMoment/momentjs.png"
     },
     {
-        heading: "My ultimate webpage build",
+        heading: "The ultimate webpage build",
         link: "https://github.com/brysonandrew/isomorphic-react-redux-typescript",
         status: "",
         date: "26 Feb 2017",
@@ -186,7 +186,7 @@ console.log(m.format("DD")) //log to console "16"`}
         pic: "/images/blogPosts/threejsEssentials/threejs.jpg"
     },
     {
-        heading: "How to plan a webpage design for a client",
+        heading: "Planning a webpage design for a client",
         link: "",
         status: "",
         date: "7 Feb 2017",

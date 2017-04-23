@@ -63,6 +63,14 @@ export class Background extends React.Component<IProps, IState> {
                     });
                     this.animate();
                 }, 0);
+            } else if (nextProps.activePageIndex === 2) {
+                setTimeout(() => {
+                    this.setState({
+                        isAnimating: true
+                    });
+                    this.animate();
+                }, 0);
+                this.camera.position.z = 100;
             } else {
                 this.setState({
                     isAnimating: false

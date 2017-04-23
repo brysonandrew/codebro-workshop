@@ -19,9 +19,9 @@ export const pages: IPage[] = [
     },
     {
         name: "VLOG",
-        path: "youtube",
+        path: "thumbnail",
         componentType: "thumbnail",
         viewLinks: blogPosts.map(post => post.heading.replace(/\s/g, "-").toLowerCase()),
-        posts: []
+        posts: blogPosts
     }
 ];

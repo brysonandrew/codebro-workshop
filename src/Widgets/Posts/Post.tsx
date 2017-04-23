@@ -25,7 +25,6 @@ interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
     isHovering?: boolean
     isMini?: boolean
-    scroll?: any
 }
 
 export class Post extends React.Component<IProps, IState> {
@@ -37,8 +36,7 @@ export class Post extends React.Component<IProps, IState> {
         this.state = {
             isMounted: false,
             isHovering: false,
-            isMini: false,
-            scroll: 0
+            isMini: false
         }
     }
 
@@ -47,11 +45,6 @@ export class Post extends React.Component<IProps, IState> {
             this.setState({isMounted: true})
         }, 0);
         const isSelectedView = this.props.activeViewIndex===this.props.viewIndex;
-
-        this.props.postsRef.addEventListener("scroll", (e: Event) =>
-            this.setState({
-                scroll: e.target
-            }));
         if (isSelectedView) {
             let element = this.containerEl;
             this.props.postsRef.scrollTop = (element.offsetTop - element.scrollTop + element.clientTop);

@@ -9,7 +9,7 @@ import { BackgroundFromStore } from "../Widgets/Background/Background";
 import { Logo } from "../Widgets/Logo/Logo";
 import { pages } from "../data/pages";
 import { IntroHeader } from "../Widgets/IntroHeader/IntroHeader";
-import { Vlog } from "../Widgets/Vlog";
+import { ThumbnailFromStore } from "../Widgets/Thumbnail";
 import { IComponentType, IHomeParams } from "../models";
 
 interface IProperties {
@@ -43,7 +43,7 @@ export class Home extends React.Component<IProps, IState> {
         },
         {
             handle:     "thumbnail",
-            component:  <Vlog/>
+            component:  <ThumbnailFromStore/>
         }
     ];
 
@@ -112,10 +112,6 @@ export class Home extends React.Component<IProps, IState> {
         }
     }
 
-    renderActivePage() {
-        return this.componentTypes[this.componentIndex].component
-    }
-
     public render(): JSX.Element {
         let styles = {
             home: {
@@ -152,7 +148,7 @@ export class Home extends React.Component<IProps, IState> {
                 </div>
                 <MenuFromStore/>
                 {(this.props.activePageIndex > -1)
-                    ?   this.renderActivePage()
+                    ?   this.componentTypes[this.componentIndex].component
                     :   null}
                 <BackgroundFromStore/>
             </div>

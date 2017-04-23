@@ -52,7 +52,8 @@ export class Logo extends React.Component<ILogoProps, ILogoState> {
 
         return (
             <div style={style}
-                 onClick={(this.props.activePageIndex===-1) ? () => this.handleClick() : null}
+                 onClick={(this.props.activePageIndex===-1)
+                            ? () => this.handleClick() : null}
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >
