@@ -64,7 +64,15 @@ export class Slideshow extends React.Component<IProps, IState> {
                 width: "80%",
                 fontSize: 100,
                 color: "#eeeeee",
-                transform: "translate(-50%, -50%)"
+                transform: "translate(-50%, -50%)",
+                zIndex: 1
+            },
+            slideshow__pic: {
+                position: "absolute",
+                top: "10vh",
+                height: "80vh",
+                width: "auto",
+                opacity: 0.5
             }
         };
         const slideshowInfo = pages[this.props.activePageIndex].posts[this.props.activeViewIndex];
@@ -73,6 +81,10 @@ export class Slideshow extends React.Component<IProps, IState> {
                 <div style={styles.slideshow__videoTitle}>
                     {slideshowInfo.heading}
                 </div>
+                <img
+                    style={styles.slideshow__pic}
+                    src={slideshowInfo.pic}
+                />
             </div>
         );
     }

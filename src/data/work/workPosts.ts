@@ -14,7 +14,7 @@ export let workPosts: IPost[] = [
                 "An interesting thing I have learnt so far is that German laws are incredibly strict when it comes to what kind of photo's you can use, even photos purchased from major websites like ShutterStock didn't pass the test. We eventually found a site that provided this.",
                 "I am making this website on a fixed price basis and clearly laid out milestones and when installments should be paid, also tasks like procuring photos, logo, registering domain and making mockups I gave to the website owner.",
             ],
-        pic:    "/images/work/coworkrz/cospaces_thumbnail.jpg"
+        pic:    "/images/work/coworkrz/coworkrz_thumbnail.jpg"
     },
     {
         heading: "Eventerprise Events Management",

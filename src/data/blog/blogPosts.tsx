@@ -15,7 +15,7 @@ export let blogPosts: IPost[] = [
                 <div>
                     <code>"SPACESPACETABTABSPACETABSPACE"</code><span>?</span>
                 </div>,
-                "The answer is is regular expressions.",
+                "The answer is with regular expressions.",
                 "Firstly, store the string into a variable",
                 <code>let string = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";</code>,
                 "Then, add some regexp magic for tabs.",
@@ -23,7 +23,7 @@ export let blogPosts: IPost[] = [
                 "And then, spaces. This must come second or the tabs will be prematurely converted to spaces.",
                 <code>string = string.replace(/\s/g, "SPACE");</code>,
                 "And voila, We have decoded the mysterious whitespace!",
-                <code>console.log(string);</code>,
+                <code>console.log(string); //"SPACESPACETABTABSPACETABSPACE"</code>,
                 <img style={{height: 220, width: "auto"}} src="/images/blogPosts/regexpWhitespace/regexpEgyptian.jpg"/>,
             ],
         pic: "/images/blogPosts/regexpWhitespace/whiteSpace.jpg"
