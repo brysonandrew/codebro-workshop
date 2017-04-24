@@ -9,7 +9,7 @@ import { BackgroundFromStore } from "../Widgets/Background/Background";
 import { Logo } from "../Widgets/Logo/Logo";
 import { pages } from "../data/pages";
 import { IntroHeader } from "../Widgets/IntroHeader/IntroHeader";
-import { ThumbnailFromStore } from "../Widgets/Thumbnail";
+import { SlideshowFromStore } from "../Widgets/Slideshow/Slideshow";
 import { IComponentType, IHomeParams } from "../models";
 
 interface IProperties {
@@ -42,8 +42,8 @@ export class Home extends React.Component<IProps, IState> {
             component:  <PostsFromStore/>
         },
         {
-            handle:     "thumbnail",
-            component:  <ThumbnailFromStore/>
+            handle:     "slideshow",
+            component:  <SlideshowFromStore/>
         }
     ];
 

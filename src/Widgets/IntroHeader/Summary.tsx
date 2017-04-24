@@ -39,18 +39,26 @@ export class Summary extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
+        const { isHovered, isMounted } = this.state;
         const styles = {
             summary: {
-                border: this.state.isHovered
+                border: isHovered
                             ? "1px solid #757575"
                             : "1px solid #eeeeee",
                 padding: 4,
                 fontSize: 14,
                 background: "#eeeeee",
                 color: "#212121",
-                transform: this.state.isHovered ? "scale(1.05)" : "scale(1)",
+                transform: isHovered
+                            ? "scale(1.05)"
+                            : isMounted
+                                ? "scale(1)"
+                                : "scale(0)",
                 cursor: "pointer",
-                transition: "all 200ms"
+                transition: isMounted
+                                ? "transform 200ms"
+                                : "transform 400ms",
+                transitionDelay: "800ms"
             }
         };
         return (

@@ -62,9 +62,9 @@ export class VerticalMenuSelector extends React.Component<IVerticalMenuSelectorP
                 position: "absolute",
                 top: -4,
                 right: "calc(3vw + 20px)",
-                border: "1px solid black",
                 padding: 4,
-                background: "#eeeeee",
+                background: "#212121",
+                color: "rgba(238,238,238, 0.8)",
                 overflow: "hidden",
                 whiteSpace: "nowrap"
             },

@@ -37,9 +37,10 @@ export class Flame {
             vertex.z = (Math.random() * 2 - 1) * radius;
             vertex.toArray((positions0 as any), i);
 
-            sizes[i] = 10;
+            sizes[i] = 14;
 
             color.setHSL(0.15 * ( i / amount ) - 0.005, 0.8, 0.6);
+            // color.setHSL(360 * Math.random(), 0.8, 0.6);
             color.toArray((colors as any), i * 3);
         });
 
@@ -72,7 +73,7 @@ export class Flame {
                                 gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
                             }`,
             blending:       THREE.AdditiveBlending,
-            depthTest:      false,
+            depthTest:      true,
             transparent:    true
         } );
 
@@ -92,9 +93,10 @@ export class Flame {
             vertex.z = (Math.random() * 2 - 1) * radius;
             vertex.toArray((positions1 as any), i);
 
-            sizes[i] = 10;
+            sizes[i] = 14;
 
             color.setHSL(0.15 * ( i / amount ) - 0.005, 0.8, 0.6);
+            // color.setHSL(360 * Math.random(), 0.8, 0.6);
             color.toArray((colors as any), i * 3);
         });
 

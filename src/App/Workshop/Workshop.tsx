@@ -1,8 +1,8 @@
 import * as React from 'react';
 import THREE = require('three');
-import {connect} from 'react-redux';
-import {IStoreState} from '../../redux/main_reducer';
-import {Logo} from '../../Widgets/Logo/Logo';
+import { connect } from 'react-redux';
+import { IStoreState } from '../../redux/main_reducer';
+import { Game } from './Projects/Game';
 
 interface IProperties {}
 
@@ -21,7 +21,9 @@ export class Workshop extends React.Component<IProps, IState> {
     render(): JSX.Element {
         const styles = {
             workshop: {
-                position: "relative",
+                position: "absolute",
+                top: 0,
+                left: 0,
                 width: "100%",
                 height: "100vh",
                 textAlign: "center"
@@ -37,7 +39,7 @@ export class Workshop extends React.Component<IProps, IState> {
         return (
             <div style={ styles.workshop }>
                 <div style={ styles.workshop__object }>
-                    <Logo/>
+                    <Game/>
                 </div>
             </div>
         );

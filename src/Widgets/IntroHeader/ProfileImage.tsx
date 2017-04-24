@@ -39,16 +39,23 @@ export class ProfileImage extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
+        const { isHovered, isMounted } = this.state;
         const styles = {
             profileImage: {
-                border: this.state.isHovered
-                    ? "1px solid #757575"
-                    : "1px solid #eeeeee",
+                border: isHovered
+                            ? "1px solid #757575"
+                            : "1px solid #eeeeee",
                 height: skills.length * 16 + 2,
                 width: "auto",
-                transform: this.state.isHovered ? "scale(1.05)" : "scale(1)",
+                transform: isHovered
+                            ? "scale(1.05)"
+                            : isMounted
+                                ? "scale(1)"
+                                : "scale(0)",
                 cursor: "pointer",
-                transition: "all 200ms"
+                transition: isMounted
+                                ? "transform 200ms"
+                                : "transform 400ms",
             }
         };
         return (

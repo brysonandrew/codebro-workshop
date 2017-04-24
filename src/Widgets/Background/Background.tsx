@@ -47,7 +47,13 @@ export class Background extends React.Component<IProps, IState> {
                 isMounted: true
             })
         }
-        this.init();
+        this.initRenderer();
+        this.initCamera();
+        this.initScene();
+        this.initAssets();
+        window.addEventListener( 'resize'
+            , () => this.onWindowResized(this.renderer), false );
+        this.animate();
     }
 
     componentWillUnmount() {
@@ -79,19 +85,24 @@ export class Background extends React.Component<IProps, IState> {
         }
     }
 
-    init() {
-        this.camera = new THREE.PerspectiveCamera( 45,
-                        window.innerWidth / window.innerHeight, 1, 1000 );
-        this.camera.position.z = 280;
-        this.scene = new THREE.Scene();
+    initRenderer() {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( this.renderer.domElement );
-        window.addEventListener( 'resize'
-            , () => this.onWindowResized(this.renderer), false );
-        this.setState({ isAnimating: true });
+    }
+
+    initCamera() {
+        this.camera = new THREE.PerspectiveCamera( 45,
+            window.innerWidth / window.innerHeight, 1, 1000 );
+        this.camera.position.z = 260;
+    }
+
+    initScene() {
+        this.scene = new THREE.Scene();
+    }
+
+    initAssets() {
         this.scene.add(this.flame.render());
-        this.animate();
     }
 
     onWindowResized(renderer) {

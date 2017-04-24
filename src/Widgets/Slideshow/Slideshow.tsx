@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { addComponentCSS } from '../utils/css_styler';
-import { Logo } from './Logo/Logo'
+import { addComponentCSS } from '../../utils/css_styler';
+import { Logo } from '../Logo/Logo'
 import { connect } from 'react-redux';
-import { IStoreState } from '../redux/main_reducer';
-import { pages } from "../data/pages";
-import { changePageIndex } from '../Home/HomeActionCreators';
+import { IStoreState } from '../../redux/main_reducer';
+import { pages } from "../../data/pages";
+import { changePageIndex } from '../../Home/HomeActionCreators';
 
 addComponentCSS({
     //language=CSS
@@ -28,7 +28,7 @@ interface IState extends IProperties, ICallbacks {
     isActivated: boolean
 }
 
-export class Thumbnail extends React.Component<IProps, IState> {
+export class Slideshow extends React.Component<IProps, IState> {
 
     array;
 
@@ -50,14 +50,14 @@ export class Thumbnail extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         let styles = {
-            thumbnail: {
+            slideshow: {
                 position: "fixed",
                 height: "100vh",
                 width: "100vw",
                 background: "transparent",
                 zIndex: 20
             },
-            thumbnail__videoTitle: {
+            slideshow__videoTitle: {
                 position: "absolute",
                 left: "50%",
                 top: "50%",
@@ -67,11 +67,11 @@ export class Thumbnail extends React.Component<IProps, IState> {
                 transform: "translate(-50%, -50%)"
             }
         };
-        const thumbnailInfo = pages[this.props.activePageIndex].posts[this.props.activeViewIndex];
+        const slideshowInfo = pages[this.props.activePageIndex].posts[this.props.activeViewIndex];
         return (
-            <div style={styles.thumbnail}>
-                <div style={styles.thumbnail__videoTitle}>
-                    {thumbnailInfo.heading}
+            <div style={styles.slideshow}>
+                <div style={styles.slideshow__videoTitle}>
+                    {slideshowInfo.heading}
                 </div>
             </div>
         );
@@ -95,6 +95,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     }
 }
 
-export let ThumbnailFromStore = connect(
+export let SlideshowFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(Thumbnail);
+)(Slideshow);

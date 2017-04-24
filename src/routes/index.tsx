@@ -6,7 +6,7 @@ import { HomeFromStore } from '../Home/Home';
 
 const routes = (
         <Route component={App}>
-            <Route path="/workshop/logo" component={Workshop}/>
+            <Route path="/workshop" component={Workshop}/>
             <Route path="/" component={HomeFromStore}/>
             <Route path="/:activePage" component={HomeFromStore}/>
             <Route path="/:activePage/:activeView" component={HomeFromStore}/>

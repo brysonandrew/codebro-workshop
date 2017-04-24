@@ -25,46 +25,73 @@ interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
     isHovering?: boolean
     isMini?: boolean
+    animateCount?: number
 }
 
 export class Post extends React.Component<IProps, IState> {
 
     containerEl: HTMLDivElement;
+    animateId;
+    scroll;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
             isMounted: false,
             isHovering: false,
-            isMini: false
+            isMini: false,
+            animateCount: 0
         }
     }
 
     componentDidMount() {
+        let { activeViewIndex, viewIndex, postsRef } = this.props;
         setTimeout(() => {
             this.setState({isMounted: true})
         }, 0);
-        const isSelectedView = this.props.activeViewIndex===this.props.viewIndex;
+        const isSelectedView = activeViewIndex===viewIndex;
         if (isSelectedView) {
-            let element = this.containerEl;
-            this.props.postsRef.scrollTop = (element.offsetTop - element.scrollTop + element.clientTop);
+            this.scroll = {
+                y: postsRef.scrollTop
+            };
+            this.animate();
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.width !== this.props.width) {
+        let { width, activeViewIndex, viewIndex, postsRef } = this.props;
+
+        if (nextProps.width !== width) {
             if (nextProps.width < 720) {
                 this.setState({ isMini: true })
             } else {
                 this.setState({ isMini: false })
             }
         }
-        if (nextProps.activeViewIndex !== this.props.activeViewIndex) {
-            const isSelectedView = nextProps.activeViewIndex===this.props.viewIndex;
-            if (isSelectedView) {
-                let element = this.containerEl;
-                this.props.postsRef.scrollTop = (element.offsetTop - element.scrollTop + element.clientTop);
-            }
+        const isSelectedView = nextProps.activeViewIndex===viewIndex;
+        if (isSelectedView) {
+            this.scroll = {
+                y: postsRef.scrollTop
+            };
+            this.animate();
+        }
+    }
+
+    animate() {
+        const { animateCount } = this.state;
+        const { postsRef } = this.props;
+        this.animateId = requestAnimationFrame( this.animate.bind(this) );
+        if (animateCount <= 20) {
+            postsRef.scrollTop = this.scroll.y
+                                    //current scroll pos
+                                    + (this.containerEl.offsetTop - this.scroll.y) * animateCount
+                                    //scroll distance to travel
+                                    / 20;
+                                    //animation factor
+            this.setState({ animateCount: animateCount + 1 });
+        } else {
+            this.setState({ animateCount: 0 });
+            cancelAnimationFrame(this.animateId);
         }
     }
 
@@ -77,8 +104,8 @@ export class Post extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        let { isHovering, isMounted, isMini } = this.state;
-        let { activePageIndex, width, height, post } = this.props;
+        let { isMounted, isMini } = this.state;
+        let { post } = this.props;
 
         let styles = {
             post: {
@@ -86,6 +113,7 @@ export class Post extends React.Component<IProps, IState> {
                 padding: "2%",
                 borderBottom: "1px solid #212121",
                 marginBottom: 10,
+                opacity: isMounted ? 1 : 0,
                 color: "#212121",
                 background: "#eeeeee"
             },

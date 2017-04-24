@@ -42,16 +42,24 @@ export class BarChart extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
+        const { isHovered, isMounted } = this.state;
         const styles = {
             barChart: {
-                border: this.state.isHovered
+                border: isHovered
                     ? "1px solid #757575"
                     : "1px solid #eeeeee",
                 height: skills.length * 16 + 2,
                 width: "calc(100% + 4px)",
-                transform: this.state.isHovered ? "scale(1.05)" : "scale(1)",
+                transform: isHovered
+                            ? "scale(1.05)"
+                            : isMounted
+                                ? "scale(1)"
+                                : "scale(0)",
                 cursor: "pointer",
-                transition: "all 200ms"
+                transition: isMounted
+                                ? "transform 200ms"
+                                : "transform 400ms",
+                transitionDelay: "400ms"
             }
         };
         return (
