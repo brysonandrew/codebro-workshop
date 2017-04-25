@@ -2,7 +2,7 @@ import * as React from 'react';
 import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../redux/main_reducer';
-import { Game } from './Projects/Game';
+import { Game } from './Projects/GatlingGun/Game';
 
 interface IProperties {}
 

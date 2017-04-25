@@ -8,6 +8,7 @@ export interface IPost {
     status: string
     date: string
     content: any[]
+    slides?: any[]
     pic: string
 }
 

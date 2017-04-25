@@ -26,6 +26,10 @@ export let blogPosts: IPost[] = [
                 <code>console.log(string); //"SPACESPACETABTABSPACETABSPACE"</code>,
                 <img style={{height: 220, width: "auto"}} src="/images/blogPosts/regexpWhitespace/regexpEgyptian.jpg"/>,
             ],
+        slides: [
+            "slide 1",
+            "slide 2"
+        ],
         pic: "/images/blogPosts/regexpWhitespace/whiteSpace.jpg"
     },
     {

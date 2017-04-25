@@ -20,6 +20,8 @@ export class Game extends React.Component<IProps, IState> {
     camera;
     renderer;
     animateLoop;
+    controls;
+    workshopLight;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -30,12 +32,18 @@ export class Game extends React.Component<IProps, IState> {
         this.initRenderer();
         this.initCamera();
         this.initScene();
+        this.initLighting();
         this.initAssets();
         window.addEventListener( 'resize'
             , () => this.onWindowResized(this.renderer), false );
         this.animate();
         console.log(this.scene);
+    }
 
+    onWindowResized(renderer) {
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.updateProjectionMatrix();
     }
 
     initRenderer() {
@@ -47,51 +55,33 @@ export class Game extends React.Component<IProps, IState> {
     initCamera() {
         this.camera = new THREE.PerspectiveCamera( 45,
                         window.innerWidth / window.innerHeight, 1, 1000 );
-        this.camera.position.z = 50;
+        this.camera.position.z = 100;
+        this.controls = new THREE.OrbitControls( this.camera );
     }
 
     initScene() {
         this.scene = new THREE.Scene();
     }
 
-    initAssets() {
-        const length = 12, width = 8;
-
-        let shape = new THREE.Shape();
-        shape.moveTo( 0,0 );
-        shape.lineTo( 0, width );
-        shape.lineTo( length, width );
-        shape.lineTo( length, 0 );
-        shape.lineTo( 0, 0 );
-
-        const extrudeSettings = {
-            steps: 2,
-            amount: 16,
-            bevelEnabled: true,
-            bevelThickness: 1,
-            bevelSize: 1,
-            bevelSegments: 1
-        };
-
-        const geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-        const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        const mesh = new THREE.Mesh( geometry, material ) ;
-        this.scene.add( mesh );
+    initLighting() {
+        this.workshopLight = new THREE.PointLight( 0xff0000, 1, 100 );
+        this.workshopLight.position.set( 0, 50, 0 );
+        this.scene.add( this.workshopLight );
     }
 
-    onWindowResized(renderer) {
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
+    initAssets() {
+        const geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
+        const material = new THREE.MeshLambertMaterial( {emissive: 0x212121} );
+        const cylinder = new THREE.Mesh( geometry, material );
+        this.scene.add( cylinder );
     }
 
     animate() {
         this.animateLoop = requestAnimationFrame( this.animate.bind(this) );
-        this.renderMotion();
+        //this.renderMotion();
     }
 
     renderMotion() {
-        console.log("moving");
         this.camera.lookAt( this.scene.position );
         this.renderer.render( this.scene, this.camera );
     }

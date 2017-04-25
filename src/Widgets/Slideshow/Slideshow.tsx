@@ -25,30 +25,40 @@ interface ICallbacks {
 interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
-    isActivated: boolean
+    slideshowIndex?: number
 }
 
 export class Slideshow extends React.Component<IProps, IState> {
 
     array;
+    slideshowInfo = pages[this.props.activePageIndex].posts[this.props.activeViewIndex];
 
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isActivated: false
+            slideshowIndex: -1
         };
     }
 
     componentDidMount() {
+        window.addEventListener("keypress", (e) => this.handleKeyPress(e))
     }
 
-    handleClick() {
-        this.setState({
-            isActivated: !this.state.isActivated
-        })
+    handleKeyPress(e) {
+        const { slideshowIndex } = this.state;
+        if (e.keyCode===122 && slideshowIndex > 0) {
+            this.setState({
+                slideshowIndex: slideshowIndex - 1
+            })
+        } else if (e.keyCode===120 && slideshowIndex < this.slideshowInfo.slides.length) {
+            this.setState({
+                slideshowIndex: slideshowIndex + 1
+            })
+        }
     }
 
     render(): JSX.Element {
+        const {slideshowIndex} = this.state;
         let styles = {
             slideshow: {
                 position: "fixed",
@@ -75,16 +85,20 @@ export class Slideshow extends React.Component<IProps, IState> {
                 opacity: 0.5
             }
         };
-        const slideshowInfo = pages[this.props.activePageIndex].posts[this.props.activeViewIndex];
+        console.log(slideshowIndex);
         return (
             <div style={styles.slideshow}>
-                <div style={styles.slideshow__videoTitle}>
-                    {slideshowInfo.heading}
-                </div>
-                <img
-                    style={styles.slideshow__pic}
-                    src={slideshowInfo.pic}
-                />
+               {(slideshowIndex===-1)
+                ?   <div>
+                        <div style={styles.slideshow__videoTitle}>
+                            {this.slideshowInfo.heading}
+                        </div>
+                        <img
+                            style={styles.slideshow__pic}
+                            src={this.slideshowInfo.pic}
+                        />
+                    </div>
+                :   this.slideshowInfo.slides[slideshowIndex]}
             </div>
         );
     }

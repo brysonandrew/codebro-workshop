@@ -294,7 +294,8 @@ declare namespace THREE {
         getRoot(): any;
         uncacheClip(clip: AnimationClip): void;
         uncacheRoot(root: any): void;
-        uncacheAction(clip: AnimationClip, root?: any): void;
+        uncach
+        eAction(clip: AnimationClip, root?: any): void;
     }
 
     export class AnimationObjectGroup {
@@ -1847,7 +1848,7 @@ declare namespace THREE {
      * scene.add( light );
      */
     export class PointLight extends Light {
-        constructor(hex?: number|string, intensity?: number, distance?: number, decay?: number);
+        constructor(hex?: number|string|Color, intensity?: number, distance?: number, decay?: number);
 
         /*
          * Light's intensity.
@@ -2442,7 +2443,7 @@ declare namespace THREE {
 
     export interface MeshLambertMaterialParameters extends MaterialParameters {
         color?: number|string;
-        emissive?: number|string;
+        emissive?: number|string|Color;
         emissiveIntensity?: number;
         emissiveMap?: Texture;
         map?: Texture;
@@ -2469,7 +2470,7 @@ declare namespace THREE {
         constructor(parameters?: MeshLambertMaterialParameters);
 
         color: Color;
-        emissive: number|string;
+        emissive: number|string|Color;
         emissiveIntensity: number;
         emissiveMap: Texture;
         map: Texture;
@@ -4486,6 +4487,7 @@ declare namespace THREE {
 
     export class Group extends Object3D {
         constructor();
+        add(object: Object3D): void;
     }
 
     export class LOD extends Object3D {
@@ -6295,10 +6297,6 @@ declare namespace THREE {
         };
     }
 
-    export class OrbitControls {
-
-    }
-
     export class ImprovedNoise {
 
     }
@@ -6670,6 +6668,9 @@ declare namespace THREE {
     }
     export class GlitchPass {
         constructor();
+    }
+    export class OrbitControls {
+        constructor(camera?: any);
     }
 }
 

@@ -18,7 +18,7 @@ export const pages: IPage[] = [
         posts: workPosts
     },
     {
-        name: "VLOG",
+        name: "SLIDESHOW",
         path: "slideshow",
         componentType: "slideshow",
         viewLinks: blogPosts.map(post => post.heading.replace(/\s/g, "-").toLowerCase()),
