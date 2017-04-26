@@ -91,7 +91,7 @@ export class Game extends React.Component<IProps, IState> {
         this.camera.position.z = 200;
         this.camera.position.y = 100;
         this.camera.position.x = 200;
-        this.controls = new THREE.OrbitControls( this.camera );
+        // this.controls = new THREE.OrbitControls( this.camera );
     }
 
     initScene() {
