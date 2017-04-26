@@ -7,6 +7,7 @@ import { Flame } from "./flame";
 interface IProperties {
     activePageIndex?: number
     activeViewIndex?: number
+    hsl?: string
     width?: number
     height?: number
 }

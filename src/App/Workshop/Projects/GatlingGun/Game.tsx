@@ -1,20 +1,14 @@
 import * as React from 'react';
 import THREE = require('three');
-import {addComponentCSS} from '../../../../utils/css_styler';
-import {GatlingGun} from './assets/GatlingGun';
-
-addComponentCSS({
-    //language=CSS
-    default: `
-    .empty {
-    }
-    `
-});
+import {GatlingGun} from './assets/GatlingGun/gatlingGun';
 
 interface IProps {}
 
 interface IState {
-    isMounted: boolean
+    isMounted?: boolean
+    isFiring?: boolean
+    isRotatingLeft?: boolean
+    isRotatingRight?: boolean
 }
 
 export class Game extends React.Component<IProps, IState> {
@@ -25,11 +19,16 @@ export class Game extends React.Component<IProps, IState> {
     animateLoop;
     controls;
     workshopLight;
+    gatlingGun = new GatlingGun();
+
 
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isMounted: false
+            isMounted: false,
+            isFiring: false,
+            isRotatingLeft: false,
+            isRotatingRight: false
         };
     }
 
@@ -37,12 +36,41 @@ export class Game extends React.Component<IProps, IState> {
         this.initRenderer();
         this.initCamera();
         this.initScene();
+        this.initStats();
         this.initLighting();
         this.initAssets();
         window.addEventListener( 'resize'
             , () => this.onWindowResized(this.renderer), false );
+        document.addEventListener( 'keypress'
+            , (e) => this.handleKeyPress(e), false );
+        document.addEventListener( 'keyup'
+            , (e) => this.handleKeyUp(e), false );
         this.setState({ isMounted: true });
         this.animate();
+    }
+
+    handleKeyPress(e) {
+        const z = e.keyCode===122;
+        const b = e.keyCode===98;
+        const m = e.keyCode===109;
+
+        console.log("keypressed" + e.keyCode);
+               if (z) {this.setState({isFiring: true})}
+               if (b) {this.setState({isRotatingLeft: true})
+        } else if (m) {this.setState({isRotatingRight: true})
+        }
+    }
+
+    handleKeyUp(e) {
+        const z = e.keyCode===90;
+        const b = e.keyCode===66;
+        const m = e.keyCode===77;
+
+        console.log("keypup" + e.keyCode);
+               if (z) {this.setState({isFiring: false})}
+               if (b) {this.setState({isRotatingLeft: false})
+        } else if (m) {this.setState({isRotatingRight: false})
+        }
     }
 
     onWindowResized(renderer) {
@@ -61,6 +89,8 @@ export class Game extends React.Component<IProps, IState> {
         this.camera = new THREE.PerspectiveCamera( 45,
                         window.innerWidth / window.innerHeight, 1, 1000 );
         this.camera.position.z = 200;
+        this.camera.position.y = 100;
+        this.camera.position.x = 200;
         this.controls = new THREE.OrbitControls( this.camera );
     }
 
@@ -68,14 +98,18 @@ export class Game extends React.Component<IProps, IState> {
         this.scene = new THREE.Scene();
     }
 
+    initStats() {
+        // document.body.appendChild( this.stats.dom );
+    }
+
     initLighting() {
         this.workshopLight = new THREE.PointLight( new THREE.Color("#ffffff"), 1, 200 );
-        this.workshopLight.position.set( 0, 50, 0 );
+        this.workshopLight.position.set( 0, 140, 0 );
         this.scene.add( this.workshopLight );
     }
 
     initAssets() {
-
+        this.gatlingGun.assemble();
     }
 
     animate() {
@@ -84,6 +118,11 @@ export class Game extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
+        this.gatlingGun.rotate(this.state.isRotatingLeft, this.state.isRotatingRight);
+        this.gatlingGun.fire(this.state.isFiring);
+        this.scene.add(this.gatlingGun.render());
+        this.scene.add(this.gatlingGun.renderBullets());
+        // this.stats.update();
         this.camera.lookAt( this.scene.position );
         this.renderer.render( this.scene, this.camera );
     }
@@ -91,11 +130,6 @@ export class Game extends React.Component<IProps, IState> {
     render(): JSX.Element {
         return (
             <div>
-                {this.state.isMounted
-                ?   <GatlingGun
-                        scene={this.scene}
-                    />
-                :   null}
             </div>
         );
     }
