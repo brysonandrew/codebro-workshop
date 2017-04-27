@@ -40,7 +40,7 @@ export let blogPosts: IPost[] = [
         content:
             [
                 "The Linux operating system has the reputation for being programmer-friendly. It provides shell-access to the terminal and a range of useful commands for a superior terminal user-interface.",
-                "The built-in Windows terminal is the \"Command prompt\" which doesn't provide shell access and lacks many if not most of the Linux terminal commands.",
+                "The built-in Windows terminal is the \"Command prompt\" which lacks many if not most of the Linux terminal commands.",
                 "To bridge this gap we must use certain tools to make Windows perform certain tasks.",
                 <h2>Linux on Windows</h2>,
                 "Firstly I should mention that the silver-bullet here is to dual-boot Windows and Linux, which basically means installing Linux into Windows. Although this sounds great it still comes with its downsides.",

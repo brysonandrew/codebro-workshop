@@ -6,24 +6,24 @@ import {
 } from "./HomeActions";
 import {createReducer} from "../redux/utils/reducers";
 
-export interface ISubState {
+export interface IHomeState {
     activePageIndex: number
     activeViewIndex: number
     width: number
     height: number
 }
 
-let initialState : ISubState = {
+let initialState : IHomeState = {
     activePageIndex: -1,
     activeViewIndex: -1,
     width: 1920,
     height: 1080
 };
 
-export let subReducer = createReducer<ISubState>(initialState, [
+export let homeReducer = createReducer<IHomeState>(initialState, [
     {
         action: UPDATE__PAGE_INDEX,
-        handler: function (state: ISubState, action: UPDATE__PAGE_INDEX) {
+        handler: function (state: IHomeState, action: UPDATE__PAGE_INDEX) {
             return Immutable.fromJS(state)
                 .setIn(['activePageIndex'], action.activePageIndex)
                 .toJS();
@@ -31,7 +31,7 @@ export let subReducer = createReducer<ISubState>(initialState, [
     },
     {
         action: UPDATE__VIEW_INDEX,
-        handler: function (state: ISubState, action: UPDATE__VIEW_INDEX) {
+        handler: function (state: IHomeState, action: UPDATE__VIEW_INDEX) {
             return Immutable.fromJS(state)
                 .setIn(['activeViewIndex'], action.activeViewIndex)
                 .toJS();
@@ -39,7 +39,7 @@ export let subReducer = createReducer<ISubState>(initialState, [
     },
     {
         action: UPDATE__VIEWPORT_DIMENSIONS,
-        handler: function (state: ISubState, action: UPDATE__VIEWPORT_DIMENSIONS) {
+        handler: function (state: IHomeState, action: UPDATE__VIEWPORT_DIMENSIONS) {
             return Immutable.fromJS(state)
                 .setIn(['width'], action.width)
                 .setIn(['height'], action.height)

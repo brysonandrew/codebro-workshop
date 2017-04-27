@@ -147,8 +147,8 @@ export class Background extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        activeViewIndex: state.subStore.activeViewIndex,
-        activePageIndex: state.subStore.activePageIndex
+        activeViewIndex: state.homeStore.activeViewIndex,
+        activePageIndex: state.homeStore.activePageIndex
     };
 }
 

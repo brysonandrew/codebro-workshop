@@ -171,12 +171,11 @@ export class Post extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        activePageIndex: state.subStore.activePageIndex,
-        activeViewIndex: state.subStore.activeViewIndex,
-        width: state.subStore.width,
-        height: state.subStore.height
+        activePageIndex: state.homeStore.activePageIndex,
+        activeViewIndex: state.homeStore.activeViewIndex,
+        width: state.homeStore.width,
+        height: state.homeStore.height
     };
-
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {

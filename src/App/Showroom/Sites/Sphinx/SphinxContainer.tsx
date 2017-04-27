@@ -1,9 +1,10 @@
 import * as React from 'react';
-import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../../redux/main_reducer';
 import { Sphinx } from "./Sphinx";
-import {addComponentCSS} from '../../../../utils/css_styler';
+import { addComponentCSS } from '../../../../utils/css_styler';
+import { AsyncGet } from '../../../../redux/utils/async_get';
+import { fetchAll } from '../../ShowroomActionCreators';
 
 addComponentCSS({
     //language=CSS
@@ -26,9 +27,13 @@ addComponentCSS({
     `
 });
 
-interface IProperties {}
+interface IProperties {
+    info: AsyncGet<any[]>,
+}
 
-interface ICallbacks {}
+interface ICallbacks {
+    onMount: (subject: string) => void;
+}
 
 interface IProps extends IProperties, ICallbacks {}
 
@@ -36,8 +41,24 @@ interface IState extends IProperties, ICallbacks {}
 
 export class SphinxContainer extends React.Component<IProps, IState> {
 
+    subject = "sphinx";
+
     public constructor(props?: any, context?: any) {
         super(props, context);
+    }
+
+    componentDidMount() {
+        this.props.onMount(this.subject);
+    }
+
+    renderContent() {
+        return AsyncGet.render(this.props.info, {
+            fetched: (info: any) => (
+                <Sphinx
+                    info={info}
+                />
+            )
+        });
     }
 
     render(): JSX.Element {
@@ -61,7 +82,7 @@ export class SphinxContainer extends React.Component<IProps, IState> {
         return (
             <div className="sphinxContainer" style={ styles.container }>
                 <div style={ styles.container__object }>
-                    <Sphinx/>
+                    {this.renderContent()}
                 </div>
             </div>
         );
@@ -73,12 +94,16 @@ export class SphinxContainer extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
+        info: state.showroomStore.info,
     };
 
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
+        onMount: (subject) => {
+            dispatch(fetchAll(subject));
+        },
     }
 }
 

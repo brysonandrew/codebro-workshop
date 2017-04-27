@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-interface IProps {}
+interface IProps {
+    info: any
+}
 
 interface IState {}
 
@@ -11,7 +13,7 @@ export class Sphinx extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-
+        console.log(this.props.info);
     }
 
     render(): JSX.Element {

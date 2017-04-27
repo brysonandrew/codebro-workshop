@@ -107,9 +107,9 @@ export class Slideshow extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        width: state.subStore.width,
-        activePageIndex: state.subStore.activePageIndex,
-        activeViewIndex: state.subStore.activeViewIndex
+        width: state.homeStore.width,
+        activePageIndex: state.homeStore.activePageIndex,
+        activeViewIndex: state.homeStore.activeViewIndex
     };
 }
 

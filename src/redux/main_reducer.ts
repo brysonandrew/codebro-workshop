@@ -1,14 +1,17 @@
 import {combineReducers} from 'redux';
-import {subReducer, ISubState} from '../Home/HomeReducer';
+import {homeReducer, IHomeState} from '../Home/HomeReducer';
+import {showroomReducer, IShowroomState} from '../App/Showroom/ShowroomReducer';
 import Reducer = Redux.Reducer;
 /**
  * State of the admin panel store
  */
 export interface IStoreState {
-    subStore: ISubState
+    homeStore: IHomeState
+    showroomStore: IShowroomState
 }
 
 export let reducer : Reducer<IStoreState> = combineReducers({
-    subStore: subReducer
+    homeStore: homeReducer,
+    showroomStore: showroomReducer
     // Add other reducers here
 }) as Reducer<IStoreState>;
