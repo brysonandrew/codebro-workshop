@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {addComponentCSS} from '../utils/css_styler';
-import {IPost} from '../models';
+import { addComponentCSS } from '../../utils/css_styler';
+import { IPost } from '../../models';
 import { browserHistory, Link } from 'react-router';
-import { pages } from "../data/pages";
+import { pages } from "../../data/pages";
 
 addComponentCSS({
     //language=CSS
@@ -14,6 +14,7 @@ addComponentCSS({
 
 interface IVerticalMenuSelectorProps {
     activePageIndex?: number
+    activeViewIndex?: number
     viewIndex?: number
     post?: IPost
     onClick?: (i: number) => void
@@ -50,8 +51,10 @@ export class VerticalMenuSelector extends React.Component<IVerticalMenuSelectorP
     }
 
     render(): JSX.Element {
+        const { activePageIndex, activeViewIndex, viewIndex, post } = this.props;
         const styles = {
             verticalMenuSelector: {
+                display: "block",
                 position: "relative",
                 height: 20,
                 margin: "20px 0",
@@ -73,27 +76,29 @@ export class VerticalMenuSelector extends React.Component<IVerticalMenuSelectorP
                 background: "#eeeeee",
                 width: 20,
                 height: 20,
-                borderRadius: 10
+                borderRadius: (activeViewIndex===viewIndex) ? 10 : 0,
+                transform: `scaleY(${(activeViewIndex===viewIndex) ? 1 : 0.15})`,
+                transition: "all 200ms"
             }
         };
-        const pagePath = pages[this.props.activePageIndex].path;
-        const viewPath = this.props.post.heading.replace(/\s/g, "-").toLowerCase();
+        const pagePath = pages[activePageIndex].path;
+        const viewPath = post.heading.replace(/\s/g, "-").toLowerCase();
         const path = `/${pagePath}/${viewPath}`;
         return (
-            <div style={styles.verticalMenuSelector}
+            <Link style={styles.verticalMenuSelector}
+                 to={path}
+                 onClick={() => this.handleClick(path)}
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}>
                 {this.state.isHovering
                     ?   <Link style={styles.verticalMenuSelector__label}
                               to={path} onClick={() => this.handleClick(path)}>
-                            {this.props.post.heading}
+                            {post.heading}
                         </Link>
-                    : null}
-                <Link style={styles.verticalMenuSelector__icon}
-                      to={path}
-                      onClick={() => this.handleClick(path)}>
-                </Link>
-            </div>
+                    :   null}
+                <span style={styles.verticalMenuSelector__icon}>
+                </span>
+            </Link>
         );
     }
 }

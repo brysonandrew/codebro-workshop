@@ -40,6 +40,13 @@ export class Game extends React.Component<IProps, IState> {
         console.log(this.scene);
     }
 
+    componentWillUnmount() {
+        window.removeEventListener( 'resize'
+            , () => this.onWindowResized(this.renderer), false );
+        cancelAnimationFrame(this.animateLoop);
+        document.body.removeChild( this.renderer.domElement );
+    }
+
     onWindowResized(renderer) {
         renderer.setSize( window.innerWidth, window.innerHeight );
         this.camera.aspect = window.innerWidth / window.innerHeight;

@@ -11,7 +11,7 @@ interface IState {
     isRotatingRight?: boolean
 }
 
-export class Game extends React.Component<IProps, IState> {
+export class GatlingGunGame extends React.Component<IProps, IState> {
 
     scene;
     camera;
@@ -47,6 +47,17 @@ export class Game extends React.Component<IProps, IState> {
             , (e) => this.handleKeyUp(e), false );
         this.setState({ isMounted: true });
         this.animate();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener( 'resize'
+            , () => this.onWindowResized(this.renderer), false );
+        document.removeEventListener( 'keypress'
+            , (e) => this.handleKeyPress(e), false );
+        document.removeEventListener( 'keyup'
+            , (e) => this.handleKeyUp(e), false );
+        cancelAnimationFrame(this.animateLoop);
+        document.body.removeChild( this.renderer.domElement );
     }
 
     handleKeyPress(e) {

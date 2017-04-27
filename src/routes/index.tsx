@@ -11,6 +11,7 @@ import { HomeFromStore } from '../Home/Home';
 
 const routes = (
         <Route component={App}>
+
             <Route path="/workshop" component={WorkshopIndex}/>
             <Route path="/workshop/gatling-gun" component={GatlingGunContainerFromStore}/>
             <Route path="/workshop/g-consulting" component={GConsultingContainerFromStore}/>

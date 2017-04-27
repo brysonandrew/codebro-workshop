@@ -2,7 +2,7 @@ import * as React from 'react';
 import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../../redux/main_reducer';
-import { Game } from './Game';
+import { GatlingGunGame } from './GatlingGunGame';
 
 interface IProperties {}
 
@@ -38,7 +38,7 @@ export class GatlingGunContainer extends React.Component<IProps, IState> {
         return (
             <div style={ styles.workshop }>
                 <div style={ styles.workshop__object }>
-                    <Game/>
+                    <GatlingGunGame/>
                 </div>
             </div>
         );

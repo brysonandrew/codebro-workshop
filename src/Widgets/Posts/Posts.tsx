@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { IStoreState } from '../../redux/main_reducer';
 import { PostFromStore } from './Post';
 import { pages } from "../../data/pages";
-import { VerticalMenuSelector } from "../VerticalMenuSelector";
+import { VerticalMenuSelector } from "./VerticalMenuSelector";
 import { changeViewIndex } from '../../Home/HomeActionCreators';
 
 interface IProperties {
@@ -38,6 +38,9 @@ export class Posts extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
+        if (this.props.activeViewIndex===-1) {
+            this.props.onViewIndexSelect(0);
+        }
         this.timerId = setTimeout(() => {
             this.setState({isMounted: true});
             window.scrollTo(0,0);
@@ -107,6 +110,7 @@ export class Posts extends React.Component<IProps, IState> {
                         <VerticalMenuSelector
                             key={i}
                             activePageIndex={this.props.activePageIndex}
+                            activeViewIndex={this.props.activeViewIndex}
                             viewIndex={i}
                             post={post}
                             onClick={this.handleSelectorClick.bind(this)}

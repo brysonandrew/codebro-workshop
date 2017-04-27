@@ -2,6 +2,7 @@ import * as React from 'react';
 import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../../redux/main_reducer';
+import { GConsulting } from "./GConsulting";
 
 interface IProperties {}
 
@@ -23,6 +24,7 @@ export class GConsultingContainer extends React.Component<IProps, IState> {
                 position: "absolute",
                 top: 0,
                 left: 0,
+                background: "#fafafa",
                 width: "100%",
                 height: "100vh",
                 textAlign: "center"
@@ -36,8 +38,7 @@ export class GConsultingContainer extends React.Component<IProps, IState> {
         };
         return (
             <div style={ styles.container }>
-                <div style={ styles.container__object }>
-                </div>
+                <GConsulting/>
             </div>
         );
     }
