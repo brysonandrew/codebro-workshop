@@ -1,65 +1,66 @@
 import * as React from 'react';
-import THREE = require('three');
-import { connect } from 'react-redux';
-import { IStoreState } from '../../redux/main_reducer';
-import { Game } from './Projects/GatlingGun/Game';
+import {addComponentCSS} from '../../utils/css_styler';
+import {browserHistory, Link} from 'react-router';
 
-interface IProperties {}
+addComponentCSS({
+    //language=CSS
+    default: `
+    `
+});
 
-interface ICallbacks {}
+interface IProps {
+}
 
-interface IProps extends IProperties, ICallbacks {}
+interface IState {
+}
 
-interface IState extends IProperties, ICallbacks {}
+export class WorkshopIndex extends React.Component<IProps, IState> {
 
-export class Workshop extends React.Component<IProps, IState> {
-
-    public constructor(props?: any, context?: any) {
-        super(props, context);
-    }
-
-    render(): JSX.Element {
+    public render(): JSX.Element {
         const styles = {
             workshop: {
-                position: "absolute",
-                top: 0,
-                left: 0,
                 width: "100%",
-                height: "100vh",
+                padding: "50px 0",
+                color: "#eeeeee",
                 textAlign: "center"
             },
-            workshop__object: {
-                position: "absolute",
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)"
-            }
-
+            workshop__inner: {
+                display: "inline-block",
+                width: "80%",
+            },
+            workshop__mainHeader: {
+                display: "inline-block",
+                width: "80%",
+            },
+            workshop__subHeader: {
+                display: "inline-block",
+                width: "80%",
+            },
         };
         return (
             <div style={ styles.workshop }>
-                <div style={ styles.workshop__object }>
-                    <Game/>
+                <div style={ styles.workshop__inner }>
+                    <h1 style={styles.workshop__mainHeader}>
+                        Workshop
+                    </h1>
+                    <h2 style={styles.workshop__mainHeader}>
+                        Games
+                    </h2>
+                    <ul>
+                        <li>
+                            <Link to="workshop/gatling-gun">Gatling Gun</Link>
+                        </li>
+                    </ul>
+                    <h2 style={styles.workshop__mainHeader}>
+                        Sites
+                    </h2>
+                    <ul>
+                        <li>
+                            <Link to="workshop/g-consulting">G Consulting</Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
         );
     }
 }
-
-// ------------ redux mappers -------------
-
-
-function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
-    return {
-    };
-
-}
-
-function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
-    return {
-    }
-}
-
-export let WorkshopFromStore = connect(
-    mapStateToProps, mapDispatchToProps
-)(Workshop);
