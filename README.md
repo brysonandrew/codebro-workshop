@@ -40,7 +40,6 @@ typings install --global --save dt~react-dom
 ```
 
 ---
-maintained by
+maintained by codebro @ codebro.io
 
-![porizi logo](http://porizi.com/porizi-logo-horizontal-h50.png "Porizi Technologies")
 =======
