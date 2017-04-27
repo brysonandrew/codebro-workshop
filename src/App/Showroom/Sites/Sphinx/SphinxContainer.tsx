@@ -2,7 +2,29 @@ import * as React from 'react';
 import THREE = require('three');
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../../redux/main_reducer';
-import { GConsulting } from "./GConsulting";
+import { Sphinx } from "./Sphinx";
+import {addComponentCSS} from '../../../../utils/css_styler';
+
+addComponentCSS({
+    //language=CSS
+    default: `
+        @font-face {
+            font-family: Copperplate;
+            src: url(/fonts/Showroom/Copperplate.ttf);
+        }
+        @font-face {
+            font-family: Balthazar;
+            src: url(/fonts/Showroom/Balthazar-Regular.ttf);
+        }
+        .sphinxContainer * {
+            font-family: Copperplate, 'arial', sans-serif;
+        }
+        .sphinxContainer div {
+            font-family: Balthazar, 'arial', sans-serif;
+        }
+        
+    `
+});
 
 interface IProperties {}
 
@@ -12,7 +34,7 @@ interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {}
 
-export class GConsultingContainer extends React.Component<IProps, IState> {
+export class SphinxContainer extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -21,11 +43,11 @@ export class GConsultingContainer extends React.Component<IProps, IState> {
     render(): JSX.Element {
         const styles = {
             container: {
-                position: "absolute",
+                position: "relative",
                 top: 0,
                 left: 0,
                 background: "#fafafa",
-                width: "100%",
+                width: "100vw",
                 height: "100vh",
                 textAlign: "center"
             },
@@ -37,8 +59,10 @@ export class GConsultingContainer extends React.Component<IProps, IState> {
             }
         };
         return (
-            <div style={ styles.container }>
-                <GConsulting/>
+            <div className="sphinxContainer" style={ styles.container }>
+                <div style={ styles.container__object }>
+                    <Sphinx/>
+                </div>
             </div>
         );
     }
@@ -58,6 +82,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     }
 }
 
-export let GConsultingContainerFromStore = connect(
+export let SphinxContainerFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(GConsultingContainer);
+)(SphinxContainer);

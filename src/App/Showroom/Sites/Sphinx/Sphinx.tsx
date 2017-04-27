@@ -4,7 +4,7 @@ interface IProps {}
 
 interface IState {}
 
-export class GConsulting extends React.Component<IProps, IState> {
+export class Sphinx extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -15,8 +15,16 @@ export class GConsulting extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
+
+        const styles = {
+            sphinx: {
+                color: "#212121"
+            }
+        };
+
         return (
-            <div>
+            <div style={styles.sphinx}>
+                <h1>Sphinx</h1>
             </div>
         );
     }

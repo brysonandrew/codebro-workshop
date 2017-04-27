@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { addComponentCSS } from '../../utils/css_styler';
 import { browserHistory, Link } from 'react-router';
-import { WorkshopBackground } from "./WorkshopBackground/WorkshopBackground";
 
 addComponentCSS({
     //language=CSS
@@ -14,14 +13,14 @@ interface IProps {
 
 interface IState {}
 
-export class WorkshopIndex extends React.Component<IProps, IState> {
+export class ShowroomIndex extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
     }
 
     componentDidMount() {
-        browserHistory.push("/workshop");
+        browserHistory.push("/showroom");
     }
 
     handleClick(path) {
@@ -30,7 +29,7 @@ export class WorkshopIndex extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         const styles = {
-            workshop: {
+            showroom: {
                 position: "absolute",
                 left: 0,
                 top: 0,
@@ -39,17 +38,17 @@ export class WorkshopIndex extends React.Component<IProps, IState> {
                 color: "#eeeeee",
                 textAlign: "center"
             },
-            workshop__inner: {
+            showroom__inner: {
                 display: "inline-block",
                 width: "80%",
             },
-            workshop__mainHeader: {
+            showroom__mainHeader: {
                 margin: "0 0 20px 0"
             },
-            workshop__subHeader: {
+            showroom__subHeader: {
                 margin: "0 0 20px 0"
             },
-            workshop__section: {
+            showroom__section: {
                 width: "100%",
                 margin: "40px 0",
                 padding: 20,
@@ -58,25 +57,24 @@ export class WorkshopIndex extends React.Component<IProps, IState> {
             }
         };
         return (
-            <div style={ styles.workshop }>
-                <div style={ styles.workshop__inner }>
-                    <h1 style={styles.workshop__mainHeader}>
-                        Workshop
+            <div style={ styles.showroom }>
+                <div style={ styles.showroom__inner }>
+                    <h1 style={styles.showroom__mainHeader}>
+                        Showroom
                     </h1>
-                    <div style={styles.workshop__section}>
-                        <h2 style={styles.workshop__mainHeader}>
-                            Projects
+                    <div style={styles.showroom__section}>
+                        <h2 style={styles.showroom__mainHeader}>
+                            Sites
                         </h2>
                         <ul>
-                            <li style ={{listStyleType: "none", color: "#fafafa"}}>
+                            <li style ={{listStyleType: "none"}}>
                                 <Link style={{color: "#fafafa"}}
-                                      onClick={() => this.handleClick("/workshop/gatling-gun")}
-                                      to="/workshop/gatling-gun">Gatling Gun</Link>
+                                      onClick={() => this.handleClick("/showroom/sphinx")}
+                                      to="/showroom/sphinx">Sphinx</Link>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <WorkshopBackground />
             </div>
         );
     }
