@@ -2,18 +2,18 @@ import {
     FETCH_ALL__INIT,
     FETCH_ALL__SUCCESS,
     FETCH_ALL__FAILURE
-} from "./showroomActions";
+} from "./ShowroomActions";
 import {createAction, checkServerError} from "../../redux/utils/actions";
 
-export function fetchAll(subject) {
+export function fetchAPIInfo(subject) {
+    // console.log(subject);
     return dispatch => {
         // Dispatch the init action before fetching the data
         dispatch(createAction(FETCH_ALL__INIT.type, {}));
-        fetch(`https://en.wikipedia.org/w/api.php?action=query&titles=${subject}&prop=revisions&rvprop=content&format=json`, {
+        fetch(`http://poetrydb.org/title/Ozymandias/lines.json`, {
             method : 'GET',
             headers: {
-                'Accept'      : 'application/json',
-                'Content-Type': 'application/json'
+                "Content-Type": "jsonp",
             },
             credentials: 'same-origin'
         })

@@ -25,6 +25,7 @@ app.get('/components.css', (req, res) => {
   res.send(getAllComponentsCSS());
 });
 
+// app.use('/info', info);
 // Route handler that rules them all!
 app.get('*', (req: any, res: any) => {
   // Do a router match
