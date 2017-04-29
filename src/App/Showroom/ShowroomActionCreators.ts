@@ -13,7 +13,8 @@ export function fetchAPIInfo(subject) {
         fetch(`http://poetrydb.org/title/Ozymandias/lines.json`, {
             method : 'GET',
             headers: {
-                "Content-Type": "jsonp",
+                'Accept'      : 'application/json',
+                'Content-Type': 'application/json'
             },
             credentials: 'same-origin'
         })

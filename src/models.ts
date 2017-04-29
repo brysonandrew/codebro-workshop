@@ -34,3 +34,8 @@ export interface IHomeParams {
     activePage: string
     activeView: string
 }
+
+export interface IWorkshopLink {
+    name: string
+    path: string
+}
