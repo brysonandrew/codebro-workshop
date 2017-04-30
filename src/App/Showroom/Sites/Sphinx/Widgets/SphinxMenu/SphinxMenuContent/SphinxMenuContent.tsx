@@ -3,8 +3,7 @@ import { colors } from "../../../sphinxData/themeOptions";
 import { siteContent } from '../../../sphinxData/siteContent';
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../../../../../redux/main_reducer';
-import { setViewportDimensions, setPageIndex, setViewIndex } from '../../../SphinxActionCreators';
-
+import { setPageIndex } from '../../../SphinxActionCreators';
 
 interface IProperties {
     width?: number
@@ -22,12 +21,11 @@ interface IProps extends IProperties, ICallbacks {}
 interface IState extends IProperties, ICallbacks {
     hoverSelectorIndex?: number
     isTextVisible?: boolean
+    isOnlyMenu?: boolean //false is displays only content
 }
 
 export class SphinxMenuContent extends React.Component<IProps, IState> {
 
-    timerId;
-    previousIndex = 0;
     fadeInSwitch = 0;
     textFadeIndicies = [0,0];
 
@@ -35,7 +33,8 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             hoverSelectorIndex: this.props.activePageIndex,
-            isTextVisible: this.props.isMenuOpen
+            isTextVisible: this.props.isMenuOpen,
+            isOnlyMenu: this.props.width < 600
         }
     }
 
@@ -46,12 +45,22 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
                     isTextVisible: false
                 })
             }
+            this.setState({
+                isOnlyMenu: !nextProps.isMenuOpen
+            })
         }
         if (nextProps.activePageIndex !== this.props.activePageIndex) {
-            this.previousIndex = this.props.activePageIndex;
             this.fadeInSwitch = this.fadeInSwitch===0 ? 1 : 0;
-            this.textFadeIndicies.push(nextProps.activePageIndex);
-            this.textFadeIndicies.splice(0, 1);
+            const prev = this.props.activePageIndex;
+            const curr = nextProps.activePageIndex;
+            this.textFadeIndicies = this.fadeInSwitch
+                                        ?   [ curr, prev ]
+                                        :   [ prev, curr ]
+        }
+        if (nextProps.width !== this.props.width) {
+            this.setState({
+                isOnlyMenu: this.props.width < 600
+            })
         }
     }
 
@@ -64,6 +73,9 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
     }
 
     handleSelectorClick(i) {
+        this.setState({
+            isOnlyMenu: false
+        });
         this.props.onPageIndexSelect(i);
     }
 
@@ -76,7 +88,7 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const { hoverSelectorIndex, isTextVisible } = this.state;
+        const { hoverSelectorIndex, isTextVisible, isOnlyMenu } = this.state;
         const { isMenuOpen, width, activePageIndex } = this.props;
         const divisionAmount = 5;
         const transtitionDuration = "200ms";
@@ -98,12 +110,27 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
                 background: "#fafafa",
                 width: isMenuOpen
                         ?   (width < 600)
-                                ? "0%" : "calc(60% - 40px)"
+                                ? "calc(100% - 40px)" : "calc(60% - 40px)"
                         :   0,
                 height: "100%",
                 fontSize: 20,
-                transition: `width ${transtitionDuration}`,
+                transition: `all ${transtitionDuration}`,
                 zIndex: 2
+            },
+            sphinxMenuContent__paragraphs: {
+                position: "absolute",
+                top: 100,
+                opacity: 1,
+                width: isMenuOpen
+                    ?   (width < 600)
+                        ? "0%" : "calc(100% - 40px)"
+                    :   1,
+                transform: "translateY(0px)",
+                transition: `all 1000ms`,
+            },
+            sphinxMenuContent__paragraphsActive: {
+                opacity: 0,
+                transform: "translateY(40px)"
             },
             sphinxMenuContent__menuSelectors: {
                 position: "absolute",
@@ -136,21 +163,19 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
             sphinxMenuContent__background: {
                 position: "absolute",
                 right: -20,
+                opacity: 0,
                 background: "#fafafa",
                 height: `calc(${99.5/divisionAmount}% + ${4/divisionAmount}px)`,
                 width: "0%",
-                transition: `width ${transtitionDuration}`
+                transition: `width 600ms`
             },
             sphinxMenuContent__backgroundHover: {
                 width: "calc(90% + 40px)",
+                opacity: 0.5
             },
             sphinxMenuContent__backgroundActive: {
                 width: "calc(100% + 40px)",
-            },
-            sphinxMenuContent__paragraphPrev: {
-                opacity: 1,
-                transform: `translate3d(0px,${-10}px,0px)`,
-                transition: "all 200ms"
+                opacity: 1
             },
             sphinxMenuContent__selectorText: {
                 position: "relative",
@@ -166,46 +191,25 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
             },
             sphinxMenuContent__underlineActive: {
                 width: "calc(100% + 40px)",
-            },
-            sphinxMenuContent__paragraph: {
-                position: "absolute",
-                height: 200,
-                width: 200,
-                opacity: 0,
-                transition: "all 200ms"
-            },
-            sphinxMenuContent__paragraphActive: [
-               {
-                    opacity: 1,
-                    background: "red",
-                },
-                {
-                    opacity: 1,
-                    background: "blue",
-                }
-            ]
+            }
         };
-
         return (
             <div style={ styles.sphinxMenuContent }>
                 <div style={ styles.sphinxMenuContent__text }>
-                    {this.textFadeIndicies.map((relevantIndex, orderIndex) =>
+                    {isTextVisible && this.textFadeIndicies.map((relevantIndex, orderIndex) =>
                         <div key={orderIndex} style={ Object.assign({},
-                                    styles.sphinxMenuContent__paragraph,
-                                    this.fadeInSwitch===orderIndex
-                                        ? styles.sphinxMenuContent__paragraphActive[orderIndex]
-                                        : null) }/>
+                            styles.sphinxMenuContent__paragraphs,
+                            this.fadeInSwitch===orderIndex
+                                ? styles.sphinxMenuContent__paragraphsActive
+                                : null) }>
+                            {siteContent[relevantIndex]
+                                .textContent
+                                .map((paragraph, paragraphIndex) =>
+                                    <p key={paragraphIndex}>
+                                        {paragraph}
+                                    </p>)}
+                        </div>
                     )}
-                    {/*{ this.textContent.map((content, contentIndex) =>*/}
-                        {/*<div key={contentIndex} style={ styles.sphinxMenuContent__paragraph[content.index] }>*/}
-                            {/*{isTextVisible && siteContent[content.index]*/}
-                                {/*.textContent*/}
-                                {/*.map((paragraph, paragraphIndex) =>*/}
-                                    {/*<p key={paragraphIndex}>*/}
-                                        {/*{paragraph}*/}
-                                    {/*</p>)}*/}
-                        {/*</div>*/}
-                    {/*)}*/}
                 </div>
                 <div style={ styles.sphinxMenuContent__menuSelectors }
                      onTransitionEnd={() => this.handleMenuSelectorTransitionEnd()}>
@@ -226,7 +230,7 @@ export class SphinxMenuContent extends React.Component<IProps, IState> {
                                                             * backgroundIndex}px
                                                     + ${99.5/divisionAmount
                                                             * backgroundIndex}%)`,
-                                             transitionDelay: `${(Math.sin(Math.PI * 2
+                                             transitionDelay: `${(Math.cos(Math.PI * 0.5
                                                                     / divisionAmount
                                                                     * backgroundIndex)) * 100}ms`},
                                             (hoverSelectorIndex===contentIndex)

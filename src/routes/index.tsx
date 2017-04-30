@@ -5,6 +5,8 @@ import { App } from '../App/App';
 import { ShowroomIndex } from '../App/Showroom/Showroom';
 import { SphinxContainerFromStore }
     from '../App/Showroom/Sites/Sphinx/SphinxContainer';
+import { CyclopsContainerFromStore }
+    from '../App/Showroom/Sites/Cyclops/CyclopsContainer';
 
 import { WorkshopIndex } from '../App/Workshop/Workshop';
 import { GatlingGunContainerFromStore }
@@ -20,6 +22,7 @@ const routes = (
         <Route component={App}>
             <Route path="/showroom" component={ShowroomIndex}/>
             <Route path="/showroom/sphinx" component={SphinxContainerFromStore}/>
+            <Route path="/showroom/cyclops" component={CyclopsContainerFromStore}/>
 
             <Route path="/workshop" component={WorkshopIndex}/>
             <Route path="/workshop/gatling-gun" component={GatlingGunContainerFromStore}/>

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { addComponentCSS } from '../../../../utils/css_styler';
-import { SphinxMenuFromStore } from "./Widgets/SphinxMenu/SphinxMenu";
-import { colors } from "./sphinxData/themeOptions";
+import { CyclopsMenuFromStore } from "./Widgets/CyclopsMenu/CyclopsMenu";
+import { colors } from "./cyclopsData/themeOptions";
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../../redux/main_reducer';
-import { setViewportDimensions, setPageIndex, setViewIndex, openMenu } from './SphinxActionCreators';
+import { setViewportWidth, openMenu } from './CyclopsActionCreators';
+import { siteContent } from "./cyclopsData/siteContent";
+import { CyclopsPageFromStore } from './Widgets/CyclopsPage';
 
 addComponentCSS({
     //language=CSS
@@ -29,13 +31,12 @@ addComponentCSS({
 
 interface IProperties {
     width?: number
-    height?: number
     activePageIndex?: number
     isMenuOpen?: boolean
 }
 
 interface ICallbacks {
-    onResizeViewport?: (width: number, height: number, isMenuOpen: boolean) => void
+    onResizeViewport?: (width: number, isMenuOpen: boolean) => void
     onLoad?: (isMenuOpen: boolean) => void
 }
 
@@ -45,7 +46,7 @@ interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
 }
 
-export class Sphinx extends React.Component<IProps, IState> {
+export class Cyclops extends React.Component<IProps, IState> {
 
     timerId;
 
@@ -64,7 +65,7 @@ export class Sphinx extends React.Component<IProps, IState> {
         }, 0);
         window.addEventListener("resize", () => this.handleWindowResize());
         this.handleWindowResize();
-        this.props.onLoad(window.innerWidth < 600);
+        this.props.onLoad(window.innerWidth >= 600); //isMenuOpen
     }
 
     componentWillUnmount() {
@@ -76,9 +77,8 @@ export class Sphinx extends React.Component<IProps, IState> {
 
     handleWindowResize() {
         this.props.onResizeViewport(
-            window.innerWidth,
-            window.innerHeight,
-            window.innerWidth < 600
+            window.innerWidth, //width
+            window.innerWidth >= 600 //isMenuOpen
         );
     }
 
@@ -86,30 +86,29 @@ export class Sphinx extends React.Component<IProps, IState> {
         const { isMounted } = this.state;
         const { isMenuOpen } = this.props;
 
-        const imageURL = "https://upload.wikimedia.org/wikipedia/commons/7/75/The_Great_Pyramid_and_the_Sphinx.jpg";
+        const imageURL = "http://cdn.ebaumsworld.com/mediaFiles/picture/2192630/82523333.jpg";
 
         const styles = {
-            sphinx: {
+            cyclops: {
                 background: "#fafafa",
                 width: "100vw",
                 height: "100vh",
             },
-            sphinx__outer: {
+            cyclops__outer: {
                 background: "#fafafa",
                 width: "100vw",
                 height: "100vh",
                 textAlign: "center",
                 opacity: isMounted ? 1 : 0,
-                overflow: "scroll",
                 transition: "opacity 1000ms"
             },
-            sphinx__inner: {
+            cyclops__inner: {
                 position: "absolute",
                 left: "50%",
                 top: "50%",
                 width: "100%",
                 height: "100%",
-                opacity: isMenuOpen ? 0 : 1,
+                opacity: isMenuOpen ? 0.22 : 1,
                 background: `radial-gradient(rgba(250,250,250, 0.85) 0%, 
                                              rgba(250,250,250, 0.45) 50%, 
                                              rgba(250,250,250, 0.85) 100%), url(${imageURL})`,
@@ -118,7 +117,7 @@ export class Sphinx extends React.Component<IProps, IState> {
                 transform: "translate(-50%, -50%)",
                 transition: "opacity 1000ms"
             },
-            sphinx__heading: {
+            cyclops__heading: {
                 position: "absolute",
                 left: "50%",
                 top: "50%",
@@ -130,15 +129,21 @@ export class Sphinx extends React.Component<IProps, IState> {
             }
         };
         return (
-            <div style={styles.sphinx}>
-                <div style={styles.sphinx__outer}>
-                    <SphinxMenuFromStore/>
-                    <div style={styles.sphinx__inner}>
-                        <h1 style={ styles.sphinx__heading }>
-                            Sphinx
+            <div style={ styles.cyclops }>
+                <div style={ styles.cyclops__outer }>
+                    <CyclopsMenuFromStore/>
+                    <div style={ styles.cyclops__inner }>
+                        <h1 style={ styles.cyclops__heading }>
+                            Cyclops
                         </h1>
                     </div>
                 </div>
+                {siteContent.map((content, i) =>
+                    <CyclopsPageFromStore
+                        key={i}
+                        pageIndex={i}
+                        content={content}
+                    />)}
             </div>
         );
     }
@@ -149,9 +154,9 @@ export class Sphinx extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        width: state.sphinxStore.width,
-        isMenuOpen: state.sphinxStore.isMenuOpen,
-        activePageIndex: state.sphinxStore.activePageIndex
+        width: state.cyclopsStore.width,
+        isMenuOpen: state.cyclopsStore.isMenuOpen,
+        activePageIndex: state.cyclopsStore.activePageIndex
     };
 
 }
@@ -161,13 +166,13 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
         onLoad: (isMenuOpen) => {
             dispatch(openMenu(isMenuOpen));
         },
-        onResizeViewport: (width, height, isMenuOpen) => {
-            dispatch(setViewportDimensions(width, height));
+        onResizeViewport: (width, isMenuOpen) => {
+            dispatch(setViewportWidth(width));
             dispatch(openMenu(isMenuOpen));
         }
     }
 }
 
-export let SphinxFromStore = connect(
+export let CyclopsFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(Sphinx);
+)(Cyclops);

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { addComponentCSS } from '../../utils/css_styler';
 import { browserHistory, Link } from 'react-router';
 import { WorkshopBackground } from "./WorkshopBackground/WorkshopBackground";
-import { workShopLinks } from '../../data/workshop';
+import { workshopLinks } from '../../data/workshop';
 
 addComponentCSS({
     //language=CSS
@@ -93,7 +93,7 @@ export class WorkshopIndex extends React.Component<IProps, IState> {
                             Projects
                         </h2>
                         <ul>
-                        {workShopLinks.map((link, i) =>
+                        {workshopLinks.map((link, i) =>
                             <li key={i} style={ styles.workshop__item }
                                 onMouseEnter={() => this.handleMouseEnter(i)}
                                 onMouseLeave={() => this.handleMouseLeave()}>

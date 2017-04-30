@@ -1,6 +1,6 @@
 import { IWorkshopLink } from '../models';
 
-export const workShopLinks: IWorkshopLink[] = [
+export const workshopLinks: IWorkshopLink[] = [
     {
         name: "Gatling Gun",
         path: "/workshop/gatling-gun"

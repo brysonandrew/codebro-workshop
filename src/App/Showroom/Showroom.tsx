@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { addComponentCSS } from '../../utils/css_styler';
 import { browserHistory, Link } from 'react-router';
+import { showroomLinks } from '../../data/showroom';
 
 addComponentCSS({
     //language=CSS
@@ -11,12 +12,17 @@ addComponentCSS({
 interface IProps {
 }
 
-interface IState {}
+interface IState {
+    hoveringIndex: number
+}
 
 export class ShowroomIndex extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
+        this.state = {
+            hoveringIndex: -1
+        }
     }
 
     componentDidMount() {
@@ -26,6 +32,19 @@ export class ShowroomIndex extends React.Component<IProps, IState> {
     handleClick(path) {
         browserHistory.push(path);
     }
+
+    handleMouseEnter(i) {
+        this.setState({
+            hoveringIndex: i
+        })
+    }
+
+    handleMouseLeave() {
+        this.setState({
+            hoveringIndex: -1
+        })
+    }
+
 
     public render(): JSX.Element {
         const styles = {
@@ -54,6 +73,13 @@ export class ShowroomIndex extends React.Component<IProps, IState> {
                 padding: 20,
                 border: "solid 1px #eeeeee",
                 borderRadius: 8
+            },
+            showroom__item: {
+                listStyleType: "none",
+                margin: "10px 0"
+            },
+            showroom__link: {
+                transition: "all 200ms"
             }
         };
         return (
@@ -66,13 +92,19 @@ export class ShowroomIndex extends React.Component<IProps, IState> {
                         <h2 style={styles.showroom__mainHeader}>
                             Sites
                         </h2>
-                        <ul>
-                            <li style ={{listStyleType: "none"}}>
-                                <Link style={{color: "#fafafa"}}
-                                      onClick={() => this.handleClick("/showroom/sphinx")}
-                                      to="/showroom/sphinx">Sphinx</Link>
+                        {showroomLinks.map((link, i) =>
+                            <li key={i} style={ styles.showroom__item }
+                                onMouseEnter={() => this.handleMouseEnter(i)}
+                                onMouseLeave={() => this.handleMouseLeave()}>
+                                <Link style={ Object.assign({}, styles.showroom__link,
+                                                {color: (this.state.hoveringIndex===i)
+                                                            ? "#fafafa" : "#757575" }) }
+                                      onClick={() => this.handleClick(link.path)}
+                                      to={link.path}>
+                                    {link.name}
+                                </Link>
                             </li>
-                        </ul>
+                        )}
                     </div>
                 </div>
             </div>
