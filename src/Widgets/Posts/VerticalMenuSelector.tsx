@@ -82,7 +82,7 @@ export class VerticalMenuSelector extends React.Component<IVerticalMenuSelectorP
             }
         };
         const pagePath = pages[activePageIndex].path;
-        const viewPath = post.heading.replace(/\s/g, "-").toLowerCase();
+        const viewPath = post.name.replace(/\s/g, "-").toLowerCase();
         const path = `/${pagePath}/${viewPath}`;
         return (
             <Link style={styles.verticalMenuSelector}
@@ -93,7 +93,7 @@ export class VerticalMenuSelector extends React.Component<IVerticalMenuSelectorP
                 {this.state.isHovering
                     ?   <Link style={styles.verticalMenuSelector__label}
                               to={path} onClick={() => this.handleClick(path)}>
-                            {post.heading}
+                            {post.name}
                         </Link>
                     :   null}
                 <span style={styles.verticalMenuSelector__icon}>

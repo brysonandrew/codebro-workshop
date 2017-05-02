@@ -99,7 +99,7 @@ export const createBackHandle = () => {
 
 export const createWholeBarrel = () => {
     const wholeBarrel = new THREE.Group;
-    const numberOfBarrels = 8;
+    const numberOfBarrels = 6;
     const radians = Math.PI * 2 / numberOfBarrels;
     const radius = 8;
     Array.apply(null, new Array(numberOfBarrels)).map((_, i) => {

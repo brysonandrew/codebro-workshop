@@ -64,7 +64,7 @@ export class Home extends React.Component<IProps, IState> {
         onPageIndexSelect(activePageIndex);
         if (activePageIndex > -1) {
             /////SET VIEW
-            let activeViewIndex = Immutable.List(pages[activePageIndex].viewLinks)
+            let activeViewIndex = Immutable.List(pages[activePageIndex].viewPaths)
                                     .findIndex(item =>
                                         item === params.activeView);
             onViewIndexSelect(activeViewIndex);
@@ -97,7 +97,7 @@ export class Home extends React.Component<IProps, IState> {
                 onPageIndexSelect(activePageIndex);
                 if (activePageIndex > -1) {
                     /////SET VIEW
-                    let activeViewIndex = Immutable.List(pages[activePageIndex].viewLinks)
+                    let activeViewIndex = Immutable.List(pages[activePageIndex].viewPaths)
                                             .findIndex(item =>
                                                 item === nextProps.params.activeView);
                     onViewIndexSelect(activeViewIndex);

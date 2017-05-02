@@ -23,8 +23,8 @@ export class GatlingGun {
     }
 
     addBullet() {
-        const amount = 4;
-        const spread = 16;
+        let amount = 20;
+        let radius = 2;
 
         let colors = new Float32Array( amount * 3 );
         let sizes = new Float32Array( amount );
@@ -35,20 +35,15 @@ export class GatlingGun {
         let positions = new Float32Array( amount * 3 );
 
         positions.forEach((_, i) => {
-            const startingPointX = -spread * Math.sin(this.gun.rotation.y);
-            const startingPointZ = -spread * Math.cos(this.gun.rotation.y);
-            vertex.x = Math.sin(this.gun.rotation.y)
-                        * -Math.random()
-                        * spread * 2 - startingPointX;
-            vertex.y = Math.random() *  spread - spread * 0.5;
-            vertex.z = Math.cos(this.gun.rotation.y)
-                        * -Math.random()
-                        * spread * 2 - startingPointZ;
-            vertex.toArray((positions as any), i * 3);
+            vertex.x = (Math.random() * 200 - 1) * radius;
+            vertex.y = (Math.random() * 200 - 1) * radius;
+            vertex.z = (Math.random() * 2 - 1) * radius;
+            vertex.toArray((positions as any), i);
 
-            sizes[i] = spread * 2 + i * 2;
+            sizes[i] = 35;
 
             color.setHSL(60, 1, 0.75);
+            // color.setHSL(360 * Math.random(), 0.8, 0.6);
             color.toArray((colors as any), i * 3);
         });
 
@@ -61,7 +56,7 @@ export class GatlingGun {
             uniforms: {
                 amplitude: { value: 1.0 },
                 color:     { value: new THREE.Color( 0xffffff ) },
-                texture:   { value: new THREE.TextureLoader().load( "/images/assets/spark3.png" ) }
+                texture:   { value: new THREE.TextureLoader().load( "/images/assets/spark1.png" ) }
             },
             vertexShader:   `uniform float amplitude;
                                 attribute float size;
@@ -81,7 +76,7 @@ export class GatlingGun {
                                 gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
                             }`,
             blending:       THREE.AdditiveBlending,
-            depthTest:      false,
+            depthTest:      true,
             transparent:    true
         } );
 
@@ -106,8 +101,8 @@ export class GatlingGun {
 
     fireBullets() {
         this.bullets.children.forEach((bullet, i) => {
-            const bulletStartingPointX = 66 * Math.sin(bullet.rotation.y);
-            const bulletStartingPointZ = 66 * Math.cos(bullet.rotation.y);
+            const bulletStartingPointX = 44 * Math.sin(bullet.rotation.y);
+            const bulletStartingPointZ = 44 * Math.cos(bullet.rotation.y);
             bullet.position.x = Math.sin(bullet.rotation.y) * -bullet["life"] * 20
                                 - bulletStartingPointX;
             bullet.position.z = Math.cos(bullet.rotation.y) * -bullet["life"] * 20

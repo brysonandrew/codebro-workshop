@@ -25,18 +25,19 @@ interface ICallbacks {
 interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
-    slideshowIndex?: number
+    partIndex?: number
 }
 
 export class Slideshow extends React.Component<IProps, IState> {
 
     array;
-    slideshowInfo = pages[this.props.activePageIndex].posts[this.props.activeViewIndex];
+    slideshowInfo = pages[this.props.activePageIndex].slides[this.props.activeViewIndex];
+    pageInfo = pages[this.props.activePageIndex];
 
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            slideshowIndex: -1
+            partIndex: 0
         };
     }
 
@@ -45,20 +46,20 @@ export class Slideshow extends React.Component<IProps, IState> {
     }
 
     handleKeyPress(e) {
-        const { slideshowIndex } = this.state;
-        if (e.keyCode===122 && slideshowIndex > 0) {
+        const { partIndex } = this.state;
+        if (e.keyCode===122 && partIndex > 0) {
             this.setState({
-                slideshowIndex: slideshowIndex - 1
+                partIndex: partIndex - 1
             })
-        } else if (e.keyCode===120 && slideshowIndex < this.slideshowInfo.slides.length) {
+        } else if (e.keyCode===120 && partIndex <= this.slideshowInfo.parts.length) {
             this.setState({
-                slideshowIndex: slideshowIndex + 1
+                partIndex: partIndex + 1
             })
         }
     }
 
     render(): JSX.Element {
-        const {slideshowIndex} = this.state;
+        const {partIndex} = this.state;
         let styles = {
             slideshow: {
                 position: "fixed",
@@ -70,11 +71,29 @@ export class Slideshow extends React.Component<IProps, IState> {
             slideshow__videoTitle: {
                 position: "absolute",
                 left: "50%",
-                top: "50%",
+                top: "40%",
                 width: "80%",
-                fontSize: 100,
+                fontSize: 80,
                 color: "#eeeeee",
                 transform: "translate(-50%, -50%)",
+                zIndex: 1
+            },
+            slideshow__videoPart: {
+                position: "absolute",
+                left: "50%",
+                top: "60%",
+                width: "80%",
+                fontSize: 60,
+                color: "#eeeeee",
+                transform: "translate(-50%, -50%)",
+                zIndex: 1
+            },
+            slideshow__category: {
+                position: "absolute",
+                right: "4vw",
+                bottom: "4vh",
+                fontSize: 40,
+                color: "#eeeeee",
                 zIndex: 1
             },
             slideshow__pic: {
@@ -85,20 +104,23 @@ export class Slideshow extends React.Component<IProps, IState> {
                 opacity: 0.5
             }
         };
-        console.log(slideshowIndex);
         return (
             <div style={styles.slideshow}>
-               {(slideshowIndex===-1)
-                ?   <div>
-                        <div style={styles.slideshow__videoTitle}>
-                            {this.slideshowInfo.heading}
-                        </div>
-                        <img
-                            style={styles.slideshow__pic}
-                            src={this.slideshowInfo.pic}
-                        />
+                <div>
+                    <div style={styles.slideshow__videoTitle}>
+                        {this.slideshowInfo.name}
                     </div>
-                :   this.slideshowInfo.slides[slideshowIndex]}
+                    <div style={styles.slideshow__videoPart}>
+                       {this.slideshowInfo.parts[partIndex]}
+                    </div>
+                    <div style={styles.slideshow__category}>
+                       {this.slideshowInfo.category}
+                    </div>
+                    <img
+                        style={styles.slideshow__pic}
+                        src={this.slideshowInfo.image}
+                    />
+                </div>
             </div>
         );
     }

@@ -3,7 +3,8 @@ import { IPost } from '../../models';
 
 export let blogPosts: IPost[] = [
     {
-        heading: "Regular expressions and whitespace",
+        name: "Regular expressions and whitespace",
+        category: "Web Development",
         link: "https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions",
         status: "",
         date: "18 Apr 2017",
@@ -13,7 +14,8 @@ export let blogPosts: IPost[] = [
                 <code>"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</code>,
                 "how would you convert this to",
                 <div>
-                    <code>"SPACESPACETABTABSPACETABSPACE"</code><span>?</span>
+                    <code>"SPACESPACETABTABSPACETABSPACE"</code>
+                    <span>?</span>
                 </div>,
                 "The answer is with regular expressions.",
                 "Firstly, store the string into a variable",
@@ -24,16 +26,14 @@ export let blogPosts: IPost[] = [
                 <code>string = string.replace(/\s/g, "SPACE");</code>,
                 "And voila, We have decoded the mysterious whitespace!",
                 <code>console.log(string); //"SPACESPACETABTABSPACETABSPACE"</code>,
-                <img style={{height: 220, width: "auto"}} src="/images/blogPosts/regexpWhitespace/regexpEgyptian.jpg"/>,
+                <img style={{height: 220, width: "auto"}}
+                     src="/images/blogPosts/regexpWhitespace/regexpEgyptian.jpg"/>,
             ],
-        slides: [
-            "slide 1",
-            "slide 2"
-        ],
-        pic: "/images/blogPosts/regexpWhitespace/whiteSpace.jpg"
+        image: "/images/blogPosts/regexpWhitespace/whiteSpace.jpg"
     },
     {
-        heading: "Linux tools for Windows",
+        name: "Linux tools for Windows",
+        category: "Web Development",
         link: "http://www.linux.org/",
         status: "",
         date: "8 Apr 2017",
@@ -58,10 +58,11 @@ export let blogPosts: IPost[] = [
                 "Available on Windows 10 and still in the beta stage of development. You can install specific packages on the command line.",
                 "This is by no means an exhaustive list, only the tools I have looked at."
             ],
-        pic: "/images/blogPosts/linuxTools/windows10.png"
+        image: "/images/blogPosts/linuxTools/windows10.png"
     },
     {
-        heading: "Screenshots with Phantomjs and Slimerjs",
+        name: "Screenshots with Phantomjs and Slimerjs",
+        category: "Web Development",
         link: "https://phantomjs.org/",
         status: "",
         date: "29 Mar 2017",
@@ -97,10 +98,11 @@ page.open('http://codebro.io', function() {
                 <code>slimerjs screenshot.js</code>,
                 "Slimerjs, however, isn't headless so you will see a browser window appear when you run the code and your screen shot produced."
             ],
-        pic: "/images/blogPosts/phantomjsScreenshots/phantomjs.png"
+        image: "/images/blogPosts/phantomjsScreenshots/phantomjs.png"
     },
     {
-        heading: "Living for the moment with Momentjs",
+        name: "Living for the moment with Momentjs",
+        category: "Web Development",
         link: "https://momentjs.com/",
         status: "",
         date: "14 Mar 2017",
@@ -128,10 +130,11 @@ console.log(m.format("DD")) //log to console "16"`}
                 'Other ideas could be adding moment JS to your TODO list eg/ \"task completed 2 hours ago\", or user sessions eg/ \"user last logged in last week\"',
                 "Soon I will share a link here to my date-picker (after some beta testing). If I forget please remind me by sending an email."
             ],
-        pic: "/images/blogPosts/livingForTheMoment/momentjs.png"
+        image: "/images/blogPosts/livingForTheMoment/momentjs.png"
     },
     {
-        heading: "The ultimate webpage build",
+        name: "The ultimate webpage build",
+        category: "Web Development",
         link: "https://github.com/brysonandrew/isomorphic-react-redux-typescript",
         status: "",
         date: "26 Feb 2017",
@@ -163,10 +166,11 @@ console.log(m.format("DD")) //log to console "16"`}
                     Forked and altered build
                 </a>
             ],
-        pic: "/images/blogPosts/webpageBuild/github-logo.jpg"
+        image: "/images/blogPosts/webpageBuild/github-logo.jpg"
     },
     {
-        heading: "THREEjs essentials",
+        name: "THREEjs essentials",
+        category: "Web Development",
         link: "https://threejs.org/examples/misc_controls_orbit.html",
         status: "",
         date: "24 Feb 2017",
@@ -187,10 +191,11 @@ console.log(m.format("DD")) //log to console "16"`}
                 <code>const cameraHelper = THREE.CameraHelper(camera);</code>,
                 <code>scene.add(cameraHelper);</code>
             ],
-        pic: "/images/blogPosts/threejsEssentials/threejs.jpg"
+        image: "/images/blogPosts/threejsEssentials/threejs.jpg"
     },
-    {
-        heading: "Planning a webpage design for a client",
+                    {
+                        name: "Planning a webpage design for a client",
+        category: "Web Development",
         link: "",
         status: "",
         date: "7 Feb 2017",
@@ -204,6 +209,6 @@ console.log(m.format("DD")) //log to console "16"`}
                 "Do send regular updates on what and how their website is developing and be responsive to their feedback.",
                 "It is your job as a web developer to allow your client to express and for you to interpret their idea so that the final result is more of a pleasant surprise than a disappointment."
             ],
-        pic: "/images/blogPosts/howToPlanAWebpageDesign/javascriptIcon.png"
+        image: "/images/blogPosts/howToPlanAWebpageDesign/javascriptIcon.png"
     }
 ];

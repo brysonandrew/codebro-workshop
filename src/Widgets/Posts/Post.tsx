@@ -150,9 +150,9 @@ export class Post extends React.Component<IProps, IState> {
                 <a href={(post.link.length > 0) ? post.link : null}
                    target="_blank">
                     <div style={styles.post__picContainer} >
-                        <img style={styles.post__pic} src={post.pic}/>
+                        <img style={styles.post__pic} src={post.image}/>
                     </div>
-                    <h2 style={styles.post__heading}>{post.heading}</h2>
+                    <h2 style={styles.post__heading}>{post.name}</h2>
                     <div style={styles.post__date}>{post.date}</div>
                 </a>
                 <div>{post.content.map((paragraph, i) =>

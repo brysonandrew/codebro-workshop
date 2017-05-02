@@ -2,8 +2,9 @@ import { IPost } from '../../models';
 
 export let workPosts: IPost[] = [
     {
-        heading: "Coworkrz Shared offices and meeting rooms",
+        name: "Coworkrz Shared offices and meeting rooms",
         link:   "https://cb-coworking.herokuapp.com/",
+        category: "Web Development",
         status: "Work in Progress",
         date:   "Jan 2017 - Present",
         content:
@@ -14,10 +15,11 @@ export let workPosts: IPost[] = [
                 "An interesting thing I have learnt so far is that German laws are incredibly strict when it comes to what kind of photo's you can use, even photos purchased from major websites like ShutterStock didn't pass the test. We eventually found a site that provided this.",
                 "I am making this website on a fixed price basis and clearly laid out milestones and when installments should be paid, also tasks like procuring photos, logo, registering domain and making mockups I gave to the website owner.",
             ],
-        pic:    "/images/work/coworkrz/coworkrz_thumbnail.jpg"
+        image:    "/images/work/coworkrz/coworkrz_thumbnail.jpg"
     },
     {
-        heading: "Eventerprise Events Management",
+        name: "Eventerprise Events Management",
+        category: "Web Development",
         link: "https://eventerprise.com/",
         status: "Deployed",
         date: "Nov 2016 - Jan 2017",
@@ -33,10 +35,11 @@ export let workPosts: IPost[] = [
                 "The only way we could fix this was to remove the widget but it is such a huge part of the site that that wasn't an option. 3rd party widgets have this short expiry time so that sites receive updates regularly and when the widget changes, sadly Google doesn't approve.",
                 "After passing all of the tests on Google Insights and Webpagetest.org the job was completed. I could have stayed and continued coding the front end but I got too busy with another job and so decided to quit."
             ],
-        pic: "/images/work/eventerprise/eventerprise_thumbnail.png"
+        image: "/images/work/eventerprise/eventerprise_thumbnail.png"
     },
     {
-        heading: "Porizi Software Marketing Website",
+        name: "Porizi Software Marketing Website",
+        category: "Web Development",
         link: "https://porizi.com/",
         status: "Deployed",
         date: "Jun 2016 - Feb 2017",
@@ -48,6 +51,6 @@ export let workPosts: IPost[] = [
                 "Compared to what I get paid now the money was quite low but for my skills it was very fair and the feedback, guidance and self-improvement was invaluable to me at that point.",
                 "The most important development skills I learnt were using git (before this I had never even used version control), Typescript, Bootstrap, and BEM scalable CSS. It was a great feeling also to know I could create something of value in the world of websites."
             ],
-        pic: "/images/work/porizi/poriziFront_thumbnail.jpg"
+        image: "/images/work/porizi/poriziFront_thumbnail.jpg"
     }
 ];

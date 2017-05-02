@@ -3,21 +3,23 @@ export interface IDictionary<T> {
 }
 
 export interface IPost {
-    heading: string
+    name: string
+    category: string
     link: string
     status: string
     date: string
     content: any[]
-    slides?: any[]
-    pic: string
+    parts?: string[]
+    image: string
 }
 
 export interface IPage {
     name: string
     path: string
+    viewPaths: string[]
     componentType: string
-    viewLinks: any[]
-    posts: IPost[]
+    posts?: IPost[]
+    slides?: any[]
 }
 
 export interface IBar {
@@ -37,5 +39,16 @@ export interface IHomeParams {
 
 export interface IWorkshopLink {
     name: string
+    category: string
     path: string
+    parts?: string[] | JSX.Element[]
+    image: string
+}
+
+export interface IShowroomLink {
+    name: string
+    category: string
+    path: string
+    parts?: string[]
+    image: string
 }
