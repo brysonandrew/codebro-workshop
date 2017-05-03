@@ -11,7 +11,7 @@ import { CyclopsContainerFromStore }
 import { WorkshopIndex } from '../App/Workshop/Workshop';
 //examples
 import  { TransitionContainerFromStore }
-    from '../App/Workshop/Examples/Transition/TransitionContainer';
+    from '../App/Workshop/Examples/TransitionCrashTest/TransitionContainer';
 import  { THREEjsBasicSetup }
     from '../App/Workshop/Examples/THREEjsBasicSetup/THREEjsBasicSetup';
 import  { IntroHeader }
