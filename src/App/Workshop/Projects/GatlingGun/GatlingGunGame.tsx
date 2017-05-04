@@ -36,7 +36,6 @@ export class GatlingGunGame extends React.Component<IProps, IState> {
         this.initRenderer();
         this.initCamera();
         this.initScene();
-        this.initStats();
         this.initLighting();
         this.initAssets();
         window.addEventListener( 'resize'

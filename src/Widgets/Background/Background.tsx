@@ -88,6 +88,7 @@ export class Background extends React.Component<IProps, IState> {
 
     initRenderer() {
         this.renderer = new THREE.WebGLRenderer();
+        console.log(this.renderer);
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( this.renderer.domElement );
     }
