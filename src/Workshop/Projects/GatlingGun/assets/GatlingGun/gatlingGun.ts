@@ -1,6 +1,6 @@
 import THREE = require('three');
 import { createSingleBarrel, createGun } from './gunParts';
-import { easeMotion } from '../../helpers/motion';
+import { easeMotion } from '../../../../../helpers/motion';
 
 export class GatlingGun {
 

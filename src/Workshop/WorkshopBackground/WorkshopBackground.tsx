@@ -18,7 +18,7 @@ export class WorkshopBackground extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        if (isGL)  {
+        if (isGL())  {
             this.initGL();
         } else {
             this.initGLFallback();
@@ -40,7 +40,7 @@ export class WorkshopBackground extends React.Component<any, any> {
 
     componentWillUnmount() {
         cancelAnimationFrame(this.animateLoop);
-        document.body.removeChild( this.renderer.domElement );
+        if (isGL()) document.body.removeChild( this.renderer.domElement );
     }
 
     initRenderer() {

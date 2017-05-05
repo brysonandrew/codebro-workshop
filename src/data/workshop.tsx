@@ -2,16 +2,16 @@ import * as React from 'react';
 import { IWorkshopLink } from '../models';
 //projects
 import { GatlingGunContainerFromStore }
-    from '../App/Workshop/Projects/GatlingGun/GatlingGunContainer';
+    from '../Workshop/Projects/GatlingGun/GatlingGunContainer';
 import { WalkingPhysicsContainerFromStore }
-    from '../App/Workshop/Projects/WalkingPhysics/WalkingPhysicsContainer';
-import { Create3DSword }
-    from '../App/Workshop/Projects/Create3DSword/Create3DSword';
+    from '../Workshop/Projects/WalkingPhysics/WalkingPhysicsContainer';
+import { Create3DSwordContainerFromStore }
+    from '../Workshop/Projects/Create3DSword/Create3DSwordContainer';
 //examples
 import  { TransitionContainerFromStore }
-    from '../App/Workshop/Examples/TransitionCrashTest/TransitionContainer';
-import  { THREEjsBasicSetup }
-    from '../App/Workshop/Examples/THREEjsBasicSetup/THREEjsBasicSetup';
+    from '../Workshop/Examples/TransitionCrashTest/TransitionContainer';
+import  { THREEjsBasicSetupContainerFromStore }
+    from '../Workshop/Examples/THREEjsBasicSetup/THREEjsBasicSetupContainer';
 
 export const workshopLinks: IWorkshopLink[] = [
     {
@@ -40,7 +40,7 @@ export const workshopLinks: IWorkshopLink[] = [
         category: "3D Web Development",
         slides: [],
         image: "/images/examples/create-a-3d-sword/executioners-greatsword.png",
-        component: <Create3DSword/>
+        component: <Create3DSwordContainerFromStore/>
     },
     {
         name: "Transition Crash Test",
@@ -68,6 +68,6 @@ export const workshopLinks: IWorkshopLink[] = [
         category: "3D Web Development",
         slides: [],
         image: "/images/examples/threejs-basic-setup/threejs.jpg",
-        component: <THREEjsBasicSetup/>
+        component: <THREEjsBasicSetupContainerFromStore/>
     }
 ];

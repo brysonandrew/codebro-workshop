@@ -49,7 +49,7 @@ export class TransitionImage extends React.Component<IProps, IState> {
             this.state.isMounted &&
             <img style={ styles.transitionImage }
                  onTransitionEnd={() => this.handleTransitionEnd()}
-                 src={"/images/workshop/examples/transition-crash-test/van-damme.png"}/>
+                 src={"/images/examples/transition-crash-test/van-damme.png"}/>
         );
     }
 }

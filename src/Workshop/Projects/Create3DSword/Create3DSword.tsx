@@ -1,20 +1,23 @@
 import * as React from 'react';
 import THREE = require('three');
-import {addComponentCSS} from '../../../../utils/css_styler';
+import { addComponentCSS } from '../../../utils/css_styler';
+import {isGL} from "../../../helpers/WebGL";
 
 addComponentCSS({
     //language=CSS
     default: `
-    .threejs-basic-setup {
+    .empty {
     }
     `
 });
 
 interface IProps {}
 
-interface IState {}
+interface IState {
+    isFallback?: boolean
+}
 
-export class THREEjsBasicSetup extends React.Component<IProps, IState> {
+export class Create3DSword extends React.Component<IProps, IState> {
 
     scene;
     camera;
@@ -25,26 +28,38 @@ export class THREEjsBasicSetup extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
-        this.state = {};
+        this.state = {
+            isFallback: false
+        };
     }
 
     componentDidMount() {
+        if (isGL())  {
+            this.initGL();
+        } else {
+            this.initGLFallback();
+        }
+    }
+
+    initGL(){
         this.initRenderer();
         this.initCamera();
         this.initScene();
-
         this.initLighting();
         this.initAssets();
         window.addEventListener( 'resize'
             , () => this.onWindowResized(this.renderer), false );
         this.animate();
     }
+    initGLFallback(){
+        this.setState({ isFallback: true })
+    }
 
     componentWillUnmount() {
         window.removeEventListener( 'resize'
             , () => this.onWindowResized(this.renderer), false );
         cancelAnimationFrame(this.animateLoop);
-        document.body.removeChild( this.renderer.domElement );
+        if (isGL()) document.body.removeChild( this.renderer.domElement );
     }
 
     onWindowResized(renderer) {
@@ -71,36 +86,34 @@ export class THREEjsBasicSetup extends React.Component<IProps, IState> {
     }
 
     initLighting() {
-        this.workshopLight = new THREE.PointLight( 0xffffff, 1, 100 );
+        this.workshopLight = new THREE.PointLight( 0xff0000, 1, 100 );
         this.workshopLight.position.set( 0, 50, 0 );
         this.scene.add( this.workshopLight );
     }
 
-    cylinder;
-
     initAssets() {
         const geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
         const material = new THREE.MeshLambertMaterial( {emissive: 0x212121} );
-        this.cylinder = new THREE.Mesh( geometry, material );
-        this.scene.add( this.cylinder );
+        const cylinder = new THREE.Mesh( geometry, material );
+        this.scene.add( cylinder );
     }
 
     animate() {
         this.animateLoop = requestAnimationFrame( this.animate.bind(this) );
-        this.renderMotion();
+        //this.renderMotion();
     }
 
     renderMotion() {
-        this.cylinder.rotation.x+=0.02;
-        this.cylinder.rotation.z+=0.02;
         this.camera.lookAt( this.scene.position );
         this.renderer.render( this.scene, this.camera );
     }
 
     render(): JSX.Element {
         return (
-            <div style={{color: "white"}}>
-                {"threejs basic setup"}
+            <div>
+                {this.state.isFallback
+                    ?   "Unable to view due to browser or browser settings. Try another browser or reconfigure your current browser."
+                    :   null}
             </div>
         );
     }

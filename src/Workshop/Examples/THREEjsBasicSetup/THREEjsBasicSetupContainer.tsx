@@ -1,8 +1,7 @@
 import * as React from 'react';
-import THREE = require('three');
 import { connect } from 'react-redux';
-import { IStoreState } from '../../../../redux/main_reducer';
-import { GatlingGunGame } from './GatlingGunGame';
+import { IStoreState } from '../../../redux/main_reducer';
+import {THREEjsBasicSetup} from "./THREEjsBasicSetup";
 
 interface IProperties {}
 
@@ -12,7 +11,7 @@ interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {}
 
-export class GatlingGunContainer extends React.Component<IProps, IState> {
+export class THREEjsBasicSetupContainer extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -20,7 +19,7 @@ export class GatlingGunContainer extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const styles = {
-            workshop: {
+            container: {
                 position: "absolute",
                 top: 0,
                 left: 0,
@@ -28,7 +27,7 @@ export class GatlingGunContainer extends React.Component<IProps, IState> {
                 height: "100vh",
                 textAlign: "center"
             },
-            workshop__object: {
+            container__object: {
                 position: "absolute",
                 left: "50%",
                 top: "50%",
@@ -36,9 +35,9 @@ export class GatlingGunContainer extends React.Component<IProps, IState> {
             }
         };
         return (
-            <div style={ styles.workshop }>
-                <div style={ styles.workshop__object }>
-                    <GatlingGunGame/>
+            <div style={ styles.container }>
+                <div style={ styles.container__object }>
+                    <THREEjsBasicSetup/>
                 </div>
             </div>
         );
@@ -59,6 +58,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     }
 }
 
-export let GatlingGunContainerFromStore = connect(
+export let THREEjsBasicSetupContainerFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(GatlingGunContainer);
+)(THREEjsBasicSetupContainer);

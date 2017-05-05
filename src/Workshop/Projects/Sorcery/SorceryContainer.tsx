@@ -1,7 +1,8 @@
 import * as React from 'react';
 import THREE = require('three');
 import { connect } from 'react-redux';
-import { IStoreState } from '../../../../redux/main_reducer';
+import { IStoreState } from '../../../redux/main_reducer';
+import { SorceryGame } from './SorceryGame';
 
 interface IProperties {}
 
@@ -11,7 +12,7 @@ interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {}
 
-export class WalkingPhysicsContainer extends React.Component<IProps, IState> {
+export class SorceryContainer extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -19,7 +20,7 @@ export class WalkingPhysicsContainer extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const styles = {
-            container: {
+            workshop: {
                 position: "absolute",
                 top: 0,
                 left: 0,
@@ -27,7 +28,7 @@ export class WalkingPhysicsContainer extends React.Component<IProps, IState> {
                 height: "100vh",
                 textAlign: "center"
             },
-            container__object: {
+            workshop__object: {
                 position: "absolute",
                 left: "50%",
                 top: "50%",
@@ -35,8 +36,9 @@ export class WalkingPhysicsContainer extends React.Component<IProps, IState> {
             }
         };
         return (
-            <div style={ styles.container }>
-                <div style={ styles.container__object }>
+            <div style={ styles.workshop }>
+                <div style={ styles.workshop__object }>
+                    <SorceryGame/>
                 </div>
             </div>
         );
@@ -57,6 +59,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     }
 }
 
-export let WalkingPhysicsContainerFromStore = connect(
+export let SorceryContainerFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(WalkingPhysicsContainer);
+)(SorceryContainer);

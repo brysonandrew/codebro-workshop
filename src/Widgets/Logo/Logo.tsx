@@ -48,13 +48,12 @@ export class Logo extends React.Component<ILogoProps, ILogoState> {
             cursor: "pointer",
             transition: "opacity 200ms"
         };
-        let words = this.state.isLogoShort
-                    || (this.props.activePageIndex>-1) ? ["c", "b"] : ["code", "bro"];
+        let words = (this.props.activePageIndex>-1) ? ["c", "b"] : ["code", "bro"];
 
         return (
             <div style={style}
                  onClick={(this.props.activePageIndex===-1)
-                            ? () => this.handleClick() : null}
+                            ? null : () => this.handleClick()}
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}
             >

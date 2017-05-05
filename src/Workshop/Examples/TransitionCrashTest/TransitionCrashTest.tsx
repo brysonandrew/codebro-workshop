@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '../../../../Widgets/Button/Button';
+import { Button } from '../../../Widgets/Button/Button';
 import { TransitionImage } from './TransitionImage';
 
 interface IProps {}

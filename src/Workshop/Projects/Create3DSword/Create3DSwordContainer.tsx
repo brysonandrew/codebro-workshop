@@ -1,7 +1,8 @@
 import * as React from 'react';
+import THREE = require('three');
 import { connect } from 'react-redux';
-import { IStoreState } from '../../../../redux/main_reducer';
-import { TransitionCrashTest } from './TransitionCrashTest';
+import { IStoreState } from '../../../redux/main_reducer';
+import {Create3DSword} from "./Create3DSword";
 
 interface IProperties {}
 
@@ -11,7 +12,7 @@ interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {}
 
-export class TransitionContainer extends React.Component<IProps, IState> {
+export class Create3DSwordContainer extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -37,7 +38,7 @@ export class TransitionContainer extends React.Component<IProps, IState> {
         return (
             <div style={ styles.container }>
                 <div style={ styles.container__object }>
-                    <TransitionCrashTest/>
+                    <Create3DSword/>
                 </div>
             </div>
         );
@@ -58,6 +59,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     }
 }
 
-export let TransitionContainerFromStore = connect(
+export let Create3DSwordContainerFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(TransitionContainer);
+)(Create3DSwordContainer);

@@ -1,17 +1,19 @@
 import * as React from 'react';
 import THREE = require('three');
-import {GatlingGun} from './assets/GatlingGun/gatlingGun';
+import {Sorcery} from './assets/Sorcery/sorcery';
+import {isGL} from "../../../helpers/WebGL";
 
 interface IProps {}
 
 interface IState {
+    isFallback?: boolean
     isMounted?: boolean
     isFiring?: boolean
     isRotatingLeft?: boolean
     isRotatingRight?: boolean
 }
 
-export class GatlingGunGame extends React.Component<IProps, IState> {
+export class SorceryGame extends React.Component<IProps, IState> {
 
     scene;
     camera;
@@ -19,12 +21,13 @@ export class GatlingGunGame extends React.Component<IProps, IState> {
     animateLoop;
     controls;
     workshopLight;
-    gatlingGun = new GatlingGun();
+    gatlingGun = new Sorcery();
 
 
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
+            isFallback: false,
             isMounted: false,
             isFiring: false,
             isRotatingLeft: false,
@@ -33,9 +36,18 @@ export class GatlingGunGame extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
+        if (isGL())  {
+            this.initGL();
+        } else {
+            this.initGLFallback();
+        }
+    }
+
+    initGL() {
         this.initRenderer();
         this.initCamera();
         this.initScene();
+        this.initStats();
         this.initLighting();
         this.initAssets();
         window.addEventListener( 'resize'
@@ -48,6 +60,8 @@ export class GatlingGunGame extends React.Component<IProps, IState> {
         this.animate();
     }
 
+    initGLFallback() {}
+
     componentWillUnmount() {
         window.removeEventListener( 'resize'
             , () => this.onWindowResized(this.renderer), false );
@@ -56,7 +70,7 @@ export class GatlingGunGame extends React.Component<IProps, IState> {
         document.removeEventListener( 'keyup'
             , (e) => this.handleKeyUp(e), false );
         cancelAnimationFrame(this.animateLoop);
-        document.body.removeChild( this.renderer.domElement );
+        if (isGL()) document.body.removeChild( this.renderer.domElement );
     }
 
     handleKeyPress(e) {
@@ -139,6 +153,9 @@ export class GatlingGunGame extends React.Component<IProps, IState> {
     render(): JSX.Element {
         return (
             <div>
+                {this.state.isFallback
+                    ?   "Unable to view due to browser or browser settings. Try another browser or reconfigure your current browser."
+                    :   null}
             </div>
         );
     }

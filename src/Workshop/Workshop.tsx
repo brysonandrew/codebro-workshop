@@ -46,6 +46,7 @@ export class Workshop extends React.Component<IProps, IState> {
     }
 
     handleLogoClick() {
+        console.log("logo click")
         browserHistory.push("");
         this.props.onPageIndexSelect(-1);
     }
@@ -63,7 +64,6 @@ export class Workshop extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        console.log("mounted")
         const { params, onResizeViewport, onPageIndexSelect, onViewIndexSelect } = this.props;
         //routing
         /////SET PAGE
@@ -96,10 +96,8 @@ export class Workshop extends React.Component<IProps, IState> {
             if (nextProps.activePageIndex > -1){
                 /////SET PAGE
                 let activePageIndex = Immutable.List(workshopLinks)
-                                        .findIndex((item, index) =>{
-                    console.log(item.path + " === " + nextProps.params.activePage);
-                                          return  item.path === nextProps.params.activePage;
-                });
+                                        .findIndex((item, index) =>
+                                            item.path === nextProps.params.activePage);
                 onPageIndexSelect(activePageIndex);
                 // if (activePageIndex > -1) {
                 //     /////SET VIEW
@@ -194,11 +192,11 @@ export class Workshop extends React.Component<IProps, IState> {
                                     )}
                                 </ul>
                             </div>
+                            <WorkshopBackground />
                         </div>
                     :   <div>
                             {workshopLinks[this.props.activePageIndex].component}
                         </div>}
-                <WorkshopBackground />
             </div>
         );
     }

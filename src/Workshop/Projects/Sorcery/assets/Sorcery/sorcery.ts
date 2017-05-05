@@ -1,8 +1,8 @@
 import THREE = require('three');
-import { createSingleBarrel, createGun } from './gunParts';
-import { easeMotion } from '../../helpers/motion';
+import { createSingleBarrel, createGun } from './sorceryParts';
+import { easeMotion } from '../../../../../helpers/motion';
 
-export class GatlingGun {
+export class Sorcery {
 
     gun = new THREE.Group;
     bullets = new THREE.Group;
