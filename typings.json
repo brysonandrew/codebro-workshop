@@ -20,6 +20,7 @@
     "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20161120230953"
   },
   "dependencies": {
-    "react": "registry:dt/react#15.0.0+20170324160437"
+    "react": "registry:dt/react#15.0.0+20170324160437",
+    "react-motion": "registry:dt/react-motion#0.0.0+20170123203653"
   }
 }

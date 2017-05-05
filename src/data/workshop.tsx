@@ -7,6 +7,8 @@ import { WalkingPhysicsContainerFromStore }
     from '../Workshop/Projects/WalkingPhysics/WalkingPhysicsContainer';
 import { Create3DSwordContainerFromStore }
     from '../Workshop/Projects/Create3DSword/Create3DSwordContainer';
+import { VideoEditorContainerFromStore }
+    from '../Workshop/Projects/VideoEditor/VideoEditorContainer';
 //examples
 import  { TransitionContainerFromStore }
     from '../Workshop/Examples/TransitionCrashTest/TransitionContainer';
@@ -69,5 +71,15 @@ export const workshopLinks: IWorkshopLink[] = [
         slides: [],
         image: "/images/examples/threejs-basic-setup/threejs.jpg",
         component: <THREEjsBasicSetupContainerFromStore/>
+    },
+    {
+        name: "Video Editor",
+        path: "video-editor",
+        viewPaths: [],
+        parts: [],
+        category: "3D Web Development",
+        slides: [],
+        image: "",
+        component: <VideoEditorContainerFromStore/>
     }
 ];

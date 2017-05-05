@@ -7,7 +7,7 @@ import { getAllComponentsCSS } from './utils/css_styler';
 import { store } from "./redux/stores/store";
 import { Provider } from 'react-redux';
 import routes from './routes';
-
+import videoEditor from './Workshop/Projects/VideoEditor/server/videoEditor';
 const release = (process.env.NODE_ENV === 'production');
 const port = (parseInt(process.env.PORT, 10) || 3000) - (!release as any);
 const app = express();
@@ -25,6 +25,7 @@ app.get('/components.css', (req, res) => {
   res.send(getAllComponentsCSS());
 });
 
+app.use('/video-editor', videoEditor);
 // app.use('/info', info);
 // Route handler that rules them all!
 app.get('*', (req: any, res: any) => {
