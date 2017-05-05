@@ -3,8 +3,8 @@ import { addComponentCSS } from '../../utils/css_styler';
 import { Logo } from '../Logo/Logo'
 import { connect } from 'react-redux';
 import { IStoreState } from '../../redux/main_reducer';
-import { pages } from "../../data/pages";
-import { changePageIndex } from '../../Home/HomeActionCreators';
+import { changePageIndex } from '../../Workshop/WorkshopActionCreators';
+import {workshopLinks} from "../../data/workshop";
 
 addComponentCSS({
     //language=CSS
@@ -31,8 +31,8 @@ interface IState extends IProperties, ICallbacks {
 export class Slideshow extends React.Component<IProps, IState> {
 
     array;
-    slideshowInfo = pages[this.props.activePageIndex].slides[this.props.activeViewIndex];
-    pageInfo = pages[this.props.activePageIndex];
+    slideshowInfo = workshopLinks[this.props.activePageIndex].slides[this.props.activeViewIndex];
+    pageInfo = workshopLinks[this.props.activePageIndex];
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -51,7 +51,7 @@ export class Slideshow extends React.Component<IProps, IState> {
             this.setState({
                 partIndex: partIndex - 1
             })
-        } else if (e.keyCode===120 && partIndex <= this.slideshowInfo.parts.length) {
+        } else if (e.keyCode===120 && partIndex <= this.pageInfo.parts.length) {
             this.setState({
                 partIndex: partIndex + 1
             })
@@ -108,17 +108,17 @@ export class Slideshow extends React.Component<IProps, IState> {
             <div style={styles.slideshow}>
                 <div>
                     <div style={styles.slideshow__videoTitle}>
-                        {this.slideshowInfo.name}
+                        {this.pageInfo.name}
                     </div>
                     <div style={styles.slideshow__videoPart}>
-                       {this.slideshowInfo.parts[partIndex]}
+                       {this.pageInfo.parts[partIndex]}
                     </div>
                     <div style={styles.slideshow__category}>
-                       {this.slideshowInfo.category}
+                       {this.pageInfo.category}
                     </div>
                     <img
                         style={styles.slideshow__pic}
-                        src={this.slideshowInfo.image}
+                        src={this.pageInfo.image}
                     />
                 </div>
             </div>
@@ -129,9 +129,9 @@ export class Slideshow extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        width: state.homeStore.width,
-        activePageIndex: state.homeStore.activePageIndex,
-        activeViewIndex: state.homeStore.activeViewIndex
+        width: state.workshopStore.width,
+        activePageIndex: state.workshopStore.activePageIndex,
+        activeViewIndex: state.workshopStore.activeViewIndex
     };
 }
 

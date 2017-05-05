@@ -13,15 +13,6 @@ export interface IPost {
     image: string
 }
 
-export interface IPage {
-    name: string
-    path: string
-    viewPaths: string[]
-    componentType: string
-    posts?: IPost[]
-    slides?: any[]
-}
-
 export interface IBar {
     heading: string
     quantity: number
@@ -41,7 +32,10 @@ export interface IWorkshopLink {
     name: string
     category: string
     path: string
+    viewPaths: string[]
     parts?: string[] | JSX.Element[]
+    component: JSX.Element
+    slides: string[]
     image: string
 }
 

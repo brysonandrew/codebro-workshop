@@ -1,54 +1,73 @@
 import * as React from 'react';
 import { IWorkshopLink } from '../models';
-import {IntroHeader} from "../Widgets/IntroHeader/IntroHeader";
+//projects
+import { GatlingGunContainerFromStore }
+    from '../App/Workshop/Projects/GatlingGun/GatlingGunContainer';
+import { WalkingPhysicsContainerFromStore }
+    from '../App/Workshop/Projects/WalkingPhysics/WalkingPhysicsContainer';
+import { Create3DSword }
+    from '../App/Workshop/Projects/Create3DSword/Create3DSword';
+//examples
+import  { TransitionContainerFromStore }
+    from '../App/Workshop/Examples/TransitionCrashTest/TransitionContainer';
+import  { THREEjsBasicSetup }
+    from '../App/Workshop/Examples/THREEjsBasicSetup/THREEjsBasicSetup';
 
 export const workshopLinks: IWorkshopLink[] = [
     {
         name: "Gatling Gun",
-        path: "/workshop/gatling-gun",
+        path: "/gatling-gun",
+        viewPaths: [],
         category: "Web Development",
-        image: ""
+        slides: [],
+        image: "",
+        component: <GatlingGunContainerFromStore/>
     },
     {
         name: "Walking physics",
-        path: "/workshop/walking-physics",
+        path: "/walking-physics",
+        viewPaths: [],
         category: "Web Development",
-        image: ""
+        slides: [],
+        image: "",
+        component: <WalkingPhysicsContainerFromStore/>
+    },
+    {
+        name: "Create a 3D Sword",
+        path: "/create-a-3d-sword",
+        viewPaths: [],
+        parts: ["Setup and planning"],
+        category: "3D Web Development",
+        slides: [],
+        image: "/images/examples/create-a-3d-sword/executioners-greatsword.png",
+        component: <Create3DSword/>
     },
     {
         name: "Transition Crash Test",
-        path: "/workshop/transition-crash-test",
+        path: "/transition-crash-test",
+        viewPaths: [],
         parts: [
             "Intro",
             "transform: translate()",
             "due to technical difficult",
             "transform: scale() and rotate()"],
         category: "Web Development",
-        image: "/images/workshop/examples/transition-crash-test/van-damme.png"
+        slides: [],
+        image: "/images/examples/transition-crash-test/van-damme.png",
+        component: <TransitionContainerFromStore/>
     },
     {
         name: "THREE.js basic set-up",
-        path: "/workshop/threejs-basic-setup",
-        category: "3D Web Development",
+        path: "/threejs-basic-setup",
+        viewPaths: [],
         parts: [
             "Scene, camera, action!",
             "Lights, resize, action!",
             "End of part I...",
             "Action, action, action!"],
-        image: "/images/workshop/examples/threejs-basic-setup/threejs.jpg"
-    },
-    {
-        name: "Create a 3D Sword",
-        path: "/workshop/create-a-3d-sword",
-        parts: ["Setup and planning"],
         category: "3D Web Development",
-        image: "/images/workshop/examples/create-a-3d-sword/executioners-greatsword.png"
-    },
-    {
-        name: "code bro",
-        path: "/workshop/code-bro",
-        parts: [<IntroHeader isOnFrontPage={true}/>],
-        category: "Marketing",
-        image: ""
-    },
+        slides: [],
+        image: "/images/examples/threejs-basic-setup/threejs.jpg",
+        component: <THREEjsBasicSetup/>
+    }
 ];
