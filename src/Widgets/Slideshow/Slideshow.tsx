@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { addComponentCSS } from '../../utils/css_styler';
-import { Logo } from '../Logo/Logo'
 import { connect } from 'react-redux';
 import { IStoreState } from '../../redux/main_reducer';
 import { changePageIndex } from '../../Workshop/WorkshopActionCreators';

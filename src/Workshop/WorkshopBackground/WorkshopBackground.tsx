@@ -1,6 +1,7 @@
 import * as React from 'react';
 import THREE = require('three');
 import { Flame } from "./flame";
+import {isGL} from "../../helpers/WebGL";
 
 export class WorkshopBackground extends React.Component<any, any> {
     camera;
@@ -17,6 +18,14 @@ export class WorkshopBackground extends React.Component<any, any> {
     }
 
     componentDidMount() {
+        if (isGL)  {
+            this.initGL();
+        } else {
+            this.initGLFallback();
+        }
+    }
+
+    initGL() {
         this.initRenderer();
         this.initCamera();
         this.initScene();
@@ -24,6 +33,9 @@ export class WorkshopBackground extends React.Component<any, any> {
         window.addEventListener( 'resize'
             , () => this.onWindowResized(this.renderer), false );
         this.animate();
+    }
+
+    initGLFallback() {
     }
 
     componentWillUnmount() {

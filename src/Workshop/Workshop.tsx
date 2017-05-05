@@ -45,6 +45,11 @@ export class Workshop extends React.Component<IProps, IState> {
         this.props.onPageIndexSelect(i);
     }
 
+    handleLogoClick() {
+        browserHistory.push("");
+        this.props.onPageIndexSelect(-1);
+    }
+
     handleMouseEnter(i) {
         this.setState({
             hoveringIndex: i
@@ -58,6 +63,7 @@ export class Workshop extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
+        console.log("mounted")
         const { params, onResizeViewport, onPageIndexSelect, onViewIndexSelect } = this.props;
         //routing
         /////SET PAGE
@@ -65,23 +71,22 @@ export class Workshop extends React.Component<IProps, IState> {
                                 .findIndex((item, index) =>
                                     item.path === params.activePage);
         onPageIndexSelect(activePageIndex);
-        if (activePageIndex > -1) {
-            /////SET VIEW
-            let activeViewIndex = Immutable.List(workshopLinks[activePageIndex].viewPaths)
-                                    .findIndex(item =>
-                                        item === params.activeView);
-            onViewIndexSelect(activeViewIndex);
-        }
+        // if (activePageIndex > -1) {
+        //     /////SET VIEW
+        //     let activeViewIndex = Immutable.List(workshopLinks[activePageIndex].viewPaths)
+        //                             .findIndex(item =>
+        //                                 item === params.activeView);
+        //     onViewIndexSelect(activeViewIndex);
+        // }
         //responsive on window resize
         window.addEventListener("resize"
-            , () => onResizeViewport(window.innerWidth, window
-                .innerHeight));
+            , () => onResizeViewport(window.innerWidth, window.innerHeight));
         window.addEventListener("load"
             , () => onResizeViewport(window.innerWidth, window.innerHeight));
     }
 
     componentWillReceiveProps(nextProps) {
-        const { onPageIndexSelect, onViewIndexSelect } = this.props;
+        const { onPageIndexSelect } = this.props;
         if (nextProps.width !== this.props.width) {
             this.setState({
                 isMini: (nextProps.width < 600)
@@ -96,21 +101,20 @@ export class Workshop extends React.Component<IProps, IState> {
                                           return  item.path === nextProps.params.activePage;
                 });
                 onPageIndexSelect(activePageIndex);
-                if (activePageIndex > -1) {
-                    /////SET VIEW
-                    let activeViewIndex = Immutable.List(workshopLinks[activePageIndex].viewPaths)
-                                            .findIndex(item =>
-                                                item === nextProps.params.activeView);
-                    onViewIndexSelect(activeViewIndex);
-                }
+                // if (activePageIndex > -1) {
+                //     /////SET VIEW
+                //     let activeViewIndex = Immutable.List(workshopLinks[activePageIndex].viewPaths)
+                //                             .findIndex(item =>
+                //                                 item === nextProps.params.activeView);
+                //     onViewIndexSelect(activeViewIndex);
+                // }
             } else {
                 this.props.onViewIndexSelect(-1);
             }
         }
     }
 
-    public render(): JSX.Element {
-        console.log(this.props.activePageIndex);
+    render(): JSX.Element {
         const styles = {
             workshop: {
                 position: "absolute",
@@ -128,7 +132,8 @@ export class Workshop extends React.Component<IProps, IState> {
                             ? "85.5vh" : "4.5vh",
                 left: "2vw",
                 width: "100%",
-                textAlign: "left"
+                textAlign: "left",
+                zIndex: 2
             },
             workshop__inner: {
                 display: "inline-block",
@@ -160,6 +165,7 @@ export class Workshop extends React.Component<IProps, IState> {
                 <div style={styles.workshop__logo}>
                     <Logo
                         activePageIndex={this.props.activePageIndex}
+                        onClick={this.handleLogoClick.bind(this)}
                     />
                 </div>
                 {this.props.activePageIndex === -1
@@ -178,7 +184,8 @@ export class Workshop extends React.Component<IProps, IState> {
                                             onMouseLeave={() => this.handleMouseLeave()}>
                                             <Link style={ Object.assign({}, styles.workshop__link,
                                                     {color: (this.state.hoveringIndex===i)
-                                                                ? "#fafafa" : "#757575" }) }
+                                                                ? "#fafafa"
+                                                                : "#757575" }) }
                                                   onClick={() => this.handleClick(link.path, i)}
                                                   to={link.path}>
                                                 {link.name}

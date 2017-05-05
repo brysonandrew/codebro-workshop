@@ -1,5 +1,4 @@
 import * as React from 'react';
-import THREE = require('three');
 import {Letter} from "./Letter";
 
 interface IProps {

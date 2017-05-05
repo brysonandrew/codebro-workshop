@@ -1,10 +1,10 @@
 import * as React from 'react';
-import THREE = require('three');
 import { Word } from './Word';
 
 interface ILogoProps {
     isDarkTheme?: boolean
     activePageIndex?: number
+    onClick: () => void
 }
 
 interface ILogoState {
@@ -23,6 +23,7 @@ export class Logo extends React.Component<ILogoProps, ILogoState> {
     }
 
     handleClick() {
+        this.props.onClick();
         this.setState({
             isLogoShort: !this.state.isLogoShort,
             isHovered: false

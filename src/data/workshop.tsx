@@ -16,7 +16,7 @@ import  { THREEjsBasicSetup }
 export const workshopLinks: IWorkshopLink[] = [
     {
         name: "Gatling Gun",
-        path: "/gatling-gun",
+        path: "gatling-gun",
         viewPaths: [],
         category: "Web Development",
         slides: [],
@@ -25,7 +25,7 @@ export const workshopLinks: IWorkshopLink[] = [
     },
     {
         name: "Walking physics",
-        path: "/walking-physics",
+        path: "walking-physics",
         viewPaths: [],
         category: "Web Development",
         slides: [],
@@ -34,7 +34,7 @@ export const workshopLinks: IWorkshopLink[] = [
     },
     {
         name: "Create a 3D Sword",
-        path: "/create-a-3d-sword",
+        path: "create-a-3d-sword",
         viewPaths: [],
         parts: ["Setup and planning"],
         category: "3D Web Development",
@@ -44,7 +44,7 @@ export const workshopLinks: IWorkshopLink[] = [
     },
     {
         name: "Transition Crash Test",
-        path: "/transition-crash-test",
+        path: "transition-crash-test",
         viewPaths: [],
         parts: [
             "Intro",
@@ -58,7 +58,7 @@ export const workshopLinks: IWorkshopLink[] = [
     },
     {
         name: "THREE.js basic set-up",
-        path: "/threejs-basic-setup",
+        path: "threejs-basic-setup",
         viewPaths: [],
         parts: [
             "Scene, camera, action!",

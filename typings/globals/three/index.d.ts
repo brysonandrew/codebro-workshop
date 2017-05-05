@@ -2288,7 +2288,7 @@ declare namespace THREE {
         precision: any;
 
         /**
-         * Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.
+         * Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL.ts feature.
          */
         polygonOffset: boolean;
 
@@ -2320,7 +2320,7 @@ declare namespace THREE {
         visible: boolean;
 
         /**
-         * Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.
+         * Specifies that the material needs to be updated, WebGL.ts wise. Set it to true if you made changes that need to be reflected in WebGL.ts.
          * This property is automatically set to true when instancing a new material.
          */
         needsUpdate: boolean;
@@ -4718,7 +4718,7 @@ declare namespace THREE {
 
 
     /**
-     * The WebGL renderer displays your beautifully crafted scenes using WebGL, if your device supports it.
+     * The WebGL.ts renderer displays your beautifully crafted scenes using WebGL.ts, if your device supports it.
      * This renderer has way better performance than CanvasRenderer.
      *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js">src/renderers/WebGLRenderer.js</a>
@@ -4827,7 +4827,7 @@ declare namespace THREE {
         allocTextureUnit: any;
 
         /**
-         * Return the WebGL context.
+         * Return the WebGL.ts context.
          */
         getContext(): WebGLRenderingContext;
         getContextAttributes(): any;
@@ -5257,7 +5257,7 @@ declare namespace THREE {
         onUpdate(callback: Function): Uniform;
     }
 
-    // Renderers / WebGL /////////////////////////////////////////////////////////////////////
+    // Renderers / WebGL.ts /////////////////////////////////////////////////////////////////////
     export class WebGLBufferRenderer {
         constructor(_gl: WebGLRenderingContext, extensions: any, _infoRender: any);
 
@@ -5494,7 +5494,7 @@ declare namespace THREE {
         reset(): void;
     }
 
-    // Renderers / WebGL / Plugins /////////////////////////////////////////////////////////////////////
+    // Renderers / WebGL.ts / Plugins /////////////////////////////////////////////////////////////////////
     export class LensFlarePlugin {
         constructor(renderer: WebGLRenderer, flares: any[]);
 
