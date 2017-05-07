@@ -34,6 +34,7 @@ interface IOfferImageGalleryProps {
     wrapperElement: Element
     isMini: boolean
     isHovering: boolean
+    onChange: (i) => void
 }
 
 interface IOfferImageGalleryState {
@@ -81,16 +82,20 @@ export class ImageGallery extends React.Component<IOfferImageGalleryProps, IOffe
     }
 
     handleClickRight(e) {
+        const nextIndex = this.state.photoIndex + 1;
         this.setState({
-            photoIndex: this.state.photoIndex + 1
+            photoIndex: nextIndex
         });
+        this.props.onChange(nextIndex);
         e.stopPropagation();
     }
 
     handleClickLeft(e) {
+        const nextIndex = this.state.photoIndex - 1;
         this.setState({
-            photoIndex: this.state.photoIndex - 1
+            photoIndex: nextIndex
         });
+        this.props.onChange(nextIndex);
         e.stopPropagation();
     }
 
@@ -98,6 +103,7 @@ export class ImageGallery extends React.Component<IOfferImageGalleryProps, IOffe
         this.setState({
             photoIndex: i
         });
+        this.props.onChange(i);
         e.stopPropagation();
     }
 

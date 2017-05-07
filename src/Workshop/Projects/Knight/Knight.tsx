@@ -2,6 +2,7 @@ import * as React from 'react';
 import THREE = require('three');
 import {addComponentCSS} from '../../../utils/css_styler';
 import {isGL} from "../../../helpers/WebGL";
+import {KnightsArmour} from './assets/Armour/armour';
 
 addComponentCSS({
     //language=CSS
@@ -17,7 +18,7 @@ interface IState {
     isFallback?: boolean
 }
 
-export class WalkingPhysics extends React.Component<IProps, IState> {
+export class Knight extends React.Component<IProps, IState> {
 
     scene;
     camera;
@@ -25,6 +26,7 @@ export class WalkingPhysics extends React.Component<IProps, IState> {
     animateLoop;
     controls;
     workshopLight;
+    knight = new KnightsArmour;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -79,8 +81,8 @@ export class WalkingPhysics extends React.Component<IProps, IState> {
     initCamera() {
         this.camera = new THREE.PerspectiveCamera( 45,
                         window.innerWidth / window.innerHeight, 1, 1000 );
-        this.camera.position.z = 100;
-        this.controls = new THREE.OrbitControls( this.camera );
+        this.camera.position.z = 400;
+        // this.controls = new THREE.OrbitControls( this.camera );
     }
 
     initScene() {
@@ -94,18 +96,16 @@ export class WalkingPhysics extends React.Component<IProps, IState> {
     }
 
     initAssets() {
-        const geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
-        const material = new THREE.MeshLambertMaterial( {emissive: 0x212121} );
-        const cylinder = new THREE.Mesh( geometry, material );
-        this.scene.add( cylinder );
+        this.knight.assemble();
     }
 
     animate() {
         this.animateLoop = requestAnimationFrame( this.animate.bind(this) );
-        //this.renderMotion();
+        this.renderMotion();
     }
 
     renderMotion() {
+        this.scene.add(this.knight.render());
         this.camera.lookAt( this.scene.position );
         this.renderer.render( this.scene, this.camera );
     }

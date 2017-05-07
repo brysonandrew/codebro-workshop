@@ -3,8 +3,8 @@ import { IWorkshopLink } from '../models';
 //projects
 import { GatlingGunContainerFromStore }
     from '../Workshop/Projects/GatlingGun/GatlingGunContainer';
-import { WalkingPhysicsContainerFromStore }
-    from '../Workshop/Projects/WalkingPhysics/WalkingPhysicsContainer';
+import { KnightContainerFromStore }
+    from "../Workshop/Projects/Knight/KnightContainer";
 import { Create3DSwordContainerFromStore }
     from '../Workshop/Projects/Create3DSword/Create3DSwordContainer';
 import { VideoEditorContainerFromStore }
@@ -14,6 +14,8 @@ import  { TransitionContainerFromStore }
     from '../Workshop/Examples/TransitionCrashTest/TransitionContainer';
 import  { THREEjsBasicSetupContainerFromStore }
     from '../Workshop/Examples/THREEjsBasicSetup/THREEjsBasicSetupContainer';
+import { ImageUploaderContainerFromStore }
+    from "../Workshop/Projects/ImageUploader/ImageUploaderContainer";
 
 export const workshopLinks: IWorkshopLink[] = [
     {
@@ -26,13 +28,13 @@ export const workshopLinks: IWorkshopLink[] = [
         component: <GatlingGunContainerFromStore/>
     },
     {
-        name: "Walking physics",
-        path: "walking-physics",
+        name: "Knight",
+        path: "knight",
         viewPaths: [],
-        category: "Web Development",
+        category: "3D Web Development",
         slides: [],
         image: "",
-        component: <WalkingPhysicsContainerFromStore/>
+        component: <KnightContainerFromStore/>
     },
     {
         name: "Create a 3D Sword",
@@ -81,5 +83,15 @@ export const workshopLinks: IWorkshopLink[] = [
         slides: [],
         image: "",
         component: <VideoEditorContainerFromStore/>
+    },
+    {
+        name: "Image Uploader",
+        path: "image-uploader",
+        viewPaths: [],
+        parts: [],
+        category: "3D Web Development",
+        slides: [],
+        image: "",
+        component: <ImageUploaderContainerFromStore/>
     }
 ];

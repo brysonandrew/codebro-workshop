@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../../redux/main_reducer';
-import { uploadImage } from "../VideoEditorActionCreators";
+import { uploadVideo } from "../VideoEditorActionCreators";
 import { AsyncPost, AsyncPostStatus } from '../../../../redux/utils/async_post';
 import { Button } from '../../../../Widgets/Button/Button';
-import { ImageGallery } from '../../ImageGallery/ImageGallery';
+import { VideoDisplay } from "./VideoDisplay";
 
 interface IProperties {
-    imagePathId?: AsyncPost<any,string>
+    videoPathId?: AsyncPost<any,string>
 }
 
 interface ICallbacks {
-    onImageUpload?: (imageFormData: FormData) => void
+    onVideoUpload?: (videoFormData: FormData) => void
 }
 
 interface IState extends IProperties, ICallbacks {
@@ -22,11 +22,11 @@ interface IState extends IProperties, ICallbacks {
 }
 
 interface IProps extends IProperties, ICallbacks {
-    values:     string[]
-    onChange:       (imageUrl: AsyncPost<any,string>) => void
+    value?:     string
+    onChange?:   (imageUrl: AsyncPost<any,string>) => void
 }
 
-export class ImageUpload extends React.Component<IProps, IState> {
+export class VideoUpload extends React.Component<IProps, IState> {
 
     uploadImageInput: HTMLInputElement;
     wrapperElement: HTMLDivElement;
@@ -39,7 +39,7 @@ export class ImageUpload extends React.Component<IProps, IState> {
             isMounted: false,
             warning: ""
         };
-        this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
+        this.handleUploadVideo = this.handleUploadVideo.bind(this);
     }
 
     componentDidMount() {
@@ -47,17 +47,18 @@ export class ImageUpload extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.imagePathId.data !== this.props.imagePathId.data) {
+        if (nextProps.imagePathId.data !== this.props.videoPathId.data) {
             this.props.onChange(nextProps.imagePathId.data);
         }
     }
 
-    handleUploadPhoto() {
+    handleUploadVideo() {
         const file = this.uploadImageInput.files[0];
+        console.log(file);
         if (file != null) {
             let imageFormData = new FormData();
-            imageFormData.append("img", file, file.name);
-            this.props.onImageUpload(imageFormData);
+            imageFormData.append("video", file, file.name);
+            this.props.onVideoUpload(imageFormData);
         } else {
             this.setState({
                 warning: "No photo selected."
@@ -73,8 +74,8 @@ export class ImageUpload extends React.Component<IProps, IState> {
         this.setState({ isGalleryHovering: false })
     }
 
-    renderImage(): JSX.Element {
-        return AsyncPost.render(this.props.imagePathId, {
+    renderVideo(): JSX.Element {
+        return AsyncPost.render(this.props.videoPathId, {
             none   : () =>              <div>
                                             {"Upload Photo"}
                                         </div>,
@@ -88,50 +89,49 @@ export class ImageUpload extends React.Component<IProps, IState> {
     }
 
     renderUploadButton(): JSX.Element {
-        return AsyncPost.render(this.props.imagePathId, {
+        return AsyncPost.render(this.props.videoPathId, {
             none   : () => <Button text="Upload Photo"
-                                   onClick={this.handleUploadPhoto}/>,
+                                   onClick={this.handleUploadVideo}/>,
             posting: () => <Button text="Uploading..."
                                    onClick={null}
                                    isDisabled={true}/>,
             posted : () => <Button text="Upload Photo"
-                                   onClick={this.handleUploadPhoto}/>
+                                   onClick={this.handleUploadVideo}/>
         });
     }
 
     public render(): JSX.Element {
         const styles = {
-            imageUpload: {
+            videoUpload: {
                 position: "relative",
                 paddingTop: 100
-    },
-            imageUpload__warning: {
+            },
+            videoUpload__warning: {
                 fontSize: 22,
                 color: "red"
             }
         };
         return (
-            <div style={styles.imageUpload}
+            <div style={styles.videoUpload}
                  ref={el => this.wrapperElement = el}
                  onMouseLeave={() => this.handleMouseLeave}
                  onMouseEnter={() => this.handleMouseEnter}>
-                {this.props.values.length > 0 && this.state.isMounted
-                    ?   <ImageGallery
-                            imagePaths={this.props.values}
-                            wrapperElement={this.wrapperElement}
-                            isMini={this.state.isGalleryMini}
-                            isHovering={this.state.isGalleryHovering}
+                {this.props.value && this.state.isMounted
+                    ?   <VideoDisplay
+                            videoPath={this.props.value}
                         />
                     :   null}
-                {(this.props.values.length > 0) ? this.renderImage() : null}
+                {(this.props.value)
+                    ?   this.renderVideo()
+                    :   null}
                 <div>
                     Select a file: <input
                                         accept="application/x-zip-compressed,image/*"
                                         ref={el => this.uploadImageInput = el}
                                         type="file"
-                                        name="img"/>
+                                        name="video"/>
                     {this.renderUploadButton()}
-                    <span style={styles.imageUpload__warning}>
+                    <span style={styles.videoUpload__warning}>
                         {this.state.warning}
                     </span>
                 </div>
@@ -143,18 +143,18 @@ export class ImageUpload extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
     return {
-        imagePathId: state.videoEditorStore.imagePathId
+        videoPathId: state.videoEditorStore.videoPathId
     };
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
-        onImageUpload: (imageFormData) => {
-            dispatch(uploadImage(imageFormData));
+        onVideoUpload: (videoFormData) => {
+            dispatch(uploadVideo(videoFormData));
         }
     }
 }
 
-export let ImageUploadFromStore = connect(
+export let VideoUploadFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(ImageUpload);
+)(VideoUpload);
